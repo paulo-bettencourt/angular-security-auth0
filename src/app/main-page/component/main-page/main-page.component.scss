@@ -1,0 +1,16 @@
+nav {
+  width: 100%;
+  background-color: purple;
+  color: white;
+}
+
+ul li {
+  display: inline-block;
+  padding: 1%;
+  color: white;
+  text-decoration: none;
+}
+
+li:hover {
+  background-color: mediumpurple;
+}
