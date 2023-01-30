@@ -1,34 +1,9 @@
+svg {
+  width: 150px;
+  height: 150px;
+}
+
 .welcome-container {
-  width: 30%;
-  margin: auto;
-  justify-content: center;
+  padding: 5%;
   text-align: center;
-}
-
-input {
-  width: 100%;
-  border-radius: 15px;
-  padding: 2% 2%;
-  margin: 2% 0;
-}
-
-button {
-  width: 100%;
-  border-radius: 15px;
-  background-color: purple;
-  color: white;
-  border: 0;
-  padding: 2% 0;
-  margin-top: 2%;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: mediumpurple;
-}
-
-@media (max-width: 600px) {
-  .welcome-container {
-    width: 90%;
-  }
 }
