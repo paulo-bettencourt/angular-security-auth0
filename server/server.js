@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const sgMail = require('@sendgrid/mail')
 // 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
 
-process.env['SENDGRID_API_KEY'] = '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';
+process.env['SENDGRID_API_KEY'] = process.env.SENDGRID_API_KEY;
 console.log("PROCESSO", process.env.SENDGRID_API_KEY)
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -34,8 +34,6 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-
-  console.log("--->", req.body)
 
   const msg = {
     to: req.body.login, // Change to your recipient

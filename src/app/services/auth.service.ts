@@ -19,6 +19,10 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + `login`, data);
   }
 
+  signup(data: User) {
+    return this.http.post<User>(this.apiUrl + `signup`, data);
+  }
+
   set isLogged(value: boolean) {
     this.isLogged$.next(value);
   }

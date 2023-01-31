@@ -31,8 +31,7 @@ export class LoginComponent {
       }
     }
     console.log("payload", this.data)
-    this.authService.login(this.data).subscribe(data => {
-      this.authService.isLogged = true;
+    this.authService.signup(this.data).subscribe(data => {
       this.router.navigate(['classroom'])
     })
   }

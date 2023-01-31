@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {FormBuilder, Validators} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
+import {User} from "../../../interfaces/user.interface";
 
 @Component({
   selector: 'app-sign-up',
@@ -6,5 +10,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
+
+  form = this.fb.group({
+    login: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+  data!: User;
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  }
+
+  submit() {
+    const login = this.form.controls['login'].value;
+    const password = this.form.controls['password'].value;
+    console.log("-->", this.form.controls['login'].value)
+    if(login && password) {
+      this.data = {
+        login: login,
+        password: password
+      }
+    }
+    console.log("payload", this.data)
+    this.authService.signup(this.data).subscribe(data => {
+      this.router.navigate(['classroom'])
+    })
+  }
 
 }
