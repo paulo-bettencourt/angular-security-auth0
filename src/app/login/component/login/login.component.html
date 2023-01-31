@@ -1,8 +1,8 @@
 <div class="welcome-container">
   <h2>Login</h2>
   <form [formGroup]="form">
-    <input type="text">
-    <input type="password">
+    <input type="text" formControlName="login">
+    <input type="password" formControlName="password">
     <button (click)="submit()">Submit</button>
   </form>
 </div>
