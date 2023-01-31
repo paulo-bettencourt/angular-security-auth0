@@ -5,7 +5,8 @@
       <img src="./assets/BRING_apostrophe_wht_rev_rgb.png" alt="" class="logo-bring">
     </li>
     <a routerLink=""><li class="li-hover">Home</li></a>
-    <a routerLink="login" href=""><li class="li-hover">Login</li></a>
+    <a routerLink="classroom" *ngIf="isLogged"><li class="li-hover">Classroom</li></a>
+    <a routerLink="login" *ngIf="!isLogged"><li class="li-hover">Login</li></a>
     <a routerLink="sign-up" href=""><li class="li-hover">Sign Up</li></a>
     <a (click)="logout()" href=""><li class="li-hover">Logout</li></a>
   </ul>

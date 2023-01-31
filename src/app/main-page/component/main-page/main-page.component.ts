@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {AuthService} from "../../../services/auth.service";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-main-page',
@@ -7,13 +9,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
+  isLogged: boolean = false;
 
-  constructor(private _router: Router) {
-
+  constructor(private router: Router, private service: AuthService) {
+    this.service.isLoggedGetter.subscribe(data => {
+      this.isLogged = data;
+    })
   }
 
 
   logout() {
-    this._router.navigate(['']);
+    this.service.isLogged = false;
+    this.router.navigate(['']);
   }
 }
