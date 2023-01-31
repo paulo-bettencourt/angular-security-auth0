@@ -14,13 +14,13 @@ html, body, ul, li {
 }
 
 .welcome-container {
-  width: 30%;
+  width: 70%;
   margin: auto;
   justify-content: center;
   text-align: center;
 }
 
-input {
+input, textarea {
   width: 100%;
   border-radius: 15px;
   padding: 2% 2%;

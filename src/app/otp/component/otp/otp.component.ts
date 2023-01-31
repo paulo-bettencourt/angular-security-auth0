@@ -28,7 +28,7 @@ export class OtpComponent {
       }
     }
     console.log("payload", this.data)
-    this.authService.signup(this.data).subscribe(data => {
+    this.authService.otp(this.data).subscribe(data => {
       this.router.navigate(['classroom'])
     })
   }

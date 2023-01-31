@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + `signup`, data);
   }
 
+  otp(data: any) {
+    return this.http.post<User>(this.apiUrl + `otp`, data);
+  }
+
   set isLogged(value: boolean) {
     this.isLogged$.next(value);
   }

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {LoginModule} from "./login/login.module";
 import {HttpClientModule} from "@angular/common/http";
 import {SignUpModule} from "./sign-up/sign-up.module";
+import {OtpModule} from "./otp/otp.module";
+import {ClassroomModule} from "./classroom/classroom.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import {SignUpModule} from "./sign-up/sign-up.module";
     AppRoutingModule,
     LoginModule,
     HttpClientModule,
-    SignUpModule
+    SignUpModule,
+    OtpModule,
+    ClassroomModule
   ],
   providers: [],
   bootstrap: [AppComponent]

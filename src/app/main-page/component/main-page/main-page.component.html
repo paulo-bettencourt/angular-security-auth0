@@ -7,8 +7,10 @@
     <a routerLink=""><li class="li-hover">Home</li></a>
     <a routerLink="classroom" *ngIf="isLogged"><li class="li-hover">Classroom</li></a>
     <a routerLink="login" *ngIf="!isLogged"><li class="li-hover">Login</li></a>
-    <a routerLink="sign-up" href=""><li class="li-hover">Sign Up</li></a>
-    <a (click)="logout()" href=""><li class="li-hover">Logout</li></a>
+    <a routerLink="sign-up" *ngIf="!isLogged"><li class="li-hover">Sign Up</li></a>
+    <a (click)="logout()" *ngIf="isLogged"><li class="li-hover">Logout</li></a>
   </ul>
 </nav>
-<router-outlet></router-outlet>
+<div class="router-outlet-container">
+  <router-outlet></router-outlet>
+</div>

@@ -32,7 +32,7 @@ export class SignUpComponent {
     }
     console.log("payload", this.data)
     this.authService.signup(this.data).subscribe(data => {
-      this.router.navigate(['classroom'])
+      this.router.navigate(['otp'])
     })
   }
 
