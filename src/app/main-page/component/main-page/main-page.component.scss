@@ -1,6 +1,6 @@
 nav {
   width: 100%;
-  background-color: purple;
+  background-color: #be1e2d;
   color: white;
 }
 
@@ -12,5 +12,10 @@ ul li {
 }
 
 li:hover {
-  background-color: mediumpurple;
+  background-color: darkgrey;
+}
+
+.logo-bring {
+  max-width: 100%;
+  height: 16px;
 }

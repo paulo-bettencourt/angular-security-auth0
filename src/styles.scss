@@ -30,7 +30,7 @@ input {
 button {
   width: 100%;
   border-radius: 15px;
-  background-color: purple;
+  background-color: #be1e2d;
   color: white;
   border: 0;
   padding: 2% 0;
@@ -39,7 +39,7 @@ button {
 }
 
 button:hover {
-  background-color: mediumpurple;
+  background-color: darkgrey;
 }
 
 @media (max-width: 600px) {
