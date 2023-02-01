@@ -27,6 +27,17 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + `otp`, data);
   }
 
+  uploadFile(data: File) {
+    const formData: FormData = new FormData();
+    formData.append('file', data);
+    console.log("file to be appended", data)
+    console.log("form data", formData.get('file'))
+    return this.http.post(this.apiUrl + `upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    })
+  }
+
   set isLogged(value: boolean) {
     this.isLogged$.next(value);
   }

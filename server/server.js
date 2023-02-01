@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const otpGenerator = require('otp-generator')
 const jwt = require('jsonwebtoken');
-
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 // GLOBAL VARIABLES
 
 let otp;
@@ -38,9 +39,6 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-
-  console.log(req.body.login)
-
   const msg = {
     to: req.body.login, // Change to your recipient
     from: 'paulo.lemos@bringglobal.com', // Change to your verified sender
@@ -59,13 +57,21 @@ app.post('/signup', (req, res) => {
     })
 
   otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-
   res.status(200).send({otp: otp})
 })
 
 app.post('/otp', (req, res) => {
-
-  console.log("OTP LOCAL & BODY", otp, req.body.otp)
-
   otp === req.body.otp ? res.status(200).send({token: token}) : res.status(400).send({message: 'bad request'});
 })
+
+app.post('/upload', function(req, res) {
+  const file = req.files.file;
+  const path = __dirname + "/files/" + file.name;
+
+  file.mv(path, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    return res.send({ status: "success", path: path });
+  });
+});

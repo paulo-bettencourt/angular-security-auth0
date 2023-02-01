@@ -19,8 +19,16 @@ export class ClassroomComponent {
   })
   data!: User;
   typeOfClass!: any;
+  fileToUpload: File | null = null;
+  nameOfFile: string = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  }
+
+  handleFileInput(files: any) {
+    console.log("FILES", files.target.files[0].name);
+    this.nameOfFile = files.target.files[0].name;
+    this.fileToUpload = files.target.files[0];
   }
 
   addNewClass() {
@@ -47,5 +55,13 @@ export class ClassroomComponent {
       this.authService.isLogged = true;
       this.router.navigate(['classroom'])
     })
+  }
+
+  submitFile() {
+    if(this.fileToUpload) {
+      this.authService.uploadFile(this.fileToUpload).subscribe(data => {
+        console.log("FILE UPLOADED")
+      })
+    }
   }
 }
