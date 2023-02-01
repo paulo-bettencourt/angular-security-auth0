@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-classroom',
@@ -21,12 +22,24 @@ export class ClassroomComponent {
   typeOfClass!: any;
   fileToUpload: File | null = null;
   nameOfFile: string = '';
+  nameOfImage!: string;
+  allClasses$: any;
+  allImages$: any;
+  allFiles$: any;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+    this.allClasses$ = this.authService.getClasses();
+    this.allImages$ = this.authService.getImages();
+    this.allFiles$ = this.authService.getFiles();
   }
 
   handleFileInput(files: any) {
     this.nameOfFile = files.target.files[0].name;
+    this.fileToUpload = files.target.files[0];
+  }
+
+  handleImageInput(files: any) {
+    this.nameOfImage = files.target.files[0].name;
     this.fileToUpload = files.target.files[0];
   }
 
@@ -39,8 +52,16 @@ export class ClassroomComponent {
   }
 
   submitText() {
-    if(this.fileToUpload) {
-      this.authService.uploadFile(this.fileToUpload).subscribe(data => {
+    const formValue = this.formAddClass.value;
+
+    if(formValue.nameClass && formValue.textClass) {
+
+      const dataObject = {
+        titleClass: formValue.nameClass,
+        textClass: formValue.textClass
+      }
+
+      this.authService.uploadText(dataObject).subscribe(data => {
         console.log("FILE UPLOADED")
       })
     }
@@ -55,10 +76,16 @@ export class ClassroomComponent {
   }
 
   submitImage() {
+    const reader = new FileReader();
     if(this.fileToUpload) {
-      this.authService.uploadImage(this.fileToUpload).subscribe(data => {
-        console.log("FILE UPLOADED")
-      })
+      reader.readAsDataURL(this.fileToUpload);
+      reader.onload = () => {
+        this.authService.uploadImage64(reader.result).subscribe(data => {
+          console.log("FILE UPLOADED")
+        })
+      };
     }
-  }
+  };
+
+
 }

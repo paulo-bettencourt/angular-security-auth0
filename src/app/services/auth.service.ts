@@ -45,6 +45,26 @@ export class AuthService {
     })
   }
 
+  uploadImage64(data: any) {
+  console.log("DATA--->", data)
+    return this.http.post(this.apiUrl + `post-image`, {image: data}, {
+      reportProgress: true,
+      responseType: 'json'
+    })
+  }
+
+  uploadText(data: any) {
+    return this.http.post(this.apiUrl + `upload-text`, data)
+  }
+
+  getClasses() {
+    return this.http.get(this.apiUrl + `get-classes`)
+  }
+
+  getImages() {
+    return this.http.get(this.apiUrl + `get-images`)
+  }
+
   set isLogged(value: boolean) {
     this.isLogged$.next(value);
   }
@@ -53,6 +73,9 @@ export class AuthService {
     return this.isLogged$;
   }
 
+  getFiles() {
+    return this.http.get(this.apiUrl + `get-files`);
+  }
 }
 
 

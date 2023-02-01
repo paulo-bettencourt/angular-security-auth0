@@ -11,25 +11,46 @@ const otpGenerator = require('otp-generator')
 const jwt = require('jsonwebtoken');
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
-// GLOBAL VARIABLES
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
+mongoose.connect(process.env.MONGOOSE_DB).then(() => console.log('Connected!'));
 
+
+// GLOBAL VARIABLES
 let otp;
 const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
-// NODEMAIL
+// MONGOOSE
 
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
+
+const newClassText = new Schema({
+  id: ObjectId,
+  title: String,
+  text: String
+});
+
+const newImage = new Schema({
+  id: ObjectId,
+  image: String
+});
+
+const MyNewClass = mongoose.model('ClassText', newClassText);
+const MyNewImage = mongoose.model('Image', newImage);
+
+// NODEMAIL
 const sgMail = require('@sendgrid/mail')
+const fs = require("fs");
 process.env['SENDGRID_API_KEY'] = process.env.SENDGRID_API_KEY;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 // SERVER SETUP
-
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
 
 // SERVER REQUESTS
-
 app.get('/', (req, res) => {
   res.send('hello world')
 })
@@ -65,14 +86,8 @@ app.post('/otp', (req, res) => {
 })
 
 app.post('/upload', function(req, res) {
-  let file = '';
-  let pathName = '';
-
-  req.files.file ? file =  req.files.file : file =  req.files.image;
-  req.files.file ? pathName = "/files/" : pathName = "/images/";
-
-  console.log("PATH", pathName)
-
+  let file = req.files.file;
+  let pathName = "/files/";
   const path = __dirname + pathName + file.name;
 
   file.mv(path, (err) => {
@@ -82,3 +97,43 @@ app.post('/upload', function(req, res) {
     return res.send({ status: "success", path: path });
   });
 });
+
+app.post('/upload-text', function(req, res) {
+  const instance = MyNewClass({
+    title: req.body.titleClass,
+    text: req.body.textClass
+  });
+  instance.save()
+});
+
+app.get('/get-classes', (req, res) => {
+  MyNewClass.find({}).then(function (classes) {
+    res.send(classes);
+  });
+})
+
+app.get('/get-images', (req, res) => {
+  MyNewImage.find({}).then(function (images) {
+    res.send(images);
+  });
+})
+
+app.use('/files', express.static('files'));
+
+app.get('/get-files', (req, res) => {
+  let fs = require('fs');
+  let files = fs.readdirSync(__dirname + '/files');
+  console.log(files);
+  res.send(files)
+})
+
+app.post('/post-image', function(req, res) {
+  console.log(req.body)
+  const instance = MyNewImage({
+    image: req.body.image
+  });
+  instance.save()
+
+  res.send({image: instance})
+
+})

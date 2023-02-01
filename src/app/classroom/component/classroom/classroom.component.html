@@ -3,7 +3,7 @@
     <button (click)="addNewClass()">Add New Class</button>
 
 
-  <div  class="classroom-container" >
+  <div  class="classroom-container" *ngIf="isNewClass">
     <form action="">
       <div class="container-center">
         <div class="new-class-choice">
@@ -17,20 +17,19 @@
         </div>
       </div>
     </form>
-  </div>
 
-
-  <div [ngSwitch]="typeOfClass">
-    <div *ngSwitchCase="'image'">
+    <div [ngSwitch]="typeOfClass">
+      <div *ngSwitchCase="'image'">
         <label class="radio-button-option">
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add an image
           </label>
-          <input id="file-upload" type="file" (change)="handleFileInput($event)"/>
+          <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)"/>
         </label>
+        {{nameOfImage}}
         <button (click)="submitImage()">Submit</button>
-    </div>
-    <div *ngSwitchCase="'file'">
+      </div>
+      <div *ngSwitchCase="'file'">
         <label class="radio-button-option">
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add a file
@@ -39,19 +38,48 @@
           <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)"/>
         </label>
         <button (click)="submitFile()">Submit</button>
+      </div>
+      <div *ngSwitchCase="'text'">
+        <form [formGroup]="formAddClass">
+          <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">
+          <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>
+          <button (click)="submitText()">Submit</button>
+        </form>
+      </div>
     </div>
-    <div *ngSwitchCase="'text'">
-      <form [formGroup]="formAddClass">
-        <input type="text" formControlName="title" placeholder="Add your class title here">
-        <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
-        <button (click)="submitText()">Submit</button>
-      </form>
     </div>
+
+  <h1>Text Classes</h1>
+  <div *ngFor="let class of allClasses$ | async; let i = index">
+    <h3>Class Number #{{i}}</h3>
+    <ol>
+      <ul>
+        <li>Title: {{class.title}}</li>
+        <li>Summary: {{class.text}}</li>
+      </ul>
+    </ol>
+    <hr>
   </div>
 
+  <h1>Files</h1>
+    <div *ngFor="let file of allFiles$ | async">
+      <ul>
+        <li><a href="http://localhost:3000/files/{{file}}" target="_new">{{file}}</a></li>
+      </ul>
+    </div>
 
+  <hr>
+  <h1>Images</h1>
 
+  <div *ngFor="let image of allImages$ | async">
+    <img src="{{image.image}}" alt="Red dot" />
+  </div>
 
 </div>
 
-<!-- *ngIf="isNewClass" -->
+
+
+
+
+
+
