@@ -5,9 +5,45 @@
 
 <div  class="welcome-container" *ngIf="isNewClass">
   <h2>Add New Class</h2>
-  <form [formGroup]="form">
-    <input type="text" formControlName="title" placeholder="Add your class title here">
-    <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
-    <button (click)="submit()">Submit</button>
+  <form action="">
+    <input type="radio" name="typeOfClass" value="image" (click)="chooseTypeOfClass('image')"><label for="html">Image</label>
+    <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"> <label for="html">File</label>
+    <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html">Text</label>
   </form>
+
 </div>
+
+
+<div [ngSwitch]="typeOfClass">
+  <div *ngSwitchCase="'image'">
+    <form [formGroup]="form">
+      <label class="radio-button-option">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Click here to add an image
+        </label>
+        <input id="file-upload" type="file"/>
+      </label>
+      <button (click)="submit()">Submit</button>
+    </form>
+  </div>
+  <div *ngSwitchCase="'file'">
+    <form [formGroup]="form">
+      <label class="radio-button-option">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Click here to add a file
+        </label>
+        <input type="file"/>
+      </label>
+      <button (click)="submit()">Submit</button>
+    </form>
+  </div>
+  <div *ngSwitchCase="'text'">
+    <form [formGroup]="form">
+      <input type="text" formControlName="title" placeholder="Add your class title here">
+      <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
+      <button (click)="submit()">Submit</button>
+    </form>
+  </div>
+</div>
+
+

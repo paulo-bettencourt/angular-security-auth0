@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
@@ -18,12 +18,17 @@ export class ClassroomComponent {
     password: ['', Validators.required]
   })
   data!: User;
+  typeOfClass!: any;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   addNewClass() {
     this.isNewClass = !this.isNewClass;
+  }
+
+  chooseTypeOfClass(type: any) {
+    this.typeOfClass = type;
   }
 
 
