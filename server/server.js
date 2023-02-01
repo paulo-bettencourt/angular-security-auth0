@@ -65,8 +65,15 @@ app.post('/otp', (req, res) => {
 })
 
 app.post('/upload', function(req, res) {
-  const file = req.files.file;
-  const path = __dirname + "/files/" + file.name;
+  let file = '';
+  let pathName = '';
+
+  req.files.file ? file =  req.files.file : file =  req.files.image;
+  req.files.file ? pathName = "/files/" : pathName = "/images/";
+
+  console.log("PATH", pathName)
+
+  const path = __dirname + pathName + file.name;
 
   file.mv(path, (err) => {
     if (err) {

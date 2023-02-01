@@ -64,4 +64,12 @@ export class ClassroomComponent {
       })
     }
   }
+
+  submitImage() {
+    if(this.fileToUpload) {
+      this.authService.uploadImage(this.fileToUpload).subscribe(data => {
+        console.log("FILE UPLOADED")
+      })
+    }
+  }
 }

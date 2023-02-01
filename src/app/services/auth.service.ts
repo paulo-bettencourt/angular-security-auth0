@@ -30,8 +30,15 @@ export class AuthService {
   uploadFile(data: File) {
     const formData: FormData = new FormData();
     formData.append('file', data);
-    console.log("file to be appended", data)
-    console.log("form data", formData.get('file'))
+    return this.http.post(this.apiUrl + `upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    })
+  }
+
+  uploadImage(data: File) {
+    const formData: FormData = new FormData();
+    formData.append('image', data);
     return this.http.post(this.apiUrl + `upload`, formData, {
       reportProgress: true,
       responseType: 'json'
