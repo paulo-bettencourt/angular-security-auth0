@@ -26,6 +26,9 @@ export class ClassroomComponent {
   allClasses$: any;
   allImages$: any;
   allFiles$: any;
+  isText: boolean = false;
+  isFiles: boolean = false;
+  isImages: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.allClasses$ = this.authService.getClasses();
@@ -45,6 +48,9 @@ export class ClassroomComponent {
 
   addNewClass() {
     this.isNewClass = !this.isNewClass;
+    this.isImages = false;
+    this.isText = false;
+    this.isFiles = false;
   }
 
   chooseTypeOfClass(type: any) {
@@ -88,4 +94,21 @@ export class ClassroomComponent {
   };
 
 
+  isTextClass() {
+    this.isText = !this.isText;
+    this.isFiles = false;
+    this.isImages = false;
+  }
+
+  isFilesClass() {
+    this.isFiles = !this.isFiles;
+    this.isImages = false;
+    this.isText = false;
+  }
+
+  isImagesClass() {
+    this.isImages = !this.isImages;
+    this.isText = false;
+    this.isFiles = false;
+  }
 }
