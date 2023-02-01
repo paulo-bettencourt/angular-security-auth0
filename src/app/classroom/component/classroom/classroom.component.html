@@ -1,49 +1,60 @@
 <div  class="welcome-container" >
   <h2>Classroom</h2>
     <button (click)="addNewClass()">Add New Class</button>
-</div>
-
-<div  class="welcome-container" *ngIf="isNewClass">
-  <h2>Add New Class</h2>
-  <form action="">
-    <input type="radio" name="typeOfClass" value="image" (click)="chooseTypeOfClass('image')"><label for="html">Image</label>
-    <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"> <label for="html">File</label>
-    <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html">Text</label>
-  </form>
-
-</div>
 
 
-<div [ngSwitch]="typeOfClass">
-  <div *ngSwitchCase="'image'">
-    <form [formGroup]="form">
-      <label class="radio-button-option">
-        <label for="file-upload" class="custom-file-upload">
-          <i class="fa fa-cloud-upload"></i> Click here to add an image
+  <div  class="classroom-container" >
+    <form action="">
+      <div class="container-center">
+        <div class="new-class-choice">
+          <input type="radio" name="typeOfClass" value="image" (click)="chooseTypeOfClass('image')"><label for="html" class="classroom-label">Image</label>
+        </div>
+        <div class="new-class-choice">
+          <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"><label for="html" class="classroom-label">File</label>
+        </div>
+        <div class="new-class-choice">
+          <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html" class="classroom-label">Text</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div [ngSwitch]="typeOfClass">
+    <div *ngSwitchCase="'image'">
+      <form [formGroup]="form">
+        <label class="radio-button-option">
+          <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Click to add an image
+          </label>
+          <input id="file-upload" type="file"/>
         </label>
-        <input id="file-upload" type="file"/>
-      </label>
-      <button (click)="submit()">Submit</button>
-    </form>
-  </div>
-  <div *ngSwitchCase="'file'">
-    <form [formGroup]="form">
-      <label class="radio-button-option">
-        <label for="file-upload" class="custom-file-upload">
-          <i class="fa fa-cloud-upload"></i> Click here to add a file
+        <button (click)="submit()">Submit</button>
+      </form>
+    </div>
+    <div *ngSwitchCase="'file'">
+      <form [formGroup]="form">
+        <label class="radio-button-option">
+          <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Click to add a file
+          </label>
+          <input  id="file-upload" type="file"/>
         </label>
-        <input type="file"/>
-      </label>
-      <button (click)="submit()">Submit</button>
-    </form>
+        <button (click)="submit()">Submit</button>
+      </form>
+    </div>
+    <div *ngSwitchCase="'text'">
+      <form [formGroup]="form">
+        <input type="text" formControlName="title" placeholder="Add your class title here">
+        <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
+        <button (click)="submit()">Submit</button>
+      </form>
+    </div>
   </div>
-  <div *ngSwitchCase="'text'">
-    <form [formGroup]="form">
-      <input type="text" formControlName="title" placeholder="Add your class title here">
-      <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
-      <button (click)="submit()">Submit</button>
-    </form>
-  </div>
+
+
+
+
 </div>
 
-
+<!-- *ngIf="isNewClass" -->

@@ -10,3 +10,22 @@ input[type="file"] {
   text-align: center;
   border-radius: 15px;
 }
+
+.new-class-choice {
+  display: flex;
+  float: left;
+  padding: 5%;
+}
+
+.classroom-container {
+  text-align: center;
+}
+
+.container-center {
+  display: flex;
+  justify-content: center;
+}
+
+.classroom-label {
+  margin-left: 25%;
+}
