@@ -43,7 +43,7 @@ app.post('/signup', (req, res) => {
     to: req.body.login, // Change to your recipient
     from: 'paulo.lemos@bringglobal.com', // Change to your verified sender
     subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
+    textClass: 'and easy to do anywhere, even with Node.js',
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   }
 

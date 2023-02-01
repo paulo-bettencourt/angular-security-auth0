@@ -13,11 +13,11 @@ export class ClassroomComponent {
 
   isNewClass: boolean = false;
 
-  form = this.fb.group({
-    login: ['', Validators.required],
-    password: ['', Validators.required]
+  formAddClass = this.fb.group({
+    nameClass: ['', Validators.required],
+    textClass: ['', Validators.required]
   })
-  data!: User;
+  data!: any;
   typeOfClass!: any;
   fileToUpload: File | null = null;
   nameOfFile: string = '';
@@ -26,7 +26,6 @@ export class ClassroomComponent {
   }
 
   handleFileInput(files: any) {
-    console.log("FILES", files.target.files[0].name);
     this.nameOfFile = files.target.files[0].name;
     this.fileToUpload = files.target.files[0];
   }
@@ -39,22 +38,12 @@ export class ClassroomComponent {
     this.typeOfClass = type;
   }
 
-
-  submit() {
-    const login = this.form.controls['login'].value;
-    const password = this.form.controls['password'].value;
-    console.log("-->", this.form.controls['login'].value)
-    if(login && password) {
-      this.data = {
-        login: login,
-        password: password
-      }
+  submitText() {
+    if(this.fileToUpload) {
+      this.authService.uploadFile(this.fileToUpload).subscribe(data => {
+        console.log("FILE UPLOADED")
+      })
     }
-    console.log("payload", this.data)
-    this.authService.signup(this.data).subscribe(data => {
-      this.authService.isLogged = true;
-      this.router.navigate(['classroom'])
-    })
   }
 
   submitFile() {

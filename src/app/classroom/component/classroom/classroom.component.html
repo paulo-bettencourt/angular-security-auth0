@@ -22,7 +22,6 @@
 
   <div [ngSwitch]="typeOfClass">
     <div *ngSwitchCase="'image'">
-      <form [formGroup]="form">
         <label class="radio-button-option">
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add an image
@@ -30,10 +29,8 @@
           <input id="file-upload" type="file" (change)="handleFileInput($event)"/>
         </label>
         <button (click)="submitImage()">Submit</button>
-      </form>
     </div>
     <div *ngSwitchCase="'file'">
-      <form [formGroup]="form">
         <label class="radio-button-option">
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add a file
@@ -42,13 +39,12 @@
           <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)"/>
         </label>
         <button (click)="submitFile()">Submit</button>
-      </form>
     </div>
     <div *ngSwitchCase="'text'">
-      <form [formGroup]="form">
+      <form [formGroup]="formAddClass">
         <input type="text" formControlName="title" placeholder="Add your class title here">
         <textarea placeholder="Add your class notes here" rows="4" cols="50"></textarea>
-        <button (click)="submit()">Submit</button>
+        <button (click)="submitText()">Submit</button>
       </form>
     </div>
   </div>
