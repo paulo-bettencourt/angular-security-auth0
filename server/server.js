@@ -15,10 +15,11 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGOOSE_DB).then(() => console.log('Connected!'));
 
-
 // GLOBAL VARIABLES
 let otp;
 const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+let reqLogin;
+let reqPassword;
 
 // MONGOOSE
 
@@ -36,8 +37,15 @@ const newImage = new Schema({
   image: String
 });
 
+const loginSchema = new Schema({
+  id: ObjectId,
+  login: String,
+  password: String
+});
+
 const MyNewClass = mongoose.model('ClassText', newClassText);
 const MyNewImage = mongoose.model('Image', newImage);
+const myLoginSchema = mongoose.model('login', loginSchema);
 
 // NODEMAIL
 const sgMail = require('@sendgrid/mail')
@@ -56,10 +64,33 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+
+  console.log("QUERY LOGIN", req.body);
+
+  myLoginSchema.findOne({ login: req.body.login, password: req.body.password }, (err, docs) => {
+    if (err){
+      console.log(err)
+    }
+    else{
+
+      if(!docs) {
+        console.log("no result found")
+      } else {
+        console.log("Result : ", docs);
+      }
+
+
+    }
+  })
+
   res.status(200).send({user: 'ok', pass: ''})
 })
 
 app.post('/signup', (req, res) => {
+
+  reqLogin = req.body.login;
+  reqPassword = req.body.password;
+
   const msg = {
     to: req.body.login, // Change to your recipient
     from: 'paulo.lemos@bringglobal.com', // Change to your verified sender
@@ -82,7 +113,18 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/otp', (req, res) => {
-  otp === req.body.otp ? res.status(200).send({token: token}) : res.status(400).send({message: 'bad request'});
+
+  if(otp === req.body.otp) {
+    const instance = myLoginSchema({
+      login: reqLogin,
+      password: reqPassword
+    })
+    instance.save();
+    res.status(200).send({token: token});
+  } else {
+    res.status(400).send({message: 'bad request'})
+  }
+
 })
 
 app.post('/upload', function(req, res) {
