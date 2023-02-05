@@ -4,10 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {LoginModule} from "./login/login.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SignUpModule} from "./sign-up/sign-up.module";
 import {OtpModule} from "./otp/otp.module";
 import {ClassroomModule} from "./classroom/classroom.module";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,13 @@ import {ClassroomModule} from "./classroom/classroom.module";
     OtpModule,
     ClassroomModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

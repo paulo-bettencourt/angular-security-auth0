@@ -17,8 +17,7 @@ export class LoginComponent {
   })
   data!: User;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-  }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   submit() {
     const login = this.form.controls['login'].value;

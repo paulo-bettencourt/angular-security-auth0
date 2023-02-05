@@ -7,7 +7,9 @@ import {LoginComponent} from "../login/component/login/login.component";
 import {SignUpComponent} from "../sign-up/component/sign-up/sign-up.component";
 import {ClassroomComponent} from "../classroom/component/classroom/classroom.component";
 import {OtpComponent} from "../otp/component/otp/otp.component";
-
+import { CanActivateToken } from '../guards/token.guard'
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../interceptors/auth.interceptor";
 const routes: Routes = [{
   path: '',
   component: MainPageComponent,
@@ -26,7 +28,8 @@ const routes: Routes = [{
     },
     {
       path: 'classroom',
-      component: ClassroomComponent
+      component: ClassroomComponent,
+      canActivate: [CanActivateToken]
     },
     {
       path: 'otp',
@@ -42,6 +45,9 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    CanActivateToken
   ]
 })
 export class MainPageModule { }
