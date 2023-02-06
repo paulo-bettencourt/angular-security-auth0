@@ -30,10 +30,15 @@ export class ClassroomComponent {
   isFiles: boolean = false;
   isImages: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.allClasses$ = this.authService.getClasses();
     this.allImages$ = this.authService.getImages();
     this.allFiles$ = this.authService.getFiles();
+
+    this.authService.getFiles().subscribe((data: any) => {
+      console.log("DATA->", data.Contents)
+      this.allFiles$ = data.Contents
+    })
   }
 
   handleFileInput(files: any) {
@@ -68,7 +73,11 @@ export class ClassroomComponent {
       }
 
       this.authService.uploadText(dataObject).subscribe(data => {
-        console.log("FILE UPLOADED")
+        console.log("FILE UPLOADED");
+        this.isNewClass = false;
+        this.isText = true;
+        this.isFiles = false;
+        this.isImages = false;
       })
     }
   }
@@ -76,7 +85,11 @@ export class ClassroomComponent {
   submitFile() {
     if(this.fileToUpload) {
       this.authService.uploadFile(this.fileToUpload).subscribe(data => {
-        console.log("FILE UPLOADED")
+        console.log("FILE UPLOADED");
+        this.isNewClass = false;
+        this.isText = false;
+        this.isFiles = true;
+        this.isImages = false;
       })
     }
   }
@@ -87,7 +100,11 @@ export class ClassroomComponent {
       reader.readAsDataURL(this.fileToUpload);
       reader.onload = () => {
         this.authService.uploadImage64(reader.result).subscribe(data => {
-          console.log("FILE UPLOADED")
+          console.log("FILE UPLOADED");
+          this.isNewClass = false;
+          this.isText = false;
+          this.isFiles = false;
+          this.isImages = true;
         })
       };
     }

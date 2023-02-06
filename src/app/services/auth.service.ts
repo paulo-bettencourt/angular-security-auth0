@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/user.interface";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject} from "rxjs";
@@ -27,13 +27,17 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + `otp`, data);
   }
 
+  headers= new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*')
+    .set("Access-Control-Allow-Credentials", "true")
+    .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+    .set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    .set('Access-Control-Allow-Methods', '*');
+
   uploadFile(data: File) {
     const formData: FormData = new FormData();
     formData.append('file', data);
-    return this.http.post(this.apiUrl + `upload`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    })
+    return this.http.post(this.apiUrl + `uploads`, formData)
   }
 
   uploadImage(data: File) {
@@ -47,10 +51,7 @@ export class AuthService {
 
   uploadImage64(data: any) {
   console.log("DATA--->", data)
-    return this.http.post(this.apiUrl + `post-image`, {image: data}, {
-      reportProgress: true,
-      responseType: 'json'
-    })
+    return this.http.post(this.apiUrl + `post-image`, {image: data})
   }
 
   uploadText(data: any) {
@@ -74,7 +75,7 @@ export class AuthService {
   }
 
   getFiles() {
-    return this.http.get(this.apiUrl + `get-files`);
+    return this.http.get(this.apiUrl + `get-aws-files`);
   }
 }
 

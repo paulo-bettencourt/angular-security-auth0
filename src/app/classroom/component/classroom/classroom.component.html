@@ -75,9 +75,9 @@
 
 <div *ngIf="isFiles">
   <h1>Files</h1>
-  <div *ngFor="let file of allFiles$ | async">
+  <div *ngFor="let file of allFiles$">
     <ul>
-      <li><a href="http://localhost:3000/files/{{file}}" target="_new">{{file}}</a></li>
+      <li><a href="https://deutscher-runder-tisch.s3.eu-west-3.amazonaws.com/{{file.Key}}" target="_new">{{file.Key}}</a></li>
     </ul>
   </div>
 </div>
@@ -86,15 +86,8 @@
     <h1>Images</h1>
 
     <div *ngFor="let image of allImages$ | async">
-      <img src="{{image.image}}" alt="Red dot" />
+      <img width="300px" height="300px" src="{{image.image}}" alt="Red dot" />
     </div>
   </div>
 
 </div>
-
-
-
-
-
-
-

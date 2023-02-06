@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
 import {BehaviorSubject, Observable} from "rxjs";
 
@@ -12,9 +12,12 @@ export class MainPageComponent {
   isLogged: boolean = false;
 
   constructor(private router: Router, private service: AuthService) {
-    this.service.isLoggedGetter.subscribe(data => {
-      this.isLogged = data;
-    })
+
+        this.service.isLoggedGetter.subscribe(data => {
+          this.isLogged = data;
+          console.log("isLooged subscribe", this.isLogged)
+        })
+
   }
 
 

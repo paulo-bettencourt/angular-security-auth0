@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -11,8 +11,17 @@ class UserToken {}
   providedIn: 'root',
 })
 class Permissions {
+
+  constructor(private router: Router) {
+  }
+
   canActivate(): boolean {
-    return localStorage.getItem('token') ? true : false;
+    if(localStorage.getItem('token')) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
+    }
   }
 }
 
