@@ -33,11 +33,10 @@ export class ClassroomComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.allClasses$ = this.authService.getClasses();
     this.allImages$ = this.authService.getImages();
-    this.authService.getFiles().subscribe((data: any) => this.allFiles$.push(data));
-
     this.authService.getFiles().subscribe((data: any) => {
-      console.log("DATA->", data)
-      this.allFiles$ = data
+      console.log("DATA->", data.Contents)
+      this.allFiles$ = data.Contents
+      console.log("DATA É ARRAY?!", this.allFiles$)
     })
   }
 
