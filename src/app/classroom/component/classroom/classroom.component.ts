@@ -25,7 +25,7 @@ export class ClassroomComponent {
   nameOfImage!: string;
   allClasses$: any;
   allImages$: any;
-  allFiles$: any;
+  allFiles$ : any[] = [];
   isText: boolean = false;
   isFiles: boolean = false;
   isImages: boolean = false;
@@ -33,7 +33,7 @@ export class ClassroomComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.allClasses$ = this.authService.getClasses();
     this.allImages$ = this.authService.getImages();
-    this.allFiles$ = this.authService.getFiles();
+    this.authService.getFiles().subscribe((data: any) => this.allFiles$.push(data));
 
     this.authService.getFiles().subscribe((data: any) => {
       console.log("DATA->", data.Contents)
@@ -127,5 +127,10 @@ export class ClassroomComponent {
     this.isImages = !this.isImages;
     this.isText = false;
     this.isFiles = false;
+  }
+
+  debugBase64(image: string | SVGImageElement) {
+      // @ts-ignore
+      window.open().document.write('<iframe src="' + image  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
   }
 }

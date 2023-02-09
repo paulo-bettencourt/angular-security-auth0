@@ -82,12 +82,13 @@
   </div>
 </div>
 
-  <div *ngIf="isImages">
-    <h1>Images</h1>
+  <div *ngIf="isImages" >
 
-    <div *ngFor="let image of allImages$ | async">
-      <img width="300px" height="300px" src="{{image.image}}" alt="Red dot" />
+    <h1>Images</h1>
+    <div class="img-flex-container">
+    <div  *ngFor="let image of allImages$ | async">
+       <img width="250px" height="250px" src="{{image.image}}" alt="Red dot" class="img-flex-thumb" (click)="debugBase64(image.image)"/>
     </div>
   </div>
-
+  </div>
 </div>
