@@ -36,8 +36,8 @@ export class ClassroomComponent {
     this.authService.getFiles().subscribe((data: any) => this.allFiles$.push(data));
 
     this.authService.getFiles().subscribe((data: any) => {
-      console.log("DATA->", data.Contents)
-      this.allFiles$ = data.Contents
+      console.log("DATA->", data)
+      this.allFiles$ = data
     })
   }
 
