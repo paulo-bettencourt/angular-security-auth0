@@ -75,7 +75,7 @@ export class AuthService {
   }
 
   getFiles() {
-    return this.http.get(this.apiUrl + `get-aws-files`);
+    return this.http.get(this.apiUrl + `get-aws-files`, {headers: this.headers});
   }
 }
 
