@@ -29,6 +29,7 @@ export class OtpComponent {
     }
     console.log("payload", this.data)
     this.authService.otp(this.data).subscribe(data => {
+      this.authService.isLogged = true;
       this.router.navigate(['classroom'])
     })
   }
