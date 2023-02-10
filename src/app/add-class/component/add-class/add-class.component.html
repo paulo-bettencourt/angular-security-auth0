@@ -1,0 +1,46 @@
+<div  class="classroom-container">
+  <h2>Select the type of class that you would like to add</h2>
+  <form action="">
+    <div class="container-center">
+      <div class="new-class-choice">
+        <input type="radio" name="typeOfClass" value="image" (click)="chooseTypeOfClass('image')"><label for="html" class="classroom-label">Image</label>
+      </div>
+      <div class="new-class-choice">
+        <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"><label for="html" class="classroom-label">File</label>
+      </div>
+      <div class="new-class-choice">
+        <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html" class="classroom-label">Text</label>
+      </div>
+    </div>
+  </form>
+
+  <div [ngSwitch]="typeOfClass">
+    <div *ngSwitchCase="'image'">
+      <label class="radio-button-option">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Click to add an image
+        </label>
+        <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)"/>
+      </label>
+      {{nameOfImage}}
+      <button (click)="submitImage()">Submit</button>
+    </div>
+    <div *ngSwitchCase="'file'">
+      <label class="radio-button-option">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Click to add a file
+        </label>
+        {{nameOfFile}}
+        <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)"/>
+      </label>
+      <button (click)="submitFile()">Submit</button>
+    </div>
+    <div *ngSwitchCase="'text'">
+      <form [formGroup]="formAddClass">
+        <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">
+        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>
+        <button (click)="submitText()">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

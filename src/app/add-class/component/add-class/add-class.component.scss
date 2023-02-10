@@ -1,0 +1,58 @@
+classroom-container-add-class {
+  width: 50%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.new-class-choice {
+  display: flex;
+  float: left;
+  padding: 5%;
+}
+
+.classroom-container {
+  text-align: center;
+}
+
+.container-center {
+  display: flex;
+  justify-content: center;
+}
+
+.classroom-label {
+  margin-left: 25%;
+}
+
+ul {
+  text-align: left;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.type-of-class {
+  margin-right: 2%;
+}
+
+.img-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.img-flex-thumb {
+  padding: 5%;
+}
