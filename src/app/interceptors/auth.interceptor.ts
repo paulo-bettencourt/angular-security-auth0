@@ -18,16 +18,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      map((event: any) => {
-        if (event instanceof HttpResponse) {
-          console.log("http interceptor", event)
-          localStorage.setItem('token', event.body.token);
-          //event = event.clone({ body: resolveReferences(event.body) })
-        }
-        return event;
-      })
-    );
     return next.handle(request);
   }
 }

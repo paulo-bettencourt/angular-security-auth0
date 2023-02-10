@@ -9,6 +9,7 @@ import {SignUpModule} from "./sign-up/sign-up.module";
 import {OtpModule} from "./otp/otp.module";
 import {ClassroomModule} from "./classroom/classroom.module";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {AddClassModule} from "./add-class/add-class.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     HttpClientModule,
     SignUpModule,
     OtpModule,
-    ClassroomModule
+    ClassroomModule,
+    AddClassModule
   ],
   providers: [
     {

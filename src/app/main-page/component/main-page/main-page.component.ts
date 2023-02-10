@@ -20,6 +20,9 @@ export class MainPageComponent {
 
   }
 
+  addNewClass() {
+
+  }
 
   logout() {
     this.service.isLogged = false;

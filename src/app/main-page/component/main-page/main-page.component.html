@@ -1,15 +1,32 @@
 <link rel="stylesheet" href="main-page.component.scss">
 <nav>
-  <ul>
-    <li>
-      <img src="./assets/BRING_apostrophe_wht_rev_rgb.png" alt="" class="logo-bring">
-    </li>
-    <a routerLink=""><li class="li-hover">Home</li></a>
-    <a routerLink="classroom" *ngIf="isLogged"><li class="li-hover">Classroom</li></a>
-    <a routerLink="login" *ngIf="!isLogged"><li class="li-hover">Login</li></a>
-    <a routerLink="sign-up" *ngIf="!isLogged"><li class="li-hover">Sign Up</li></a>
-    <a (click)="logout()" *ngIf="isLogged"><li class="li-hover">Logout</li></a>
-  </ul>
+  <div class="nav-container">
+    <div class="first-box">
+      <ul>
+        <li>
+          <img src="./assets/BRING_apostrophe_wht_rev_rgb.png" alt="" class="logo-bring">
+        </li>
+        <a routerLink="">
+          <li class="li-hover">Home</li>
+        </a>
+        <a routerLink="classroom" *ngIf="isLogged">
+          <li class="li-hover">Classroom</li>
+        </a>
+        <a routerLink="login" *ngIf="!isLogged">
+          <li class="li-hover">Login</li>
+        </a>
+        <a routerLink="sign-up" *ngIf="!isLogged">
+          <li class="li-hover">Sign Up</li>
+        </a>
+        <a routerLink="add-class" *ngIf="isLogged">
+          <li (click)="addNewClass()" id="add-class-button">Add New Class</li>
+        </a>
+        <a routerLink="" (click)="logout()" *ngIf="isLogged">
+          <li class="li-hover">Logout</li>
+        </a>
+      </ul>
+    </div>
+  </div>
 </nav>
 <div class="router-outlet-container">
   <router-outlet></router-outlet>

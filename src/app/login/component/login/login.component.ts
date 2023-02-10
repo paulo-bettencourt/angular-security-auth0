@@ -30,8 +30,9 @@ export class LoginComponent {
       }
     }
     console.log("payload", this.data)
-    this.authService.login(this.data).subscribe(data => {
-      console.log("component subscribe")
+    this.authService.login(this.data).subscribe((data: any) => {
+      console.log("component subscribe", data)
+      localStorage.setItem('token', data.token)
       this.authService.isLogged = true;
       this.router.navigate(['classroom'])
     })
