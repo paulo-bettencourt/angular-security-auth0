@@ -17,7 +17,6 @@ export class MainPageComponent {
           this.isLogged = data;
           console.log("isLooged subscribe", this.isLogged)
         })
-
   }
 
   addNewClass() {

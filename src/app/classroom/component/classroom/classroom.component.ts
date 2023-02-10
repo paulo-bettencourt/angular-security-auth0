@@ -19,6 +19,8 @@ export class ClassroomComponent {
   isText: boolean = true;
   isFiles: boolean = false;
   isImages: boolean = false;
+  bringName: any = '';
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.allClasses$ = this.authService.getClasses();
@@ -28,10 +30,8 @@ export class ClassroomComponent {
       this.allFiles$ = data.Contents
       console.log("DATA É ARRAY?!", this.allFiles$)
     })
+    this.bringName = localStorage.getItem('BringUsername');
   }
-
-
-
 
   isTextClass() {
     this.isText = !this.isText;

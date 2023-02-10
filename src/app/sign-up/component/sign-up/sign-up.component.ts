@@ -24,16 +24,31 @@ export class SignUpComponent {
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
     console.log("-->", this.form.controls['login'].value)
+
+
+
     if(login && password) {
       this.data = {
+        name: this.getNameFromEmail(login),
         login: login,
         password: password
       }
     }
     console.log("payload", this.data)
     this.authService.signup(this.data).subscribe(data => {
+      localStorage.setItem('BringUsername',this.getNameFromEmail(login))
       this.router.navigate(['otp'])
     })
   }
 
+  getNameFromEmail(login: any) {
+    var username = login.match(/^([^@]*)@/)[1];
+    let loginArray = username.split(".");
+    let newArray = loginArray.map((word: any) => {
+      const firstLetter = word.charAt(0).toUpperCase();
+      const rest = word.slice(1).toLowerCase();
+      return firstLetter + rest;
+    });
+    return newArray.join(' ');
+  }
 }

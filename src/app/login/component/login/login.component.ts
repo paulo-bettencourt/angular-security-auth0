@@ -33,6 +33,7 @@ export class LoginComponent {
     this.authService.login(this.data).subscribe((data: any) => {
       console.log("component subscribe", data)
       localStorage.setItem('token', data.token)
+      localStorage.setItem('BringUsername', data.name)
       this.authService.isLogged = true;
       this.router.navigate(['classroom'])
     })
