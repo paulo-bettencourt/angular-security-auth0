@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {isDevMode, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,12 @@ import {OtpModule} from "./otp/otp.module";
 import {ClassroomModule} from "./classroom/classroom.module";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {AddClassModule} from "./add-class/add-class.module";
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {entityConfig} from "./ngrx-redux/entity-metadata";
+import {EntityDataModule} from "@ngrx/data";
+import {HeroService} from "./services/ngrx-german.service";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -23,9 +29,20 @@ import {AddClassModule} from "./add-class/add-class.module";
     SignUpModule,
     OtpModule,
     ClassroomModule,
-    AddClassModule
+    AddClassModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot(entityConfig),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !isDevMode(), // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+    }),
   ],
   providers: [
+    HeroService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
