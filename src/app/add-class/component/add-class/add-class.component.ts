@@ -48,7 +48,7 @@ export class AddClassComponent {
       }
 
       this.authService.uploadText(dataObject).subscribe(data => {
-        console.log("FILE UPLOADED");
+        console.log("FILE UPLOADED", data);
         this.router.navigate(['classroom'])
       })
     }
