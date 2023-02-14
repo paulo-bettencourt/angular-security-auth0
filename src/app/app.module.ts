@@ -13,9 +13,15 @@ import {AddClassModule} from "./add-class/add-class.module";
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {entityConfig} from "./ngrx-redux/entity-metadata";
-import {EntityDataModule} from "@ngrx/data";
+import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
 import {HeroService} from "./services/ngrx-german.service";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {environment} from "../environments/environment";
+
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: environment.baseUrl,
+  timeout: 3000, // request timeout
+}
 
 @NgModule({
   declarations: [
@@ -47,6 +53,10 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: DefaultDataServiceConfig,
+      useValue: defaultDataServiceConfig
     }
   ],
   bootstrap: [AppComponent]

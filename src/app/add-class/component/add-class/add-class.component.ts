@@ -43,7 +43,8 @@ export class AddClassComponent {
 
       const dataObject = {
         titleClass: formValue.nameClass,
-        textClass: formValue.textClass
+        textClass: formValue.textClass,
+        author: localStorage.getItem('BringUsername')
       }
 
       this.authService.uploadText(dataObject).subscribe(data => {

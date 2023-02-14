@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   getClasses() {
-    return this.http.get(this.apiUrl + `get-classes`)
+    return this.http.get(this.apiUrl + `classes`)
   }
 
   getImages() {
