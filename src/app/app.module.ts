@@ -14,7 +14,7 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {entityConfig} from "./ngrx-redux/entity-metadata";
 import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
-import {HeroService} from "./services/ngrx-german.service";
+import {reduxGermanService} from "./services/ngrx-german.service";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 
@@ -48,7 +48,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     }),
   ],
   providers: [
-    HeroService,
+    reduxGermanService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

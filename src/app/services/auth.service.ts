@@ -50,7 +50,6 @@ export class AuthService {
   }
 
   uploadImage64(data: any) {
-  console.log("DATA--->", data)
     return this.http.post(this.apiUrl + `post-image`, {image: data})
   }
 

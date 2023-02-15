@@ -4,14 +4,14 @@ import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {HeroService} from "../../../services/ngrx-german.service";
+import {reduxGermanService} from "../../../services/ngrx-german.service";
 
 @Component({
   selector: 'app-classroom',
   templateUrl: './classroom.component.html',
   styleUrls: ['./classroom.component.scss']
 })
-export class ClassroomComponent {
+export class ClassroomComponent implements OnInit{
 
   data!: any;
   allClasses$: any;
@@ -22,19 +22,17 @@ export class ClassroomComponent {
   isImages: boolean = false;
   bringName: any = '';
   loading$: Observable<boolean>;
-  heroes$: Observable<any[]>;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private heroService: HeroService) {
-    this.allClasses$ = this.authService.getClasses();
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService) {
     this.allImages$ = this.authService.getImages();
-    this.authService.getFiles().subscribe((data: any) => {
-      console.log("DATA->", data.Contents)
-      this.allFiles$ = data.Contents
-      console.log("DATA É ARRAY?!", this.allFiles$)
-    })
+    this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
-    this.heroes$ = heroService.entities$;
-    this.loading$ = heroService.loading$;
+    this.allClasses$ = reduxService.entities$;
+    this.loading$ = reduxService.loading$;
+  }
+
+  ngOnInit() {
+    this.getHeroes();
   }
 
   isTextClass() {
@@ -61,25 +59,20 @@ export class ClassroomComponent {
   }
 
 //  NgRx Redux
-
   add(hero: any) {
-    this.heroService.add(hero);
+    this.reduxService.add(hero);
   }
 
   delete(hero: any) {
-    this.heroService.delete(hero.id);
+    this.reduxService.delete(hero.id);
   }
 
   getHeroes() {
-    this.heroService.getAll();
+    this.reduxService.getAll();
   }
 
   update(hero: any) {
-    this.heroService.update(hero);
-  }
-
-  ngOnInit() {
-    this.getHeroes();
+    this.reduxService.update(hero);
   }
 
 
