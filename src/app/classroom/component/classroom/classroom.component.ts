@@ -36,21 +36,22 @@ export class ClassroomComponent implements OnInit{
   }
 
   isTextClass() {
-    this.isText = !this.isText;
+    this.isText = true;
     this.isFiles = false;
-    this.isImages = false;
+    // @ts-ignore
+    document.getElementById('summaries-button').style.backgroundColor = '#a9a9a9';
+    // @ts-ignore
+    document.getElementById('files-button').style.backgroundColor = '#be1e2d';
+
   }
 
   isFilesClass() {
-    this.isFiles = !this.isFiles;
-    this.isImages = false;
+    this.isFiles = true;
     this.isText = false;
-  }
-
-  isImagesClass() {
-    this.isImages = !this.isImages;
-    this.isText = false;
-    this.isFiles = false;
+    // @ts-ignore
+    document.getElementById('files-button').style.backgroundColor = '#a9a9a9';
+    // @ts-ignore
+    document.getElementById('summaries-button').style.backgroundColor = '#be1e2d';
   }
 
   debugBase64(image: string | SVGImageElement) {

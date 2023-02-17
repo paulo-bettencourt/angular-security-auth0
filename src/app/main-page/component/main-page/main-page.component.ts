@@ -13,14 +13,21 @@ export class MainPageComponent {
   isLogged: boolean = false;
 
   constructor(private router: Router, private service: AuthService) {
-    this.service.isLoggedGetter.subscribe(data => {
-       this.isLogged = data;
-       console.log("isLooged subscribe", this.isLogged)
-    })
+
+    if(localStorage.getItem('BringUsername')) {
+      this.isLogged = true;
+    } else {
+      this.service.isLoggedGetter.subscribe(data => {
+        this.isLogged = data;
+        console.log("isLooged subscribe", this.isLogged)
+      })
+    }
 
   }
 
   logout() {
+    localStorage.removeItem('BringUsername');
+    this.isLogged = !!localStorage.getItem('BringUsername')
     this.service.isLogged = false;
     this.router.navigate(['']);
   }

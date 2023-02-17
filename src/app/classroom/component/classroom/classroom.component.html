@@ -1,11 +1,10 @@
 <div  class="welcome-container" >
-  <h1>{{bringName}}'s Classroom Summaries</h1>
+  <h1>{{bringName}}'s Classroom</h1>
 
   <div>
     <div class="buttons-container">
-      <button (click)="isTextClass()" class="type-of-class">Text</button>
-      <button (click)="isFilesClass()" class="type-of-class">Files</button>
-      <button (click)="isImagesClass()">Images</button>
+      <button (click)="isTextClass()" class="type-of-class" id="summaries-button">Summaries</button>
+      <button (click)="isFilesClass()" class="type-of-class" id="files-button">Files</button>
     </div>
   </div>
 
@@ -17,6 +16,7 @@
       <ul>
         <li>Title: {{class.title}}</li>
         <li>Summary: {{class.text}}</li>
+        <img width="100%" height="250px" src="{{class.image}}" alt="Red dot" class="img-flex-thumb" (click)="debugBase64(class.image)"/>
         <li>Author: {{class.author}}</li>
       </ul>
     </ol>

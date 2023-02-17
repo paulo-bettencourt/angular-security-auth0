@@ -3,6 +3,7 @@ import {FormBuilder, Validator, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {User} from "../../../interfaces/user.interface";
 import {Router} from "@angular/router";
+import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   })
   data!: User;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent) {}
 
   submit() {
     const login = this.form.controls['login'].value;
@@ -35,7 +36,8 @@ export class LoginComponent {
       localStorage.setItem('token', data.token)
       localStorage.setItem('BringUsername', data.name)
       this.authService.isLogged = true;
-      this.router.navigate(['classroom'])
+      this.router.navigate(['classroom']);
+      this.component.isLogged = true;
     })
   }
 

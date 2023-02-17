@@ -54,6 +54,9 @@ export class AuthService {
   }
 
   uploadText(data: any) {
+
+    console.log("?????", data)
+
     return this.http.post(this.apiUrl + `upload-text`, data)
   }
 
