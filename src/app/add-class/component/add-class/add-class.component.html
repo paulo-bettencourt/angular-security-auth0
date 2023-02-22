@@ -3,10 +3,10 @@
   <form action="">
     <div class="container-center">
       <div class="new-class-choice">
-        <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html" class="classroom-label">Summary</label>
+        <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html" class="classroom-label">Text</label>
       </div>
       <div class="new-class-choice">
-        <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"><label for="html" class="classroom-label">File</label>
+        <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"><label for="html" class="classroom-label">Files</label>
       </div>
     </div>
   </form>
@@ -14,6 +14,7 @@
   <div [ngSwitch]="typeOfClass">
 
     <div *ngSwitchCase="'text'">
+      <small><i>Both text and image fields are required</i></small>
       <form [formGroup]="formAddClass">
         <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">
         <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>
@@ -22,7 +23,7 @@
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add an image
           </label>
-          <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass"/>
+          <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
         </label>
         {{nameOfImage}}
         <button (click)="submitText()">Submit</button>
@@ -30,12 +31,14 @@
     </div>
 
     <div *ngSwitchCase="'file'">
+      <small><i>PDF, Excel and PowerPoint files only</i></small>
+      <p></p>
       <label class="radio-button-option">
         <label for="file-upload" class="custom-file-upload">
           <i class="fa fa-cloud-upload"></i> Click to add a file
         </label>
         {{nameOfFile}}
-        <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)"/>
+        <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
       </label>
       <button (click)="submitFile()">Submit</button>
     </div>
