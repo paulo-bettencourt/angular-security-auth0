@@ -20,7 +20,7 @@ import {environment} from "../environments/environment";
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
-  timeout: 3000, // request timeout
+  timeout: 30000, // request timeout
 }
 
 @NgModule({

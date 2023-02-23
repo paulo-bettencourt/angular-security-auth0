@@ -22,8 +22,10 @@ export class ClassroomComponent implements OnInit{
   isImages: boolean = false;
   bringName: any = '';
   loading$: Observable<boolean>;
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService) {
+    this.isLoading = true;
     this.allImages$ = this.authService.getImages();
     this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
