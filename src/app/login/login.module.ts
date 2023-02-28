@@ -5,7 +5,6 @@ import { ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
-
 @NgModule({
   declarations: [
     LoginComponent

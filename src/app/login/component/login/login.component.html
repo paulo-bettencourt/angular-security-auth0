@@ -1,12 +1,12 @@
 <div  class="welcome-container">
   <h2>Login</h2>
-  <div *ngIf="loading$ | async" class="spinner-container">
+  <div *ngIf="isLoading" class="spinner-container">
     <mat-spinner color="warn"></mat-spinner>
   </div>
   <form [formGroup]="form">
-    <input type="text" formControlName="login">
-    <input type="password" formControlName="password">
-    <button (click)="submit()">Submit</button>
+    <input type="text" formControlName="login" pattern="[a-z.]*[@]\bringglobal.com" required>
+    <input type="password" formControlName="password" required>
+    <button (click)="submit()" id="submitButtonLogin">Submit</button>
   </form>
 
 </div>

@@ -1,5 +1,6 @@
 import {isDevMode, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
 import {reduxGermanService} from "./services/ngrx-german.service";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
@@ -28,6 +30,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     AppComponent
   ],
   imports: [
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     LoginModule,
@@ -36,6 +39,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     OtpModule,
     ClassroomModule,
     AddClassModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot(entityConfig),

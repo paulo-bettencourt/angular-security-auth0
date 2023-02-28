@@ -1,8 +1,21 @@
+<script src="sign-up.component.ts"></script>
 <div class="welcome-container">
   <h2>Sign Up</h2>
+  <div *ngIf="loading$ | async" class="spinner-container">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
   <form [formGroup]="form">
-    <input formControlName="login">
-    <input formControlName="password">
+    <input formControlName="login" type="email" placeholder="Insert your Bring Global e-mail" required>
+    <input formControlName="password" type="password" placeholder="Password" required>
     <button (click)="submit()">Submit</button>
+    <p></p>
+    <div class="field-message" *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
+      Your must insert an e-mail from Bring Global company.
+    </div>
+    <p></p>
+    <div class="field-message" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+      Your must insert a password.
+    </div>
   </form>
 </div>
+

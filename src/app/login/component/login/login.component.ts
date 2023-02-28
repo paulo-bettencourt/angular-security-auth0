@@ -5,7 +5,7 @@ import {User} from "../../../interfaces/user.interface";
 import {Router} from "@angular/router";
 import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -20,33 +20,33 @@ export class LoginComponent {
   })
   data!: User;
   isLoading = false;
-  loading$: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent, private reduxService: reduxGermanService) {
-    this.loading$ = reduxService.loading$;
+    /*this.loading$ = reduxService.loading$;*/
   }
 
   submit() {
-    this.isLoading = true;
+    const buttonDisabled = document.getElementById('submitButtonLogin') as HTMLInputElement
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
-    console.log("-->", this.form.controls['login'].value)
-    if(login && password) {
+
+    if(login && password && buttonDisabled) {
+      this.isLoading = true;
+      buttonDisabled.disabled = true;
       this.data = {
         login: login,
         password: password
       }
+
+      this.authService.login(this.data).subscribe((data: any) => {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('BringUsername', data.name)
+        this.authService.isLogged = true;
+        this.router.navigate(['classroom']);
+        this.component.isLogged = true;
+      })
     }
-    console.log("payload", this.data)
-    this.authService.login(this.data).subscribe((data: any) => {
-      this.isLoading = false;
-      console.log("component subscribe", data)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('BringUsername', data.name)
-      this.authService.isLogged = true;
-      this.router.navigate(['classroom']);
-      this.component.isLogged = true;
-    })
+
   }
 
 }
