@@ -19,11 +19,9 @@ export class SignUpComponent {
     password: ['', Validators.required]
   });
   data!: User;
-  loading$: Observable<boolean>;
+  isLoading = false;
 
-  constructor(private reduxService: reduxGermanService, private fb: FormBuilder, private authService: AuthService, private router: Router, public dialog: MatDialog) {
-    this.loading$ = reduxService.loading$;
-  }
+  constructor(private reduxService: reduxGermanService, private fb: FormBuilder, private authService: AuthService, private router: Router, public dialog: MatDialog) {}
 
   openDialog() {
     this.dialog.open(DialogElementsExampleDialog);
@@ -32,23 +30,21 @@ export class SignUpComponent {
   submit() {
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
+    const buttonDisabled = document.getElementById('submitButtonLogin') as HTMLInputElement
 
     if(login && password && this.form.valid) {
+      this.isLoading = true;
+      buttonDisabled.disabled = true;
       this.data = {
         name: this.getNameFromEmail(login),
         login: login,
         password: password
       }
-
       this.authService.signup(this.data).subscribe(data => {
         localStorage.setItem('BringUsername',this.getNameFromEmail(login))
         this.router.navigate(['otp'])
       })
-    } else {
-      return;
     }
-
-
   }
 
   getNameFromEmail(login: any) {

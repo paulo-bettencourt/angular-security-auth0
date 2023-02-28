@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
+import { EntityCollectionService } from '@ngrx/data';
 
 @Component({
   selector: 'app-main-page',
@@ -12,23 +13,13 @@ import {reduxGermanService} from "../../../services/ngrx-german.service";
 export class MainPageComponent {
   isLogged: boolean = false;
 
-  constructor(private router: Router, private service: AuthService) {
-
-    if(localStorage.getItem('BringUsername')) {
-      this.isLogged = true;
-    } else {
-      this.service.isLoggedGetter.subscribe(data => {
-        this.isLogged = data;
-        console.log("isLooged subscribe", this.isLogged)
-      })
-    }
-
+  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService) {
+    this.reduxService.entities$.subscribe(data => data.length ? this.isLogged = true : this.isLogged = false);
   }
 
   logout() {
-    localStorage.removeItem('BringUsername');
-    this.isLogged = !!localStorage.getItem('BringUsername')
-    this.service.isLogged = false;
+    this.reduxService.clearCache();
+    this.reduxService.entities$.subscribe(data => data.length ? this.isLogged = true : this.isLogged = false);
     this.router.navigate(['']);
   }
 

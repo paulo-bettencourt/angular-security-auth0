@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
@@ -9,29 +9,48 @@ import {Router} from "@angular/router";
   templateUrl: './otp.component.html',
   styleUrls: ['./otp.component.scss']
 })
-export class OtpComponent {
+export class OtpComponent implements AfterViewInit{
 
   form = this.fb.group({
     otp: ['', Validators.required],
   })
   data!: any;
+  isLoading = false;
+  errorMessageBoolean = false;
+  errorMessageText = '';
+  buttonDisabled!: HTMLInputElement;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   submit() {
-    const otp = this.form.controls['otp'].value;
+    this.isLoading = true;
+    this.buttonDisabled.disabled = true;
+    this.errorMessageBoolean = false;
+        const otp = this.form.controls['otp'].value;
     console.log("-->", this.form.controls['otp'].value)
-    if(otp) {
+    if(this.form.value) {
       this.data = {
         otp: otp
       }
+      this.authService.otp(this.data).subscribe({
+        next: ()  => {
+          this.router.navigate(['classroom']);
+          this.isLoading = false;
+        },
+        error: (err: any) => {
+          console.log("ERROR->", err)
+          this.errorMessageBoolean = true;
+          this.errorMessageText = err.error.message;
+          this.isLoading = false;
+        }
+      })
     }
-    console.log("payload", this.data)
-    this.authService.otp(this.data).subscribe(data => {
-      this.authService.isLogged = true;
-      this.router.navigate(['classroom'])
-    })
+
+  }
+
+  ngAfterViewInit(): void {
+    this.buttonDisabled = document.getElementById('submitOTP') as HTMLInputElement;
   }
 
 }

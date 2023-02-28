@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OtpComponent } from './component/otp/otp.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -11,7 +12,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class OtpModule { }

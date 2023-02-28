@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, Validator, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, Validator, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {User} from "../../../interfaces/user.interface";
 import {Router} from "@angular/router";
@@ -15,22 +15,22 @@ import {BehaviorSubject, Observable} from "rxjs";
 export class LoginComponent {
 
   form = this.fb.group({
-    login: ['', Validators.required],
+    login: ['',  [Validators.required, Validators.email, this.bringGlobalEmailValidator()]],
     password: ['', Validators.required]
   })
   data!: User;
   isLoading = false;
+  errorMessageBoolean = false;
+  errorMessageText = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent, private reduxService: reduxGermanService) {
-    /*this.loading$ = reduxService.loading$;*/
-  }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent, private reduxService: reduxGermanService) {}
 
   submit() {
     const buttonDisabled = document.getElementById('submitButtonLogin') as HTMLInputElement
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
 
-    if(login && password && buttonDisabled) {
+    if(login && password && this.form.valid) {
       this.isLoading = true;
       buttonDisabled.disabled = true;
       this.data = {
@@ -38,15 +38,35 @@ export class LoginComponent {
         password: password
       }
 
-      this.authService.login(this.data).subscribe((data: any) => {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('BringUsername', data.name)
-        this.authService.isLogged = true;
-        this.router.navigate(['classroom']);
-        this.component.isLogged = true;
+      this.authService.login(this.data).subscribe({
+        next: (data: any) => {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('BringUsername', data.name)
+          this.authService.isLogged = true;
+          this.router.navigate(['classroom']);
+          this.component.isLogged = true;
+        },
+          error: (data) => {
+            this.isLoading = false;
+            buttonDisabled.disabled = false;
+            this.errorMessageBoolean = true;
+            this.errorMessageText = data.error.message;
+        }
       })
     }
+  }
 
+  bringGlobalEmailValidator(): any {
+    return (control: FormControl): { [key: string]: any } | null => {
+      const email = control.value;
+      if (email && email.indexOf('@') !== -1) {
+        const domain = email.split('@')[1];
+        if (domain !== 'bringglobal.com') {
+          return { 'invalidDomain': true };
+        }
+      }
+      return null;
+    };
   }
 
 }

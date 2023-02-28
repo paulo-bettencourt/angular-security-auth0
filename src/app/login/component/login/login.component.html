@@ -4,9 +4,23 @@
     <mat-spinner color="warn"></mat-spinner>
   </div>
   <form [formGroup]="form">
-    <input type="text" formControlName="login" pattern="[a-z.]*[@]\bringglobal.com" required>
-    <input type="password" formControlName="password" required>
+    <input type="text" formControlName="login" >
+    <input type="password" formControlName="password">
     <button (click)="submit()" id="submitButtonLogin">Submit</button>
+    <p></p>
+    <div class="field-message" *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
+      Your must insert a registered Bring Global e-mail.
+    </div>
+    <p></p>
+    <div class="field-message" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+      Your must insert a password.
+    </div>
+    <p></p>
+    <div class="field-message" *ngIf="errorMessageBoolean">
+      ERROR! The server returned the following message: {{errorMessageText}}
+      <p></p>
+      Please try again.
+    </div>
   </form>
 
 </div>

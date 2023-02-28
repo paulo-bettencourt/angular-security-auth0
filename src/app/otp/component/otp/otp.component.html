@@ -1,7 +1,19 @@
 <div  class="welcome-container">
   <h2>Please insert the OTP</h2>
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
   <form [formGroup]="form">
-    <input type="text" formControlName="otp">
+    <input type="text" formControlName="otp" id="submitOTP">
     <button (click)="submit()">Submit</button>
+    <div class="field-message" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+      Your must insert a password.
+    </div>
+    <p></p>
+    <div class="field-message" *ngIf="errorMessageBoolean">
+      ERROR! The server returned the following message: {{errorMessageText}}
+      <p></p>
+      Please try again.
+    </div>
   </form>
 </div>
