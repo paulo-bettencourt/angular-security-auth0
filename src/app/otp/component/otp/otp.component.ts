@@ -43,6 +43,7 @@ export class OtpComponent implements AfterViewInit{
           this.errorMessageBoolean = true;
           this.errorMessageText = err.error.message;
           this.isLoading = false;
+          this.buttonDisabled.disabled = false;
         }
       })
     }
