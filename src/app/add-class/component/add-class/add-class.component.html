@@ -61,7 +61,7 @@
           <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
         </label>
         {{nameOfImage}}-->
-       <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
+       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>
 
       </form>
 
@@ -74,7 +74,7 @@
         <input  type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
       </label>
       <button (click)="submitGermanClass()">Submit</button>-->
-    <input  type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
+    <input id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
   <button (click)="submitGermanClass()">Submit</button>
     </div>
 

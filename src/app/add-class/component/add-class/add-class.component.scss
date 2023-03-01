@@ -2,9 +2,28 @@ classroom-container-add-class {
   width: 50%;
 }
 
-/*input[type="file"] {
+input[type=file]{
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 15px;
+  padding: 2%;
+}
+
+input[type=file]::file-selector-button {
   display: none;
-}*/
+}
+
+#image-upload::before {
+  content: " Click here to add an image - ";
+}
+
+#file-upload::before {
+  content: " Click here to add a file (PDF, Excel or PowerPoint) - ";
+}
 
 .custom-file-upload {
   border: 1px solid #ccc;
