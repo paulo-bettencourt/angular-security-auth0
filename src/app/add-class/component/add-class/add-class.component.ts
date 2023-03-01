@@ -20,6 +20,7 @@ export class AddClassComponent {
     imageClass: ['', Validators.required]
   })
   imageResult: string | ArrayBuffer | null | undefined;
+  imageToUpload!: any;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
@@ -29,6 +30,7 @@ export class AddClassComponent {
   }
 
   handleFileInput(files: any) {
+    console.log("fileeeeee")
     this.nameOfFile = files.target.files[0].name;
     this.fileToUpload = files.target.files[0];
   }
@@ -36,39 +38,131 @@ export class AddClassComponent {
   handleImageInput(files: any) {
     const reader = new FileReader();
     this.nameOfImage = files.target.files[0].name;
-    this.fileToUpload = files.target.files[0];
+    this.imageToUpload = files.target.files[0];
 
-    if (this.fileToUpload) {
-      reader.readAsDataURL(this.fileToUpload);
+    if (this.imageToUpload) {
+      reader.readAsDataURL(this.imageToUpload);
       reader.onload = () => this.imageResult = reader.result;
+      console.log("image ", this.imageResult)
     }
   }
 
-  submitText() {
-    const formValue = this.formAddClass.value;
+  // submitText() {
+  //   const formValue = this.formAddClass.value;
+  //
+  //   if (!formValue.nameClass || !formValue.textClass || !this.imageResult) {
+  //     alert("Please fill all the forms")
+  //   } else {
+  //     const dataObject = {
+  //       titleClass: formValue.nameClass,
+  //       textClass: formValue.textClass,
+  //       imageClass: this.imageResult,
+  //       author: localStorage.getItem('BringUsername')
+  //     }
+  //
+  //     this.authService.uploadText(dataObject).subscribe(data => {
+  //       this.router.navigate(['classroom'])
+  //     })
+  //   }
+  // }
+  //
+  // submitFile() {
+  //   if (this.fileToUpload) {
+  //     this.authService.uploadFile(this.fileToUpload).subscribe(data => {
+  //       this.router.navigate(['classroom'])
+  //     })
+  //   }
+  // }
 
-    if (!formValue.nameClass || !formValue.textClass || !this.imageResult) {
-      alert("Please fill all the forms")
+  submitGermanClass() {
+
+    const formValue = this.formAddClass.value;
+    console.log("form value ", formValue)
+    console.log("image value ", this.imageResult)
+    console.log("file value ", this.fileToUpload)
+
+    if(this.imageResult && this.fileToUpload) {
+      this.uploadImageAndFile(formValue, this.imageResult, this.fileToUpload)
+    } else if(this.imageResult === undefined && this.fileToUpload) {
+      this.uploadFileOnly(formValue, this.fileToUpload);
+    } else if(this.imageResult && (this.fileToUpload === null || this.fileToUpload === undefined || !this.fileToUpload)) {
+      this.uploadImageOnly(formValue, this.imageResult);
     } else {
+      this.uploadTextOnly(formValue);
+    }
+  }
+
+  uploadImageAndFile(formValue: any, imageToUpload: any, fileToUpload: any) {
+    const dataObject = {
+      titleClass: formValue.nameClass,
+      textClass: formValue.textClass,
+      imageClass: imageToUpload,
+      author: localStorage.getItem('BringUsername')
+    }
+
+    this.authService.uploadText(dataObject).subscribe(data => {
+      this.router.navigate(['classroom'])
+    })
+    this.authService.uploadFile(fileToUpload).subscribe(data => {
+      this.router.navigate(['classroom'])
+    })
+  }
+
+  uploadFileOnly(formValue: any, fileToUpload: any) {
+
+    console.log("FUNÇÃO uploadFileOnly -> ")
+
+    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
+
+      const fileLocation = data.location
+
+      console.log("DATA DO AWS ", data.location)
+
       const dataObject = {
         titleClass: formValue.nameClass,
         textClass: formValue.textClass,
-        imageClass: this.imageResult,
+        fileClass: fileLocation,
         author: localStorage.getItem('BringUsername')
       }
 
       this.authService.uploadText(dataObject).subscribe(data => {
         this.router.navigate(['classroom'])
       })
-    }
+
+
+    })
   }
 
-  submitFile() {
-    if (this.fileToUpload) {
-      this.authService.uploadFile(this.fileToUpload).subscribe(data => {
-        this.router.navigate(['classroom'])
-      })
+  uploadImageOnly(formValue: any, imageToUpload: any) {
+
+    console.log("FUNÇÃO uploadImageOnly -> ", imageToUpload)
+
+    const dataObject = {
+      titleClass: formValue.nameClass,
+      textClass: formValue.textClass,
+      imageClass: imageToUpload,
+      author: localStorage.getItem('BringUsername')
     }
+
+    this.authService.uploadText(dataObject).subscribe(data => {
+      this.router.navigate(['classroom'])
+    })
+  }
+
+  uploadTextOnly(formValue: any) {
+
+    console.log("FUNÇÃO uploadTextOnly -> ")
+
+
+    const dataObject = {
+          titleClass: formValue.nameClass,
+          textClass: formValue.textClass,
+          author: localStorage.getItem('BringUsername')
+        }
+
+        this.authService.uploadText(dataObject).subscribe(data => {
+          this.router.navigate(['classroom'])
+        })
   }
 }
 
