@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
+import Quill from "quill";
 
 @Component({
   selector: 'app-add-class',
@@ -17,10 +18,24 @@ export class AddClassComponent {
   formAddClass = this.fb.group({
     nameClass: ['', Validators.required],
     textClass: ['', Validators.required],
-    imageClass: ['', Validators.required]
+    imageClass: ['', Validators.required],
   })
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
+
+  editor: any;
+  @ViewChild('editor') editorElement: any;
+  quillConfiguration = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      ['link'],
+      ['clean'],
+    ],
+  }
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }

@@ -52,8 +52,17 @@
 
    <form [formGroup]="formAddClass">
         <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">
-        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>
 
+<!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
+
+     <quill-editor
+       #editor
+       class="content-editor"
+       [placeholder]="''"
+       [modules]="quillConfiguration"
+       formControlName="textClass"
+     >
+     </quill-editor>
 <!--        <label class="radio-button-option">
           <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Click to add an image

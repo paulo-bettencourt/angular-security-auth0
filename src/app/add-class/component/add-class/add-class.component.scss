@@ -75,3 +75,11 @@ ul {
 .img-flex-thumb {
   padding: 5%;
 }
+
+quill-editor {
+  width: 100%;
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
