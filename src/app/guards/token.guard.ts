@@ -16,7 +16,7 @@ class Permissions {
   }
 
   canActivate(): boolean {
-    if(localStorage.getItem('token')) {
+    if(localStorage.getItem('jwtBringGlobalToken')) {
       return true;
     } else {
       this.router.navigate(['']);

@@ -40,7 +40,7 @@ export class LoginComponent {
 
       this.authService.login(this.data).subscribe({
         next: (data: any) => {
-          localStorage.setItem('token', data.token)
+          localStorage.setItem('jwtBringGlobalToken', data.token)
           localStorage.setItem('BringUsername', data.name)
           this.authService.isLogged = true;
           this.router.navigate(['classroom']);

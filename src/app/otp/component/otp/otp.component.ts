@@ -34,7 +34,8 @@ export class OtpComponent implements AfterViewInit{
         otp: otp
       }
       this.authService.otp(this.data).subscribe({
-        next: ()  => {
+        next: (data: any)  => {
+          localStorage.setItem('jwtBringGlobalToken', data.token)
           this.router.navigate(['classroom']);
           this.isLoading = false;
         },

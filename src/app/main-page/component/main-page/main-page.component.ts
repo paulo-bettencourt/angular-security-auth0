@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, HostListener} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -11,16 +11,22 @@ import { EntityCollectionService } from '@ngrx/data';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
+
   isLogged: boolean = false;
+  jwtToken = localStorage.getItem('jwtBringGlobalToken');
 
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService) {
-    this.reduxService.entities$.subscribe(data => data.length ? this.isLogged = true : this.isLogged = false);
+    this.service.getJwtToken(this.jwtToken).subscribe((data:any) =>  {
+      data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
+    });
   }
 
   logout() {
     this.reduxService.clearCache();
-    this.reduxService.entities$.subscribe(data => data.length ? this.isLogged = true : this.isLogged = false);
     this.router.navigate(['']);
+    localStorage.removeItem('jwtBringGlobalToken');
+    this.service.logout().subscribe(data => console.log(data));
+    this.isLogged = false;
   }
 
   addNewClass() {}

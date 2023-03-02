@@ -24,7 +24,6 @@ export class ClassroomComponent implements OnInit{
   loading$: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService) {
-    this.allImages$ = this.authService.getImages();
     this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
     this.allClasses$ = reduxService.entities$;

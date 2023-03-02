@@ -54,9 +54,6 @@ export class AuthService {
   }
 
   uploadText(data: any) {
-
-    console.log("?????", data)
-
     return this.http.post(this.apiUrl + `upload-text`, data)
   }
 
@@ -78,6 +75,15 @@ export class AuthService {
 
   getFiles() {
     return this.http.get(this.apiUrl + `get-aws-files`, {headers: this.headers});
+  }
+
+  getJwtToken(token: any) {
+    console.log("token ------> ", token)
+    return this.http.post(this.apiUrl + `get-jwt-token`, {token: token})
+  }
+
+  logout() {
+    return this.http.get(this.apiUrl + `logout`);
   }
 }
 
