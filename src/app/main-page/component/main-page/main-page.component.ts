@@ -17,6 +17,7 @@ export class MainPageComponent {
 
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService) {
     this.service.getJwtToken(this.jwtToken).subscribe((data:any) =>  {
+      console.log("aqui está o request para saber se está logado e o resultado é --> ", data.jwt)
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
   }

@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
+import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
 
 @Component({
   selector: 'app-otp',
@@ -20,7 +21,7 @@ export class OtpComponent implements AfterViewInit{
   errorMessageText = '';
   buttonDisabled!: HTMLInputElement;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent) {
   }
 
   submit() {
@@ -35,6 +36,7 @@ export class OtpComponent implements AfterViewInit{
       }
       this.authService.otp(this.data).subscribe({
         next: (data: any)  => {
+          this.component.isLogged = true;
           localStorage.setItem('jwtBringGlobalToken', data.token)
           this.router.navigate(['classroom']);
           this.isLoading = false;
