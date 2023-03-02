@@ -93,19 +93,45 @@ export class AddClassComponent {
   }
 
   uploadImageAndFile(formValue: any, imageToUpload: any, fileToUpload: any) {
-    const dataObject = {
-      titleClass: formValue.nameClass,
-      textClass: formValue.textClass,
-      imageClass: imageToUpload,
-      author: localStorage.getItem('BringUsername')
-    }
+    // const dataObject = {
+    //   titleClass: formValue.nameClass,
+    //   textClass: formValue.textClass,
+    //   imageClass: imageToUpload,
+    //   author: localStorage.getItem('BringUsername')
+    // }
+    //
+    // this.authService.uploadText(dataObject).subscribe(data => {
+    //   this.router.navigate(['classroom'])
+    // })
+    // this.authService.uploadFile(fileToUpload).subscribe(data => {
+    //   this.router.navigate(['classroom'])
+    // })
 
-    this.authService.uploadText(dataObject).subscribe(data => {
-      this.router.navigate(['classroom'])
+    console.log("FUNÇÃO uploadImageAndFile -> ")
+
+    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
+
+      const fileLocation = data.location
+
+      console.log("DATA DO AWS ", data.location)
+
+      const dataObject = {
+        titleClass: formValue.nameClass,
+        textClass: formValue.textClass,
+        imageClass: imageToUpload,
+        fileClass: fileLocation,
+        author: localStorage.getItem('BringUsername')
+      }
+
+      this.authService.uploadText(dataObject).subscribe(data => {
+        this.router.navigate(['classroom'])
+      })
+
+
     })
-    this.authService.uploadFile(fileToUpload).subscribe(data => {
-      this.router.navigate(['classroom'])
-    })
+
+
+
   }
 
   uploadFileOnly(formValue: any, fileToUpload: any) {
