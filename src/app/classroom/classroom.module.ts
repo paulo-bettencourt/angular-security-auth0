@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ClassroomComponent} from './component/classroom/classroom.component';
+import {ClassroomComponent, DialogDataExampleDialog} from './component/classroom/classroom.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from "@angular/material/table";
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
 @NgModule({
   declarations: [
-    ClassroomComponent
+    ClassroomComponent,
+    DialogDataExampleDialog
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import {MatTableModule} from "@angular/material/table";
     CdkAccordionModule,
     MatExpansionModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ]
 })
 export class ClassroomModule { }

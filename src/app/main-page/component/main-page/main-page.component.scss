@@ -20,13 +20,20 @@ li:hover {
   height: 16px;
 }
 
-.router-outlet-container {
-  width: 50%;
-  margin: 3% auto;
-}
+
 
 #add-class-button {
   background-color: white;
   color: #be1e2d;
   border-bottom:1px solid #be1e2d;
+}
+
+.mat-tab-label-active {
+  color: #00ADEE !important;
+}
+
+.router-outlet-container {
+  background-color: white;
+  width: 70%;
+  margin: auto;
 }

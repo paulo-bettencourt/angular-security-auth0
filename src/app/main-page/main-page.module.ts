@@ -11,6 +11,9 @@ import { CanActivateToken } from '../guards/token.guard'
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../interceptors/auth.interceptor";
 import {AddClassComponent} from "../add-class/component/add-class/add-class.component";
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 const routes: Routes = [{
   path: '',
   component: MainPageComponent,
@@ -49,7 +52,8 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatTabsModule
   ],
   providers: [
     CanActivateToken

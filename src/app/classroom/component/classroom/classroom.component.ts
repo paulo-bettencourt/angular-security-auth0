@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, NgModule, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, Injectable, Input, NgModule, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
@@ -8,6 +8,7 @@ import {reduxGermanService} from "../../../services/ngrx-german.service";
 import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelect} from "@angular/material/select";
 import {MatTableDataSource} from "@angular/material/table";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 
 @Injectable()
 @Component({
@@ -33,7 +34,7 @@ export class ClassroomComponent implements OnInit {
   currentPageIndex = 0;
   pageSize = 10;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService, public dialog: MatDialog) {
     this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
     reduxService.entities$.subscribe((data: any) => {
@@ -67,8 +68,13 @@ export class ClassroomComponent implements OnInit {
   }
 
   debugBase64(image: string | SVGImageElement) {
-      // @ts-ignore
-      window.open().document.write('<iframe src="' + image  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+
+    this.dialog.open(DialogDataExampleDialog, {
+      data: {
+        image: image,
+      },
+    });
+
   }
 
 //  NgRx Redux
@@ -88,7 +94,16 @@ export class ClassroomComponent implements OnInit {
   update(hero: any) {
     this.reduxService.update(hero);
   }
+}
 
-
+@Component({
+  selector: 'dialog-dialog',
+  templateUrl: 'data-dialog.html',
+  styleUrls: ['./classroom.component.scss']
+})
+export class DialogDataExampleDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log("imagem url", data)
+  }
 
 }
