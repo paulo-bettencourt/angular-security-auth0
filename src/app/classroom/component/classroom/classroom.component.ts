@@ -1,20 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, NgModule, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
+import {MatSelect} from "@angular/material/select";
+import {MatTableDataSource} from "@angular/material/table";
 
+@Injectable()
 @Component({
   selector: 'app-classroom',
   templateUrl: './classroom.component.html',
   styleUrls: ['./classroom.component.scss']
 })
-export class ClassroomComponent implements OnInit{
+export class ClassroomComponent implements OnInit {
 
   data!: any;
-  allClasses$: any;
+  allClasses$: any = [];
   allImages$: any;
   allFiles$ : any[] = [];
   isText: boolean = true;
@@ -22,11 +26,20 @@ export class ClassroomComponent implements OnInit{
   isImages: boolean = false;
   bringName: any = '';
   loading$: Observable<boolean>;
+  panelOpenState = false;
+
+  changes = new Subject<void>();
+  paginator!: any;
+  currentPageIndex = 0;
+  pageSize = 10;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService) {
     this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
-    this.allClasses$ = reduxService.entities$;
+    reduxService.entities$.subscribe((data: any) => {
+      this.allClasses$ = data;
+      this.allClasses$ = this.allClasses$.map((obj: any, index: number) => ({ ...obj, numberOfClasses: index }));
+    });
     this.loading$ = reduxService.loading$;
   }
 
@@ -59,6 +72,7 @@ export class ClassroomComponent implements OnInit{
   }
 
 //  NgRx Redux
+
   add(hero: any) {
     this.reduxService.add(hero);
   }
@@ -74,6 +88,7 @@ export class ClassroomComponent implements OnInit{
   update(hero: any) {
     this.reduxService.update(hero);
   }
+
 
 
 }

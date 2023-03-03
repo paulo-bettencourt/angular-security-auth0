@@ -1,22 +1,62 @@
 <div  class="welcome-container" >
-  <h1>{{bringName}}'s Classroom</h1>
-  <hr>
+  <h1>Klassenzimmer von {{bringName}}</h1>
   <div *ngIf="loading$ | async" class="spinner-container">
     <mat-spinner color="warn"></mat-spinner>
   </div>
 
-  <div *ngFor="let class of allClasses$ | async; let i = index">
-    <h3>Class Number #{{i}}</h3>
-    <ol>
-      <ul>
-        <li>Title: {{class.title}}</li>
-        <li>Summary: {{class.text}}</li>
-        <li *ngIf="class.file">File: <a href="{{class.file}}">{{class.file}}</a></li>
+<!--  <div *ngFor="let class of allClasses$ | async; let i = index">-->
+<!--    <mat-accordion>-->
+<!--      <mat-expansion-panel hideToggle>-->
+<!--        <mat-expansion-panel-header>-->
+<!--          <mat-panel-title #lessonName>-->
+<!--            Class Number #{{i}}-->
+<!--          </mat-panel-title>-->
+<!--          <mat-panel-description>-->
+<!--            {{class.title}}-->
+<!--          </mat-panel-description>-->
+<!--        </mat-expansion-panel-header>-->
+<!--        <hr>-->
+<!--        <div [innerHTML]="class.text"></div>-->
+<!--        <br>-->
+<!--        <img width="100%" height="250px" *ngIf="class.image" src="{{class.image}}" alt="Red dot" class="img-flex-thumb" (click)="debugBase64(class.image)"/>-->
+<!--        <hr>-->
+<!--        Author: {{class.author}}-->
+<!--      </mat-expansion-panel>-->
+<!--      <mat-expansion-panel (opened)="panelOpenState = true"-->
+<!--                           (closed)="panelOpenState = false">-->
+<!--      </mat-expansion-panel>-->
+<!--    </mat-accordion>-->
+<!--  </div>-->
+
+  <div *ngFor="let class of allClasses$.slice(currentPageIndex * pageSize, (currentPageIndex + 1) * pageSize)">
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title #lessonName>
+            Class Number #{{class.numberOfClasses}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{class.title}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <hr>
+        <div [innerHTML]="class.text"></div>
+        <br>
         <img width="100%" height="250px" *ngIf="class.image" src="{{class.image}}" alt="Red dot" class="img-flex-thumb" (click)="debugBase64(class.image)"/>
-        <li>Author: {{class.author}}</li>
-      </ul>
-    </ol>
-    <hr>
+        <div *ngIf="class.file">File: <a href="{{class.file}}">{{class.file}}</a></div>
+        <hr>
+        Author: {{class.author}}
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
+
+  <mat-paginator [length]="allClasses$.length"
+                 [pageSize]="pageSize"
+                 (page)="currentPageIndex = $event.pageIndex"
+  ></mat-paginator>
+
 
 </div>
