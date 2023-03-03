@@ -22,7 +22,7 @@ input[type=file]::file-selector-button {
 }
 
 #file-upload::before {
-  content: " Click here to add a file (PDF, Excel or PowerPoint) - ";
+  content: " Attach file (PDF, Excel or PowerPoint) - ";
 }
 
 .custom-file-upload {
@@ -82,4 +82,5 @@ quill-editor {
 
 .mat-mdc-form-field + .mat-mdc-form-field {
   margin-left: 8px;
+
 }

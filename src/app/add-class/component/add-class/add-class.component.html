@@ -48,10 +48,10 @@
 
 
 <div  class="classroom-container">
-  <h2>Add a new German class</h2>
+  <h2>Fügen Sie eine neue Deutschklasse hinzu</h2>
 
    <form [formGroup]="formAddClass">
-        <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">
+        <input type="text" formControlName="title" placeholder="Class summary" formControlName="nameClass">
 
 <!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
 
@@ -70,7 +70,16 @@
           <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
         </label>
         {{nameOfImage}}-->
-       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>
+    <p></p>
+     <ngx-dropzone (change)="handleImageInput($event)" accept="image/*" [maxFileSize]="2000000" #imageUploadDropzone [multiple]="false">
+       <ngx-dropzone-label>Drop one image per class (max file: 2mb)</ngx-dropzone-label>
+       <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+       </ngx-dropzone-image-preview>
+     </ngx-dropzone>
+
+
+<!--       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>-->
 
       </form>
 
@@ -84,6 +93,7 @@
       </label>
       <button (click)="submitGermanClass()">Submit</button>-->
     <input id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
+
   <button (click)="submitGermanClass()">Submit</button>
     </div>
 

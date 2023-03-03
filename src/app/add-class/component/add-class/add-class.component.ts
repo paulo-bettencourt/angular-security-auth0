@@ -22,9 +22,12 @@ export class AddClassComponent {
   })
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
+  files: File[] = [];
 
   editor: any;
   @ViewChild('editor') editorElement: any;
+  @ViewChild('imageUploadDropzone') imageUploadDropzone: any;
+
   quillConfiguration = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
@@ -51,14 +54,19 @@ export class AddClassComponent {
   }
 
   handleImageInput(files: any) {
+    console.log("FILES ", files)
     const reader = new FileReader();
-    this.nameOfImage = files.target.files[0].name;
-    this.imageToUpload = files.target.files[0];
+    // this.nameOfImage = files.target.files[0].name;
+    this.imageToUpload = files.addedFiles[0];
+    console.log("FILES ", this.imageToUpload)
+    // this.files.push(...files.addedFiles)
+    this.files[0] = this.imageToUpload;
 
     if (this.imageToUpload) {
-      reader.readAsDataURL(this.imageToUpload);
+      // reader.readAsDataURL(this.imageToUpload);
+      console.log("e agora??", reader.readAsDataURL(this.imageToUpload))
       reader.onload = () => this.imageResult = reader.result;
-      console.log("image ", this.imageResult)
+      // this.files.push(...event.addedFiles);
     }
   }
 
@@ -205,6 +213,21 @@ export class AddClassComponent {
           this.router.navigate(['classroom'])
         })
   }
+
+
+
+
+  onSelect(event: any) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+    console.log(this.files)
+  }
+
+  onRemove(event: any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
 }
 
 
