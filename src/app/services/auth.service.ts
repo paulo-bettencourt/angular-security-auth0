@@ -85,6 +85,11 @@ export class AuthService {
   logout() {
     return this.http.get(this.apiUrl + `logout`);
   }
+
+  deleteClass(id: any) {
+    console.log("id ", id)
+    return this.http.delete(this.apiUrl + `delete/` + id);
+  }
 }
 
 

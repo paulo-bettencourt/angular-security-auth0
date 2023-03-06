@@ -18,8 +18,8 @@
         <a routerLink="sign-up" *ngIf="!isLogged">
           <li class="li-hover">Sign Up</li>
         </a>
-        <a routerLink="add-class" *ngIf="isLogged">
-          <li (click)="addNewClass()" id="add-class-button">Add New Class</li>
+        <a *ngIf="isLogged" class="add-new-class">
+          <li (click)="openDialog('0ms', '0ms')" id="add-class-button">Add New Class</li>
         </a>
         <a routerLink="" (click)="logout()" *ngIf="isLogged">
           <li class="li-hover">Logout</li>

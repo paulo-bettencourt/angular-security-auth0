@@ -5,6 +5,8 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
 import { EntityCollectionService } from '@ngrx/data';
 import {ThemePalette} from "@angular/material/core";
+import {MatDialog} from "@angular/material/dialog";
+import {AddClassComponent} from "../../../add-class/component/add-class/add-class.component";
 
 @Component({
   selector: 'app-main-page',
@@ -17,8 +19,8 @@ export class MainPageComponent {
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
   @Input() color: ThemePalette = 'warn';
 
-  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService) {
-    this.service.getJwtToken(this.jwtToken).subscribe((data:any) =>  {
+  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog) {
+    this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
       console.log("aqui está o request para saber se está logado e o resultado é --> ", data.jwt)
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
@@ -32,6 +34,17 @@ export class MainPageComponent {
     this.isLogged = false;
   }
 
-  addNewClass() {}
+  addNewClass() {
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AddClassComponent, {
+      height: '95vh',
+      width: '60%',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+  }
 
 }

@@ -105,6 +105,13 @@ export class ClassroomComponent implements OnInit {
     });
   }
 
+  deleteClassById(id: any) {
+    this.authService.deleteClass(id).subscribe({
+      next: () => console.log("sucesso"),
+      error: (err: any) => console.log("error: ", err)
+    });
+  }
+
 }
 
 @Component({
