@@ -64,3 +64,50 @@ ul {
   max-height: 1500px;
 }
 
+.example-header-image {
+  background-image: url('avatar.jpeg');
+  background-size: cover;
+}
+
+mat-card {
+  width: 100%;
+}
+
+.card-material-center {
+  margin: auto !important;
+}
+
+mat-card-header,
+#file-container {
+  text-align: left;
+}
+
+//mat-card-header {
+//  display: flex;
+//}
+//
+//#card-display-header {
+//  display: flex;
+//}
+
+.bi-pencil-square {
+  position: absolute;
+  right: 8%;
+  cursor: pointer;
+}
+
+.bi-trash3 {
+  position: absolute;
+  right: 3%;
+  cursor: pointer;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+//mat-card {
+//  background-color: #e5e5e5;
+//}
