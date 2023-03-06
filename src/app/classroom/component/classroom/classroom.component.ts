@@ -106,10 +106,12 @@ export class ClassroomComponent implements OnInit {
   }
 
   deleteClassById(id: any) {
-    this.authService.deleteClass(id).subscribe({
-      next: () => console.log("sucesso"),
-      error: (err: any) => console.log("error: ", err)
-    });
+
+    this.dialog.open(DeleteClassDialog, {
+      data: { id: id },
+      height: '20%',
+      width: '20%'
+    }, );
   }
 
 }
@@ -123,6 +125,40 @@ export class DialogDataExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     console.log("imagem url", data)
   }
+}
+
+@Component({
+  selector: 'edit-class-dialog',
+  templateUrl: 'delete-class-dialog.html',
+  styleUrls: ['./delete-class-dialog.scss']
+})
+export class DeleteClassDialog {
+  constructor(@Inject(MAT_DIALOG_DATA)
+              public data: {id: string},
+              private authService: AuthService,
+              private reduxService: reduxGermanService) {
+    console.log("imagem url", data)
+  }
+
+  delete() {
+    this.reduxService.delete(this.data.id);
+  }
+
+  deleteClassById(id: any) {
+    alert("hi")
+    this.reduxService.delete(id).subscribe({
+      next: () => console.log("sucesso"),
+      error: (err: any) => console.log("error: ", err)
+    });
+  };
+
+
+  //   this.authService.deleteClass(id).subscribe({
+  //     next: () => console.log("sucesso"),
+  //     error: (err: any) => console.log("error: ", err)
+  //   });
+  // }
+
 
 }
 
