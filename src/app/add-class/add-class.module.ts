@@ -4,6 +4,7 @@ import { AddClassComponent } from './component/add-class/add-class.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuillModule} from "ngx-quill";
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -16,7 +17,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ReactiveFormsModule,
     NgxDropzoneModule,
     FormsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    MatDialogModule
   ]
 })
 export class AddClassModule { }
