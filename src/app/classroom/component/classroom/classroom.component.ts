@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, Input, NgModule, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, Injectable, Input, NgModule, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
@@ -9,6 +9,7 @@ import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/mater
 import {MatSelect} from "@angular/material/select";
 import {MatTableDataSource} from "@angular/material/table";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 @Component({
@@ -96,9 +97,10 @@ export class ClassroomComponent implements OnInit {
   }
 
 
-  openDialog(title: any, text: any, image: any, file: any): void {
+  openDialog(id: any, title: any, text: any, image: any, file: any): void {
     this.dialog.open(EditClassDialog, {
       data: {
+        id: id,
         title: title,
         text: text,
         image: image,
@@ -188,10 +190,13 @@ export class EditClassDialog {
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
   files: File[] = [];
+  fileNameUrl!: string;
+  classId!: any;
 
   editor: any;
   @ViewChild('editor') editorElement: any;
   @ViewChild('imageUploadDropzone') imageUploadDropzone: any;
+  @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
   quillConfiguration = {
     toolbar: [
@@ -202,15 +207,61 @@ export class EditClassDialog {
     ],
   }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient, private reduxService: reduxGermanService) {
     console.log("imagem url", this.data.image);
     this.formAddClass.controls['nameClass'].setValue(this.data.title);
     this.formAddClass.controls['textClass'].setValue(this.data.text);
     this.formAddClass.controls['imageClass'].setValue(this.data.image);
+    this.classId = this.data.id.trim();
+    console.log("DATA P O ID", this.classId)
     if(this.data.image) {
       this.convertData64ToImage(this.data.image)
     }
+    this.downloadFile(this.data.file, this.data.file);
+
   }
+
+  objectToUpdate: any = {
+    id: this.classId,
+    title: this.formAddClass.controls['nameClass'].value,
+    text: this.formAddClass.controls['textClass'].value,
+    file: '',
+    author: ''
+  }
+
+  update() {
+    this.reduxService.update(this.objectToUpdate);
+  }
+
+// Define a function to download the file and convert it to a File object
+  downloadFile(url: string, filename: string): void {
+    this.http.get(url, { responseType: 'blob' })
+      .toPromise()
+      .then((blob: Blob | undefined) => {
+        if (blob) {
+          // Create a new File object from the downloaded blob
+          return this.createFile(blob, filename);
+        } else {
+          throw new Error('Unable to download file');
+        }
+      })
+      .then((file: File) => {
+        this.fileToUpload = file;
+        this.fileNameUrl = this.fileToUpload.name;
+        this.fileName = this.fileToUpload.name.split("/").pop();
+        console.log("FILE TO UPLOAD ", this.fileToUpload)
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
+
+  }
+
+  createFile(blob: Blob, filename: string): File {
+    // Create a new File object from the blob and filename
+    return new File([blob], filename, { type: blob.type });
+  }
+
 
   convertData64ToImage(image64: string) {
     // Get the base64-encoded image from some source (e.g. an API response)
@@ -290,6 +341,7 @@ export class EditClassDialog {
   //     })
   //   }
   // }
+  fileName: any;
 
   submitGermanClass() {
 
