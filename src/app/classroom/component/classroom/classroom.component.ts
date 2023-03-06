@@ -96,21 +96,23 @@ export class ClassroomComponent implements OnInit {
   }
 
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(title: any, text: any, image: any, file: any): void {
     this.dialog.open(EditClassDialog, {
+      data: {
+        title: title,
+        text: text,
+        image: image,
+        file: file,
+      },
       height: '95vh',
-      width: '60%',
-      enterAnimationDuration,
-      exitAnimationDuration,
+      width: '60%'
     });
   }
 
   deleteClassById(id: any) {
 
     this.dialog.open(DeleteClassDialog, {
-      data: { id: id },
-      height: '20%',
-      width: '20%'
+      data: { id: id }
     }, );
   }
 
@@ -136,12 +138,14 @@ export class DeleteClassDialog {
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {id: string},
               private authService: AuthService,
-              private reduxService: reduxGermanService) {
+              private reduxService: reduxGermanService,
+              public dialog: MatDialog) {
     console.log("imagem url", data)
   }
 
   delete() {
     this.reduxService.delete(this.data.id);
+    this.dialog.closeAll();
   }
 
   deleteClassById(id: any) {
@@ -160,6 +164,9 @@ export class DeleteClassDialog {
   // }
 
 
+  cancelDelete() {
+    this.dialog.closeAll();
+  }
 }
 
 @Component({
@@ -196,7 +203,37 @@ export class EditClassDialog {
   }
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    console.log("imagem url", data)
+    console.log("imagem url", this.data.image);
+    this.formAddClass.controls['nameClass'].setValue(this.data.title);
+    this.formAddClass.controls['textClass'].setValue(this.data.text);
+    this.formAddClass.controls['imageClass'].setValue(this.data.image);
+    if(this.data.image) {
+      this.convertData64ToImage(this.data.image)
+    }
+  }
+
+  convertData64ToImage(image64: string) {
+    // Get the base64-encoded image from some source (e.g. an API response)
+    const base64Image = image64;
+
+    // Extract the data portion of the base64-encoded string
+    const data = base64Image.split(',')[1];
+
+    // Decode the base64-encoded data into a binary string
+    const binaryString =  window.atob(data);
+
+    // Convert the binary string into an ArrayBuffer
+    const arrayBuffer = new ArrayBuffer(binaryString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < binaryString.length; i++) {
+      uint8Array[i] = binaryString.charCodeAt(i);
+    }
+
+    // Create a blob from the ArrayBuffer
+    const blob = new Blob([arrayBuffer], { type: 'image/png' });
+
+    // Create a new File object from the blob
+    this.files[0] = new File([blob], 'image.png', { type: 'image/png' });
   }
 
   chooseTypeOfClass(type: any) {
@@ -222,6 +259,7 @@ export class EditClassDialog {
       // reader.readAsDataURL(this.imageToUpload);
       console.log("e agora??", reader.readAsDataURL(this.imageToUpload))
       reader.onload = () => this.imageResult = reader.result;
+      console.log("IMAGE LOAD É ESTA ", this.imageResult)
       // this.files.push(...event.addedFiles);
     }
   }
