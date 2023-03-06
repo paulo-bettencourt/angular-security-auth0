@@ -1,99 +1,55 @@
-<!--<div  class="classroom-container">-->
-<!--  <h2>Select the type of class that you would like to add</h2>-->
-<!--  <form action="">-->
-<!--    <div class="container-center">-->
-<!--      <div class="new-class-choice">-->
-<!--        <input type="radio" name="typeOfClass" value="text" (click)="chooseTypeOfClass('text')"> <label for="html" class="classroom-label">Text</label>-->
-<!--      </div>-->
-<!--      <div class="new-class-choice">-->
-<!--        <input type="radio" name="typeOfClass" value="file" (click)="chooseTypeOfClass('file')"><label for="html" class="classroom-label">Files</label>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </form>-->
+<div class="edit-class-dialog">
+  <div  class="classroom-container">
+    <h2>Fügen Sie eine neue Deutschklasse hinzu</h2>
 
-<!--  <div [ngSwitch]="typeOfClass">-->
+    <form [formGroup]="formAddClass">
+      <input type="text" formControlName="title" placeholder="Class summary" formControlName="nameClass">
 
-<!--    <div *ngSwitchCase="'text'">-->
-<!--      <small><i>Both text and image fields are required</i></small>-->
-<!--      <form [formGroup]="formAddClass">-->
-<!--        <input type="text" formControlName="title" placeholder="Add your class title here" formControlName="nameClass">-->
-<!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
+      <!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
 
-<!--        <label class="radio-button-option">-->
-<!--          <label for="file-upload" class="custom-file-upload">-->
-<!--            <i class="fa fa-cloud-upload"></i> Click to add an image-->
-<!--          </label>-->
-<!--          <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>-->
-<!--        </label>-->
-<!--        {{nameOfImage}}-->
-<!--        <button (click)="submitText()">Submit</button>-->
-<!--      </form>-->
-<!--    </div>-->
-
-<!--    <div *ngSwitchCase="'file'">-->
-<!--      <small><i>PDF, Excel and PowerPoint files only</i></small>-->
-<!--      <p></p>-->
-<!--      <label class="radio-button-option">-->
-<!--        <label for="file-upload" class="custom-file-upload">-->
-<!--          <i class="fa fa-cloud-upload"></i> Click to add a file-->
-<!--        </label>-->
-<!--        {{nameOfFile}}-->
-<!--        <input  id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>-->
-<!--      </label>-->
-<!--      <button (click)="submitFile()">Submit</button>-->
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
+      <quill-editor
+        #editor
+        class="content-editor"
+        [placeholder]="''"
+        [modules]="quillConfiguration"
+        formControlName="textClass"
+      >
+      </quill-editor>
+      <!--        <label class="radio-button-option">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fa fa-cloud-upload"></i> Click to add an image
+                </label>
+                <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
+              </label>
+              {{nameOfImage}}-->
+      <p></p>
+      <ngx-dropzone (change)="handleImageInput($event)" accept="image/*" [maxFileSize]="2000000" #imageUploadDropzone [multiple]="false">
+        <ngx-dropzone-label>Drop one image per class (max file: 2mb)</ngx-dropzone-label>
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+      </ngx-dropzone>
 
 
-<div  class="classroom-container">
-  <h2>Fügen Sie eine neue Deutschklasse hinzu</h2>
+      <!--       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>-->
 
-   <form [formGroup]="formAddClass">
-        <input type="text" formControlName="title" placeholder="Class summary" formControlName="nameClass">
+    </form>
 
-<!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
-
-     <quill-editor
-       #editor
-       class="content-editor"
-       [placeholder]="''"
-       [modules]="quillConfiguration"
-       formControlName="textClass"
-     >
-     </quill-editor>
-<!--        <label class="radio-button-option">
-          <label for="file-upload" class="custom-file-upload">
-            <i class="fa fa-cloud-upload"></i> Click to add an image
+    <!--      <p></p>
+          <label class="radio-button-option">
+            <label for="file-upload" class="custom-file-upload">
+              <i class="fa fa-cloud-upload"></i> Click to add a file <i>(PDF, Excel and PowerPoint files only)</i>
+            </label>
+            {{nameOfFile}}
+            <input  type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
           </label>
-          <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
-        </label>
-        {{nameOfImage}}-->
-    <p></p>
-     <ngx-dropzone (change)="handleImageInput($event)" accept="image/*" [maxFileSize]="2000000" #imageUploadDropzone [multiple]="false">
-       <ngx-dropzone-label>Drop one image per class (max file: 2mb)</ngx-dropzone-label>
-       <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-       </ngx-dropzone-image-preview>
-     </ngx-dropzone>
-
-
-<!--       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>-->
-
-      </form>
-
-<!--      <p></p>
-      <label class="radio-button-option">
-        <label for="file-upload" class="custom-file-upload">
-          <i class="fa fa-cloud-upload"></i> Click to add a file <i>(PDF, Excel and PowerPoint files only)</i>
-        </label>
-        {{nameOfFile}}
-        <input  type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
-      </label>
-      <button (click)="submitGermanClass()">Submit</button>-->
+          <button (click)="submitGermanClass()">Submit</button>-->
     <input id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
 
-  <button (click)="submitGermanClass()">Submit</button>
-    </div>
+    <button (click)="submitGermanClass()">Submit</button>
+    <p></p>
+  </div>
+</div>
+
+
 

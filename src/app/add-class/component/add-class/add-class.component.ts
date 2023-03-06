@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import Quill from "quill";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-class',
@@ -37,7 +38,7 @@ export class AddClassComponent {
     ],
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>) {
   }
 
   chooseTypeOfClass(type: any) {
