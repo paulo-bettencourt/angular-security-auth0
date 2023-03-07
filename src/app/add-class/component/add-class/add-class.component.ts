@@ -3,7 +3,8 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import Quill from "quill";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {reduxGermanService} from "../../../services/ngrx-german.service";
 
 @Component({
   selector: 'app-add-class',
@@ -38,7 +39,7 @@ export class AddClassComponent {
     ],
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>, public dialog: MatDialog, public reduxService: reduxGermanService) {
   }
 
   chooseTypeOfClass(type: any) {
@@ -144,9 +145,12 @@ export class AddClassComponent {
         author: localStorage.getItem('BringUsername')
       }
 
-      this.authService.uploadText(dataObject).subscribe(data => {
-        this.router.navigate(['classroom'])
-      })
+      this.reduxService.add(dataObject);
+
+
+      // this.authService.uploadText(dataObject).subscribe(data => {
+      //   this.dialog.closeAll();
+      // })
 
 
     })
@@ -172,10 +176,11 @@ export class AddClassComponent {
         author: localStorage.getItem('BringUsername')
       }
 
-      this.authService.uploadText(dataObject).subscribe(data => {
-        this.router.navigate(['classroom'])
-      })
+      // this.authService.uploadText(dataObject).subscribe(data => {
+      //   this.dialog.closeAll();
+      // })
 
+      this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
 
     })
   }
@@ -191,9 +196,11 @@ export class AddClassComponent {
       author: localStorage.getItem('BringUsername')
     }
 
-    this.authService.uploadText(dataObject).subscribe(data => {
-      this.router.navigate(['classroom'])
-    })
+    // this.authService.uploadText(dataObject).subscribe(data => {
+    //   this.dialog.closeAll();
+    // })
+
+    this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
   }
 
   uploadTextOnly(formValue: any) {
@@ -207,9 +214,10 @@ export class AddClassComponent {
           author: localStorage.getItem('BringUsername')
         }
 
-        this.authService.uploadText(dataObject).subscribe(data => {
-          this.router.navigate(['classroom'])
-        })
+        // this.authService.uploadText(dataObject).subscribe(data => {
+        //   this.dialog.closeAll();
+        // })
+    this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
   }
 
 
