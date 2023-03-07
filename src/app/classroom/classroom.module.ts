@@ -4,7 +4,6 @@ import {
   ClassroomComponent,
   DeleteClassDialog,
   DialogDataExampleDialog,
-  EditClassDialog
 } from './component/classroom/classroom.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -20,6 +19,7 @@ import {QuillModule} from "ngx-quill";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import {RouterModule} from "@angular/router";
 import {MatButtonModule} from '@angular/material/button';
+import {EditClassDialog} from "./component/classroom/edit-class-dialog.component";
 
 
 @NgModule({
