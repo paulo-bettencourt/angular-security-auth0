@@ -47,23 +47,19 @@ export class AddClassComponent {
   }
 
   handleFileInput(files: any) {
-    console.log("fileeeeee")
     this.nameOfFile = files.target.files[0].name;
     this.fileToUpload = files.target.files[0];
   }
 
   handleImageInput(files: any) {
-    console.log("FILES ", files)
     const reader = new FileReader();
     // this.nameOfImage = files.target.files[0].name;
     this.imageToUpload = files.addedFiles[0];
-    console.log("FILES ", this.imageToUpload)
     // this.files.push(...files.addedFiles)
     this.files[0] = this.imageToUpload;
 
     if (this.imageToUpload) {
-      // reader.readAsDataURL(this.imageToUpload);
-      console.log("e agora??", reader.readAsDataURL(this.imageToUpload))
+      reader.readAsDataURL(this.imageToUpload);
       reader.onload = () => this.imageResult = reader.result;
       // this.files.push(...event.addedFiles);
     }
@@ -99,9 +95,6 @@ export class AddClassComponent {
   submitGermanClass() {
 
     const formValue = this.formAddClass.value;
-    console.log("form value ", formValue)
-    console.log("image value ", this.imageResult)
-    console.log("file value ", this.fileToUpload)
 
     if(this.imageResult && this.fileToUpload) {
       this.uploadImageAndFile(formValue, this.imageResult, this.fileToUpload)
@@ -129,8 +122,6 @@ export class AddClassComponent {
     //   this.router.navigate(['classroom'])
     // })
 
-    console.log("FUNÇÃO uploadImageAndFile -> ")
-
     this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
 
       const fileLocation = data.location
@@ -154,6 +145,8 @@ export class AddClassComponent {
 
 
     })
+
+    this.dialog.closeAll()
 
 
 
