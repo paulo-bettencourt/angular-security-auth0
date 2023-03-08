@@ -33,7 +33,6 @@ export class CanActivateToken implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
-    console.log("guard")
     return this.permissions.canActivate();
   }
 }

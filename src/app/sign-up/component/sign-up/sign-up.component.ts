@@ -20,6 +20,7 @@ export class SignUpComponent {
   });
   data!: User;
   isLoading = false;
+  isError = false;
 
   constructor(private reduxService: reduxGermanService, private fb: FormBuilder, private authService: AuthService, private router: Router, public dialog: MatDialog) {}
 
@@ -40,9 +41,16 @@ export class SignUpComponent {
         login: login,
         password: password
       }
-      this.authService.signup(this.data).subscribe(data => {
-        localStorage.setItem('BringUsername',this.getNameFromEmail(login))
-        this.router.navigate(['otp'])
+      this.authService.signup(this.data).subscribe({
+        next: () => {
+          localStorage.setItem('BringUsername',this.getNameFromEmail(login))
+          this.router.navigate(['otp'])
+        },
+        error: (err: any) => {
+          console.log('Error: ', err);
+          this.isError = true;
+          this.isLoading = false;
+        }
       })
     }
   }

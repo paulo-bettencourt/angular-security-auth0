@@ -78,7 +78,6 @@ export class AuthService {
   }
 
   getJwtToken(token: any) {
-    console.log("token ------> ", token)
     return this.http.post(this.apiUrl + `get-jwt-token`, {token: token})
   }
 

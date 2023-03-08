@@ -16,6 +16,9 @@
     <div class="field-message" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
       Your must insert a password.
     </div>
+    <div class="field-message" *ngIf="isError">
+      E-mail is already registered on our database.
+    </div>
   </form>
 </div>
 

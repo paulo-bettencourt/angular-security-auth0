@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
 import {BehaviorSubject, Observable} from "rxjs";
+import {AuthNgRxService} from "../../../services/auth-ngrx-service";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent {
   errorMessageBoolean = false;
   errorMessageText = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent, private reduxService: reduxGermanService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent) {}
 
   submit() {
     const buttonDisabled = document.getElementById('submitButtonLogin') as HTMLInputElement
