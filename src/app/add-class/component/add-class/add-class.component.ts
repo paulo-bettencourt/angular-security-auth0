@@ -33,14 +33,12 @@ export class AddClassComponent {
   quillConfiguration = {
     toolbar: [
       ['bold', 'italic', 'underline'],
-      // [{ list: 'ordered' }, { list: 'bullet' }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['link'],
     ],
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>, public dialog: MatDialog, public reduxService: reduxGermanService) {
-  }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>, public dialog: MatDialog, public reduxService: reduxGermanService) {}
 
   chooseTypeOfClass(type: any) {
     this.typeOfClass = type;
@@ -53,47 +51,16 @@ export class AddClassComponent {
 
   handleImageInput(files: any) {
     const reader = new FileReader();
-    // this.nameOfImage = files.target.files[0].name;
     this.imageToUpload = files.addedFiles[0];
-    // this.files.push(...files.addedFiles)
     this.files[0] = this.imageToUpload;
 
     if (this.imageToUpload) {
       reader.readAsDataURL(this.imageToUpload);
       reader.onload = () => this.imageResult = reader.result;
-      // this.files.push(...event.addedFiles);
     }
   }
 
-  // submitText() {
-  //   const formValue = this.formAddClass.value;
-  //
-  //   if (!formValue.nameClass || !formValue.textClass || !this.imageResult) {
-  //     alert("Please fill all the forms")
-  //   } else {
-  //     const dataObject = {
-  //       titleClass: formValue.nameClass,
-  //       textClass: formValue.textClass,
-  //       imageClass: this.imageResult,
-  //       author: localStorage.getItem('BringUsername')
-  //     }
-  //
-  //     this.authService.uploadText(dataObject).subscribe(data => {
-  //       this.router.navigate(['classroom'])
-  //     })
-  //   }
-  // }
-  //
-  // submitFile() {
-  //   if (this.fileToUpload) {
-  //     this.authService.uploadFile(this.fileToUpload).subscribe(data => {
-  //       this.router.navigate(['classroom'])
-  //     })
-  //   }
-  // }
-
   submitGermanClass() {
-
     const formValue = this.formAddClass.value;
 
     if(this.imageResult && this.fileToUpload) {
@@ -108,26 +75,8 @@ export class AddClassComponent {
   }
 
   uploadImageAndFile(formValue: any, imageToUpload: any, fileToUpload: any) {
-    // const dataObject = {
-    //   titleClass: formValue.nameClass,
-    //   textClass: formValue.textClass,
-    //   imageClass: imageToUpload,
-    //   author: localStorage.getItem('BringUsername')
-    // }
-    //
-    // this.authService.uploadText(dataObject).subscribe(data => {
-    //   this.router.navigate(['classroom'])
-    // })
-    // this.authService.uploadFile(fileToUpload).subscribe(data => {
-    //   this.router.navigate(['classroom'])
-    // })
-
     this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-
       const fileLocation = data.location
-
-      console.log("DATA DO AWS ", data.location)
-
       const dataObject = {
         titleClass: formValue.nameClass,
         textClass: formValue.textClass,
@@ -135,86 +84,42 @@ export class AddClassComponent {
         fileClass: fileLocation,
         author: localStorage.getItem('BringUsername')
       }
-
       this.reduxService.add(dataObject);
-
-
-      // this.authService.uploadText(dataObject).subscribe(data => {
-      //   this.dialog.closeAll();
-      // })
-
-
     })
-
     this.dialog.closeAll()
-
-
-
   }
 
   uploadFileOnly(formValue: any, fileToUpload: any) {
-
-    console.log("FUNÇÃO uploadFileOnly -> ")
-
     this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-
       const fileLocation = data.location
-
-      console.log("DATA DO AWS ", data.location)
-
       const dataObject = {
         titleClass: formValue.nameClass,
         textClass: formValue.textClass,
         fileClass: fileLocation,
         author: localStorage.getItem('BringUsername')
       }
-
-      // this.authService.uploadText(dataObject).subscribe(data => {
-      //   this.dialog.closeAll();
-      // })
-
       this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
-
     })
   }
 
   uploadImageOnly(formValue: any, imageToUpload: any) {
-
-    console.log("FUNÇÃO uploadImageOnly -> ", imageToUpload)
-
     const dataObject = {
       titleClass: formValue.nameClass,
       textClass: formValue.textClass,
       imageClass: imageToUpload,
       author: localStorage.getItem('BringUsername')
     }
-
-    // this.authService.uploadText(dataObject).subscribe(data => {
-    //   this.dialog.closeAll();
-    // })
-
     this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
   }
 
   uploadTextOnly(formValue: any) {
-
-    console.log("FUNÇÃO uploadTextOnly -> ")
-
-
     const dataObject = {
           titleClass: formValue.nameClass,
           textClass: formValue.textClass,
           author: localStorage.getItem('BringUsername')
         }
-
-        // this.authService.uploadText(dataObject).subscribe(data => {
-        //   this.dialog.closeAll();
-        // })
     this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
   }
-
-
-
 
   onSelect(event: any) {
     console.log(event);
@@ -226,5 +131,4 @@ export class AddClassComponent {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-
 }

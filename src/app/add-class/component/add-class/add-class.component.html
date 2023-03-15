@@ -1,12 +1,8 @@
 <div class="edit-class-dialog">
   <div  class="classroom-container">
     <h2>Fügen Sie eine neue Deutschklasse hinzu</h2>
-
     <form [formGroup]="formAddClass">
       <input type="text" formControlName="title" placeholder="Class summary" formControlName="nameClass">
-
-      <!--        <textarea placeholder="Add your class notes here" rows="4" cols="50" formControlName="textClass"></textarea>-->
-
       <quill-editor
         #editor
         class="content-editor"
@@ -15,13 +11,6 @@
         formControlName="textClass"
       >
       </quill-editor>
-      <!--        <label class="radio-button-option">
-                <label for="file-upload" class="custom-file-upload">
-                  <i class="fa fa-cloud-upload"></i> Click to add an image
-                </label>
-                <input id="file-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*"/>
-              </label>
-              {{nameOfImage}}-->
       <p></p>
       <ngx-dropzone (change)="handleImageInput($event)" accept="image/*" [maxFileSize]="2000000" #imageUploadDropzone [multiple]="false">
         <ngx-dropzone-label>Drop one image per class (max file: 2mb)</ngx-dropzone-label>
@@ -29,23 +18,9 @@
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-image-preview>
       </ngx-dropzone>
-
-
-      <!--       <input id="image-upload" name="image" type="file" (change)="handleImageInput($event)" formControlName="imageClass" accept="image/*" value="hi"/>-->
-
     </form>
-
-    <!--      <p></p>
-          <label class="radio-button-option">
-            <label for="file-upload" class="custom-file-upload">
-              <i class="fa fa-cloud-upload"></i> Click to add a file <i>(PDF, Excel and PowerPoint files only)</i>
-            </label>
-            {{nameOfFile}}
-            <input  type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
-          </label>
-          <button (click)="submitGermanClass()">Submit</button>-->
+    <button (click)="submitGermanClass()">Submit</button>
     <input id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
-
     <button (click)="submitGermanClass()">Submit</button>
     <p></p>
   </div>
