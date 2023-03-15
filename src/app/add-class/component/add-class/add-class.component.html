@@ -19,9 +19,11 @@
         </ngx-dropzone-image-preview>
       </ngx-dropzone>
     </form>
-    <button (click)="submitGermanClass()">Submit</button>
     <input id="file-upload" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx"/>
+    <div class="group-buttons">
     <button (click)="submitGermanClass()">Submit</button>
+    <button (click)="cancelUpdate()" id="cancel-button-edit">Cancel</button>
+    </div>
     <p></p>
   </div>
 </div>

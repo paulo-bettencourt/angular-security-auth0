@@ -131,4 +131,8 @@ export class AddClassComponent {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
+  cancelUpdate() {
+    this.dialog.closeAll();
+  }
 }
