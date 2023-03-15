@@ -92,3 +92,16 @@ quill-editor {
 .edit-class-dialog {
   padding: 3%;
 }
+
+#cancel-button-edit {
+  background-color: lightgrey;
+  color: black;
+}
+
+.group-buttons {
+  display: flex;
+
+  button {
+    margin: 1%;
+  }
+}
