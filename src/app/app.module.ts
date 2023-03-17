@@ -19,6 +19,7 @@ import {reduxGermanService} from "./services/ngrx-german.service";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FooterModule} from "./footer/footer.module";
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
@@ -31,6 +32,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   ],
   imports: [
     MatButtonModule,
+    FooterModule,
     BrowserModule,
     AppRoutingModule,
     LoginModule,
