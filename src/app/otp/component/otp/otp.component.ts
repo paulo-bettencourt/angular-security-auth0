@@ -50,11 +50,9 @@ export class OtpComponent implements AfterViewInit{
         }
       })
     }
-
   }
 
   ngAfterViewInit(): void {
     this.buttonDisabled = document.getElementById('submitOTP') as HTMLInputElement;
   }
-
 }

@@ -35,17 +35,15 @@ export class MainPageComponent {
     this.isLogged = false;
   }
 
-  addNewClass() {
-  }
+  addNewClass() {}
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AddClassComponent, {
       height: '95vh',
       width: '60%',
+      disableClose: true,
       enterAnimationDuration,
       exitAnimationDuration,
     });
-
   }
-
 }

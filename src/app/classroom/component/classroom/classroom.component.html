@@ -3,31 +3,6 @@
   <div *ngIf="loading$ | async" class="spinner-container">
     <mat-spinner color="warn"></mat-spinner>
   </div>
-
-<!--  <div *ngFor="let class of allClasses$ | async; let i = index">-->
-<!--    <mat-accordion>-->
-<!--      <mat-expansion-panel hideToggle>-->
-<!--        <mat-expansion-panel-header>-->
-<!--          <mat-panel-title #lessonName>-->
-<!--            Class Number #{{i}}-->
-<!--          </mat-panel-title>-->
-<!--          <mat-panel-description>-->
-<!--            {{class.title}}-->
-<!--          </mat-panel-description>-->
-<!--        </mat-expansion-panel-header>-->
-<!--        <hr>-->
-<!--        <div [innerHTML]="class.text"></div>-->
-<!--        <br>-->
-<!--        <img width="100%" height="250px" *ngIf="class.image" src="{{class.image}}" alt="Red dot" class="img-flex-thumb" (click)="debugBase64(class.image)"/>-->
-<!--        <hr>-->
-<!--        Author: {{class.author}}-->
-<!--      </mat-expansion-panel>-->
-<!--      <mat-expansion-panel (opened)="panelOpenState = true"-->
-<!--                           (closed)="panelOpenState = false">-->
-<!--      </mat-expansion-panel>-->
-<!--    </mat-accordion>-->
-<!--  </div>-->
-
   <div class="card-material-center">
     <div *ngFor="let class of allClasses$.slice(currentPageIndex * pageSize, (currentPageIndex + 1) * pageSize)">
       <mat-accordion>
@@ -61,7 +36,6 @@
               <div *ngIf="class.file" id="file-container">Attached file: <a href="{{class.file}}">{{class.file}}</a></div>
             </mat-card-content>
           </mat-card>
-
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
@@ -69,9 +43,6 @@
       </mat-accordion>
     </div>
   </div>
-
-
-
   <mat-paginator [length]="allClasses$.length"
                  [pageSize]="pageSize"
                  (page)="currentPageIndex = $event.pageIndex"

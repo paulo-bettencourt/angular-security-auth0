@@ -1,7 +1,3 @@
-/*input[type="file"] {
-  display: none;
-}*/
-
 .custom-file-upload {
   border: 1px solid #ccc;
   display: inline-block;
@@ -82,14 +78,6 @@ mat-card-header,
   text-align: left;
 }
 
-//mat-card-header {
-//  display: flex;
-//}
-//
-//#card-display-header {
-//  display: flex;
-//}
-
 .bi-pencil-square {
   position: absolute;
   right: 8%;
@@ -107,7 +95,3 @@ mat-card-header,
   flex-direction: column;
   align-items: flex-start;
 }
-
-//mat-card {
-//  background-color: #e5e5e5;
-//}

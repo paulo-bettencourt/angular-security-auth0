@@ -1,26 +1,15 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   Inject,
   Injectable,
-  Input,
-  NgModule,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {User} from "../../../interfaces/user.interface";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {Observable, Subject} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
-import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
-import {MatSelect} from "@angular/material/select";
-import {MatTableDataSource} from "@angular/material/table";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {HttpClient} from "@angular/common/http";
-import {Class} from "../../../interfaces/class.interface";
 import {EditClassDialog} from "./edit-class-dialog.component";
 
 @Injectable()
@@ -67,7 +56,6 @@ export class ClassroomComponent implements OnInit {
     document.getElementById('summaries-button').style.backgroundColor = '#a9a9a9';
     // @ts-ignore
     document.getElementById('files-button').style.backgroundColor = '#be1e2d';
-
   }
 
   isFilesClass() {
@@ -85,11 +73,9 @@ export class ClassroomComponent implements OnInit {
         image: image,
       },
     });
-
   }
 
 //  NgRx Redux
-
   add(hero: any) {
     this.reduxService.add(hero);
   }
@@ -106,7 +92,6 @@ export class ClassroomComponent implements OnInit {
     this.reduxService.update(hero);
   }
 
-
   openDialog(id: any, title: any, text: any, image: any, file: any): void {
     this.dialog.open(EditClassDialog, {
       data: {
@@ -117,12 +102,12 @@ export class ClassroomComponent implements OnInit {
         file: file,
       },
       height: '95vh',
-      width: '60%'
+      width: '60%',
+      disableClose: true
     });
   }
 
   deleteClassById(id: any) {
-
     this.dialog.open(DeleteClassDialog, {
       data: { id: id }
     }, );
@@ -136,9 +121,7 @@ export class ClassroomComponent implements OnInit {
   styleUrls: ['./classroom.component.scss']
 })
 export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log("imagem url", data)
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
 
 @Component({
@@ -151,9 +134,7 @@ export class DeleteClassDialog {
               public data: {id: string},
               private authService: AuthService,
               private reduxService: reduxGermanService,
-              public dialog: MatDialog) {
-    console.log("imagem url", data)
-  }
+              public dialog: MatDialog) {}
 
   delete() {
     this.reduxService.delete(this.data.id);
@@ -161,20 +142,11 @@ export class DeleteClassDialog {
   }
 
   deleteClassById(id: any) {
-    alert("hi")
     this.reduxService.delete(id).subscribe({
-      next: () => console.log("sucesso"),
+      next: () => console.log(""),
       error: (err: any) => console.log("error: ", err)
     });
   };
-
-
-  //   this.authService.deleteClass(id).subscribe({
-  //     next: () => console.log("sucesso"),
-  //     error: (err: any) => console.log("error: ", err)
-  //   });
-  // }
-
 
   cancelDelete() {
     this.dialog.closeAll();
