@@ -20,75 +20,38 @@
     visibility: hidden;
   }
 
-  nav {
-    height: 10vh;
-  }
-
-  #container-hamburger {
-    display: block !important;
-  }
-
-
   .welcome-container,
   .router-outlet-container {
-
+    width: 100vw !important;
       h1 {
         font-size: 2rem;
+        text-align: center !important;
       }
-
-     width: 100vw !important;
-
    }
 
   .card-material-center {
-    margin-left: -22%;
-
+    .mat-expansion-panel-body,
     mat-panel-title {
       font-size: 20px;
     }
-
     mat-panel-description {
       display: none;
     }
-
     .mat-expansion-panel-header-title {
       justify-content: center !important;
     }
-
+    .icons-of-the-class {
+      width: 22px !important;
+      height: 22px !important;
+      margin-right: 5px;
+    }
+    .mat-mdc-card-header {
+      display: grid !important;
+      #pencil-icon {
+        right: 15%;
+      }
+    }
   }
-
-  .icons-of-the-class {
-    width: 22px !important;
-    height: 22px !important;
-    margin-right: 5px;
-  }
-
-  footer {
-    font-size: 20px
-  }
-
-  .mat-mdc-card-header {
-    display: grid !important;
-  }
-
-  #pencil-icon {
-    right: 15%;
-  }
-
-  .cdk-overlay-pane,
-  .mdc-dialog__container {
-    width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-
-  .mat-expansion-panel-body {
-    font-size: 18px;
-  }
-
-  .mat-expansion-panel-header-description {
-    display: none;
-  }
-
 }
 
 /* Smartphones (landscape) (min-width: 480px) and (max-width: 767px) and (orientation: landscape) */
