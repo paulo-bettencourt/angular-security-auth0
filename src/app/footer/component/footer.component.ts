@@ -3,8 +3,7 @@ import {ClassSignal} from "../../classroom/component/classroom/classroom.compone
 
 @Component({
   selector: 'footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
 
