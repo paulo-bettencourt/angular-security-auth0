@@ -1,0 +1,32 @@
+<div class="edit-class-dialog">
+  <div  class="classroom-container">
+    <h2>Fügen Sie eine neue Deutschklasse hinzu</h2>
+    <form [formGroup]="formAddClass">
+      <input type="text" formControlName="title" placeholder="Class summary" formControlName="nameClass">
+      <quill-editor
+        #editor
+        class="content-editor"
+        [placeholder]="''"
+        [modules]="quillConfiguration"
+        formControlName="textClass"
+      >
+      </quill-editor>
+      <p></p>
+      <ngx-dropzone (change)="handleImageInput($event)" accept="image/*" [maxFileSize]="2000000" #imageUploadDropzone [multiple]="false">
+        <ngx-dropzone-label>Drop one image per class (max file: 2mb)</ngx-dropzone-label>
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+      </ngx-dropzone>
+    </form>
+    <input id="file-upload-edit" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx" #fileInput/>
+    <div class="group-buttons">
+      <button (click)="update()">Submit</button>
+      <button (click)="cancelUpdate()" id="cancel-button-edit">Cancel</button>
+    </div>
+    <p></p>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,115 @@
+.edit-class-dialog {
+  padding: 3%;
+}
+
+classroom-container-add-class {
+  width: 50%;
+}
+
+input[type=file]{
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 15px;
+  padding: 2%;
+}
+
+input[type=file]::file-selector-button {
+  display: none;
+}
+
+#file-upload-edit {
+  color: white;
+  font-size: 0;
+}
+
+#file-upload-edit::before {
+  content: "Attach file (PDF, Excel or PowerPoint) ";
+  color: black;
+  font-size: 1rem;
+}
+
+#file-upload-edit::after {
+  content: var(--my-var);
+  color: black;
+  font-size: 1rem;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.new-class-choice {
+  display: flex;
+  float: left;
+  padding: 5%;
+}
+
+.classroom-container {
+  text-align: center;
+}
+
+.container-center {
+  display: flex;
+  justify-content: center;
+}
+
+.classroom-label {
+  margin-left: 25%;
+}
+
+ul {
+  text-align: left;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.type-of-class {
+  margin-right: 2%;
+}
+
+.img-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.img-flex-thumb {
+  padding: 5%;
+}
+
+quill-editor {
+  height: 200px !important;
+  flex: 1;
+  width: 100%;
+
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+
+}
+
+#cancel-button-edit {
+  background-color: lightgrey;
+  color: black;
+}
+
+.group-buttons {
+  display: flex;
+
+  button {
+    margin: 1%;
+  }
+}

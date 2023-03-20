@@ -8,8 +8,7 @@ import {reduxGermanService} from "../../../services/ngrx-german.service";
 
 @Component({
   selector: 'app-add-class',
-  templateUrl: './add-class.component.html',
-  styleUrls: ['./add-class.component.scss']
+  templateUrl: './add-class.component.html'
 })
 export class AddClassComponent {
 
