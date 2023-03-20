@@ -13,16 +13,21 @@ import {AuthNgRxService} from "../../../../services/auth-ngrx-service";
   selector: 'app-main-page',
   templateUrl: './main-page.component.html'
 })
-export class MainPageComponent {
+export class MainPageComponent implements AfterViewInit{
 
   isLogged: boolean = false;
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
+  isMenuBoolean: boolean = false;
   @Input() color: ThemePalette = 'warn';
 
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog, private authNgRxService: AuthNgRxService) {
     this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.detectIfWindowWasResized()
   }
 
   logout() {
@@ -46,4 +51,20 @@ export class MainPageComponent {
     });
   }
 
+  isMenu() {
+    this.isMenuBoolean = !this.isMenuBoolean;
+  }
+
+  private detectIfWindowWasResized() {
+    const menuItems = document.getElementsByClassName('menu-list-items-nav');
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    if(menuItems) {
+      window.addEventListener('resize', () => {
+        if(width > 767) {
+          this.isMenuBoolean = false;
+        }
+      });
+    }
+  }
 }
