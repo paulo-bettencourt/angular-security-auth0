@@ -20,9 +20,13 @@
     visibility: hidden;
   }
 
+  .welcome-container {
+    width: 90vw !important;
+  }
+
   .welcome-container,
   .router-outlet-container {
-    width: 100vw !important;
+    width: 100% !important;
       h1 {
         font-size: 2rem;
         text-align: center !important;
