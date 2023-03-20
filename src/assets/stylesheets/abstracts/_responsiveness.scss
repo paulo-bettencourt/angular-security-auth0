@@ -44,11 +44,15 @@
     margin-left: -22%;
 
     mat-panel-title {
-      font-size: 14px;
+      font-size: 20px;
     }
 
     mat-panel-description {
-      visibility: hidden;
+      display: none;
+    }
+
+    .mat-expansion-panel-header-title {
+      justify-content: center !important;
     }
 
   }
@@ -60,7 +64,7 @@
   }
 
   footer {
-    font-size: 14px
+    font-size: 20px
   }
 
   .mat-mdc-card-header {
@@ -69,6 +73,20 @@
 
   #pencil-icon {
     right: 15%;
+  }
+
+  .cdk-overlay-pane,
+  .mdc-dialog__container {
+    width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  .mat-expansion-panel-body {
+    font-size: 18px;
+  }
+
+  .mat-expansion-panel-header-description {
+    display: none;
   }
 
 }
