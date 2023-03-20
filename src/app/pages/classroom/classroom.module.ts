@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ClassroomComponent,
-  DeleteClassDialog,
   DialogDataExampleDialog,
 } from './component/classroom/classroom.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -19,15 +18,11 @@ import {QuillModule} from "ngx-quill";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import {RouterModule} from "@angular/router";
 import {MatButtonModule} from '@angular/material/button';
-import {EditClassDialog} from "./component/classroom/edit-class-dialog.component";
-
 
 @NgModule({
   declarations: [
     ClassroomComponent,
-    DialogDataExampleDialog,
-    EditClassDialog,
-    DeleteClassDialog
+    DialogDataExampleDialog
   ],
   imports: [
     CommonModule,

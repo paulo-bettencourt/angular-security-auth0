@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, Validator, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
-import {User} from "../../../interfaces/user.interface";
+import {AuthService} from "../../../../services/auth.service";
+import {User} from "../../../../interfaces/user.interface";
 import {Router} from "@angular/router";
-import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
-import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {MainPageComponent} from "../../../../main-page/component/main-page/main-page.component";
+import {reduxGermanService} from "../../../../services/ngrx-german.service";
 import {BehaviorSubject, Observable} from "rxjs";
-import {AuthNgRxService} from "../../../services/auth-ngrx-service";
+import {AuthNgRxService} from "../../../../services/auth-ngrx-service";
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 

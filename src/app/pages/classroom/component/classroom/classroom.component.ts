@@ -10,7 +10,8 @@ import {Router} from "@angular/router";
 import {Observable, Subject} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {EditClassDialog} from "./edit-class-dialog.component";
+import {EditClassDialog} from "../../../pages/edit-class/component/edit-class-dialog.component";
+import {DeleteClassDialog} from "../../../pages/delete-class/component/delete-class.component";
 
 export interface ClassSignal {
   title: string;
@@ -19,8 +20,7 @@ export interface ClassSignal {
 @Injectable()
 @Component({
   selector: 'app-classroom',
-  templateUrl: './classroom.component.html',
-  styleUrls: ['./classroom.component.scss']
+  templateUrl: './classroom.component.html'
 })
 export class ClassroomComponent implements OnInit {
 
@@ -128,33 +128,32 @@ export class ClassroomComponent implements OnInit {
 export class DialogDataExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
-
-@Component({
-  selector: 'delete-class-dialog',
-  templateUrl: 'delete-class-dialog.html',
-  styleUrls: ['./delete-class-dialog.scss']
-})
-export class DeleteClassDialog {
-  constructor(@Inject(MAT_DIALOG_DATA)
-              public data: {id: string},
-              private authService: AuthService,
-              private reduxService: reduxGermanService,
-              public dialog: MatDialog) {}
-
-  delete() {
-    this.reduxService.delete(this.data.id);
-    this.dialog.closeAll();
-  }
-
-  deleteClassById(id: any) {
-    this.reduxService.delete(id).subscribe({
-      next: () => console.log(""),
-      error: (err: any) => console.log("error: ", err)
-    });
-  };
-
-  cancelDelete() {
-    this.dialog.closeAll();
-  }
-}
-
+//
+// @Component({
+//   selector: 'delete-class-dialog',
+//   templateUrl: '../../../delete-class/component/delete-class-dialog.html'
+// })
+// export class DeleteClassDialog {
+//   constructor(@Inject(MAT_DIALOG_DATA)
+//               public data: {id: string},
+//               private authService: AuthService,
+//               private reduxService: reduxGermanService,
+//               public dialog: MatDialog) {}
+//
+//   delete() {
+//     this.reduxService.delete(this.data.id);
+//     this.dialog.closeAll();
+//   }
+//
+//   deleteClassById(id: any) {
+//     this.reduxService.delete(id).subscribe({
+//       next: () => console.log(""),
+//       error: (err: any) => console.log("error: ", err)
+//     });
+//   };
+//
+//   cancelDelete() {
+//     this.dialog.closeAll();
+//   }
+// }
+//
