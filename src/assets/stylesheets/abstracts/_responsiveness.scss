@@ -16,8 +16,27 @@
 /* Smartphones (portrait) (max-width: 767px) */
 @media screen and (max-width: 767px) {
   /* CSS rules for smartphones in portrait orientation go here */
+
   #list-of-links {
-    visibility: hidden;
+
+    #container-hamburger {
+      display: block !important;
+      float: right;
+      margin-right: 3%;
+    }
+
+    a {
+      visibility: hidden;
+    }
+  }
+
+  .logo-bring {
+    height: 35px !important;
+    margin: 20%;
+  }
+
+  nav {
+  height: 8vh;
   }
 
   .welcome-container {
@@ -56,6 +75,8 @@
       }
     }
   }
+
+
 }
 
 /* Smartphones (landscape) (min-width: 480px) and (max-width: 767px) and (orientation: landscape) */
