@@ -1,0 +1,24 @@
+/* Desktops and laptops (min-width: 1200px) */
+@media screen and (min-width: 1200px) {
+  /* CSS rules for desktops and laptops go here */
+}
+
+/* Tablets (portrait) (min-width: 768px) and (max-width: 991px) */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  /* CSS rules for tablets in portrait orientation go here */
+}
+
+/* Tablets (landscape) (min-width: 992px) and (max-width: 1199px) */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  /* CSS rules for tablets in landscape orientation go here */
+}
+
+/* Smartphones (portrait) (max-width: 767px) */
+@media screen and (max-width: 767px) {
+  /* CSS rules for smartphones in portrait orientation go here */
+}
+
+/* Smartphones (landscape) (min-width: 480px) and (max-width: 767px) and (orientation: landscape) */
+@media screen and (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+  /* CSS rules for smartphones in landscape orientation go here */
+}
