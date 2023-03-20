@@ -7,8 +7,7 @@ import {MainPageComponent} from "../../../main-page/component/main-page/main-pag
 
 @Component({
   selector: 'app-otp',
-  templateUrl: './otp.component.html',
-  styleUrls: ['./otp.component.scss']
+  templateUrl: './otp.component.html'
 })
 export class OtpComponent implements AfterViewInit{
 

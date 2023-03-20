@@ -1,5 +1,5 @@
 import {Component, signal} from '@angular/core';
-import {ClassSignal} from "../../pages/classroom/component/classroom/classroom.component";
+import {ClassSignal} from "../../../pages/classroom/component/classroom/classroom.component";
 
 @Component({
   selector: 'footer',

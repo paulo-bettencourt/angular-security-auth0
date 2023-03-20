@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MainPageComponent } from './component/main-page/main-page.component';
 import {RouterModule, Routes} from "@angular/router";
 import {WelcomeComponent} from "../welcome/component/welcome/welcome.component";
-import {LoginComponent} from "../login/component/login/login.component";
-import {SignUpComponent} from "../sign-up/component/sign-up/sign-up.component";
-import {ClassroomComponent} from "../classroom/component/classroom/classroom.component";
-import {OtpComponent} from "../otp/component/otp/otp.component";
-import { CanActivateToken } from '../guards/token.guard'
+import {LoginComponent} from "../../pages/login/component/login/login.component";
+import {SignUpComponent} from "../../pages/sign-up/component/sign-up/sign-up.component";
+import {ClassroomComponent} from "../../pages/classroom/component/classroom/classroom.component";
+import {OtpComponent} from "../../pages/otp/component/otp/otp.component";
+import { CanActivateToken } from '../../guards/token.guard'
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {AuthInterceptor} from "../interceptors/auth.interceptor";
-import {AddClassComponent} from "../add-class/component/add-class/add-class.component";
+import {AuthInterceptor} from "../../interceptors/auth.interceptor";
+import {AddClassComponent} from "../../pages/crud-class/add/component/add-class/add-class.component";
 import {MatTabsModule} from '@angular/material/tabs';
 
 
@@ -40,7 +40,7 @@ const routes: Routes = [{
       component: OtpComponent
     },
     {
-      path: 'add-class',
+      path: 'add',
       component: AddClassComponent
     }
   ]

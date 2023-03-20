@@ -1,18 +1,17 @@
 import {AfterViewInit, Component, HostListener, Input} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from "../../../../services/auth.service";
 import {BehaviorSubject, Observable} from "rxjs";
-import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {reduxGermanService} from "../../../../services/ngrx-german.service";
 import { EntityCollectionService } from '@ngrx/data';
 import {ThemePalette} from "@angular/material/core";
 import {MatDialog} from "@angular/material/dialog";
-import {AddClassComponent} from "../../../add-class/component/add-class/add-class.component";
-import {AuthNgRxService} from "../../../services/auth-ngrx-service";
+import {AddClassComponent} from "../../../../pages/crud-class/add/component/add-class/add-class.component";
+import {AuthNgRxService} from "../../../../services/auth-ngrx-service";
 
 @Component({
   selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  templateUrl: './main-page.component.html'
 })
 export class MainPageComponent {
 
