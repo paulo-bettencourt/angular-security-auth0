@@ -28,16 +28,48 @@
     display: block !important;
   }
 
-  .card-material-center,
+
   .welcome-container,
   .router-outlet-container {
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
 
      width: 100vw !important;
+
    }
+
+  .card-material-center {
+    margin-left: -22%;
+
+    mat-panel-title {
+      font-size: 14px;
+    }
+
+    mat-panel-description {
+      visibility: hidden;
+    }
+
+  }
+
+  .icons-of-the-class {
+    width: 22px !important;
+    height: 22px !important;
+    margin-right: 5px;
+  }
+
+  footer {
+    font-size: 14px
+  }
+
+  .mat-mdc-card-header {
+    display: grid !important;
+  }
+
+  #pencil-icon {
+    right: 15%;
+  }
 
 }
 
