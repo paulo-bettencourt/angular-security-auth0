@@ -5,13 +5,13 @@ import {
   OnInit, signal
 } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from "../../../../services/auth.service";
 import {Router} from "@angular/router";
 import {Observable, Subject} from "rxjs";
-import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {reduxGermanService} from "../../../../services/ngrx-german.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {EditClassDialog} from "../../../pages/edit-class/component/edit-class-dialog.component";
-import {DeleteClassDialog} from "../../../pages/delete-class/component/delete-class.component";
+import {EditClassDialog} from "../../../crud-class/edit/component/edit-class-dialog.component";
+import {DeleteClassDialog} from "../../../crud-class/delete/component/delete-class.component";
 
 export interface ClassSignal {
   title: string;
@@ -130,8 +130,8 @@ export class DialogDataExampleDialog {
 }
 //
 // @Component({
-//   selector: 'delete-class-dialog',
-//   templateUrl: '../../../delete-class/component/delete-class-dialog.html'
+//   selector: 'delete-dialog',
+//   templateUrl: '../../../delete/component/delete-dialog.html'
 // })
 // export class DeleteClassDialog {
 //   constructor(@Inject(MAT_DIALOG_DATA)

@@ -7,7 +7,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {reduxGermanService} from "../../../../../services/ngrx-german.service";
 
 @Component({
-  selector: 'app-add-class',
+  selector: 'app-add',
   templateUrl: './add-class.component.html'
 })
 export class AddClassComponent {

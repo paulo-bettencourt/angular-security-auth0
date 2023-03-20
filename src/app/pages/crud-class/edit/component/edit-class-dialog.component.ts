@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {reduxGermanService} from "../../../../services/ngrx-german.service";
 
 @Component({
-  selector: 'edit-class-dialog',
+  selector: 'edit-dialog',
   templateUrl: './edit-class-dialog.html'
 })
 export class EditClassDialog implements AfterViewInit{

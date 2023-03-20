@@ -4,13 +4,13 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {LoginModule} from "./login/login.module";
+import {LoginModule} from "./pages/login/login.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {SignUpModule} from "./sign-up/sign-up.module";
-import {OtpModule} from "./otp/otp.module";
-import {ClassroomModule} from "./classroom/classroom.module";
+import {SignUpModule} from "./pages/sign-up/sign-up.module";
+import {OtpModule} from "./pages/otp/otp.module";
+import {ClassroomModule} from "./pages/classroom/classroom.module";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
-import {AddClassModule} from "./add-class/add-class.module";
+import {AddClassModule} from "./pages/crud-class/add/add-class.module";
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {entityConfig} from "./ngrx-redux/entity-metadata";
@@ -19,7 +19,8 @@ import {reduxGermanService} from "./services/ngrx-german.service";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FooterModule} from "./footer/footer.module";
+import {FooterModule} from "./layout/footer/footer.module";
+import {EditClassModuleModule} from "./pages/crud-class/edit/edit-class.module";
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
@@ -38,8 +39,8 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     LoginModule,
     HttpClientModule,
     SignUpModule,
-    OtpModule,
     ClassroomModule,
+    EditClassModuleModule,
     AddClassModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),

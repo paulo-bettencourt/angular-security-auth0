@@ -3,7 +3,8 @@
 // 1. Configuration and helpers
 @import 'abstracts/variables',
 'abstracts/functions',
-'abstracts/mixins';
+'abstracts/mixins',
+'abstracts/responsiveness';
 
 // 2. Vendors
 @import 'vendors/normalize';
@@ -19,11 +20,20 @@
 'layout/footer';
 
 // 5. Components
-@import 'components/button';
+@import 'components/button',
+'components/hamburguer-menu';
 
 // 6. Page-specific styles
-@import 'pages/home';
-@import 'pages/add-class';
+@import 'pages/home',
+'pages/add-class',
+'pages/classroom',
+'pages/delete-class-dialog',
+'pages/edit-class-dialog',
+'pages/login',
+'pages/main-page',
+'pages/otp',
+'pages/sign-up',
+'pages/welcome';
 
 // 7. Themes
 @import 'themes/default';

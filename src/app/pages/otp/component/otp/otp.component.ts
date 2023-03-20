@@ -1,9 +1,9 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {User} from "../../../interfaces/user.interface";
-import {AuthService} from "../../../services/auth.service";
+import {User} from "../../../../interfaces/user.interface";
+import {AuthService} from "../../../../services/auth.service";
 import {Router} from "@angular/router";
-import {MainPageComponent} from "../../../main-page/component/main-page/main-page.component";
+import {MainPageComponent} from "../../../../layout/main-page/component/main-page/main-page.component";
 
 @Component({
   selector: 'app-otp',

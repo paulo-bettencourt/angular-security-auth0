@@ -16,9 +16,33 @@
 /* Smartphones (portrait) (max-width: 767px) */
 @media screen and (max-width: 767px) {
   /* CSS rules for smartphones in portrait orientation go here */
+  #list-of-links {
+    visibility: hidden;
+  }
+
+  nav {
+    height: 10vh;
+  }
+
+  #container-hamburger {
+    display: block !important;
+  }
+
+  .card-material-center,
+  .welcome-container,
+  .router-outlet-container {
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+     width: 100vw !important;
+   }
+
 }
 
 /* Smartphones (landscape) (min-width: 480px) and (max-width: 767px) and (orientation: landscape) */
 @media screen and (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
   /* CSS rules for smartphones in landscape orientation go here */
+
 }
