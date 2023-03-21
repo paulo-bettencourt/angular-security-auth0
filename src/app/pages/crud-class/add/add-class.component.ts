@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../../../services/auth.service";
+import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import Quill from "quill";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {reduxGermanService} from "../../../../../services/ngrx-german.service";
+import {reduxGermanService} from "../../../services/ngrx-german.service";
 
 @Component({
   selector: 'app-add',

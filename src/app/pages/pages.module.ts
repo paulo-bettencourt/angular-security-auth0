@@ -16,6 +16,11 @@ import {RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {ClassroomComponent, DialogDataExampleDialog} from "./classroom/classroom.component";
 import {LoginComponent} from "./login/login.component";
+import {OtpComponent} from "./otp/otp.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
+import {AddClassComponent} from "./crud-class/add/add-class.component";
+import {DeleteClassDialog} from "./crud-class/delete/delete-class.component";
+import {EditClassDialog} from "./crud-class/edit/edit-class-dialog.component";
 
 
 
@@ -23,7 +28,13 @@ import {LoginComponent} from "./login/login.component";
   declarations: [
     ClassroomComponent,
     DialogDataExampleDialog,
-    LoginComponent
+    LoginComponent,
+    OtpComponent,
+    SignUpComponent,
+    AddClassComponent,
+    DialogDataExampleDialog,
+    DeleteClassDialog,
+    EditClassDialog
   ],
   imports: [
     CommonModule,
@@ -43,7 +54,8 @@ import {LoginComponent} from "./login/login.component";
     NgxDropzoneModule,
     RouterModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    QuillModule.forRoot()
   ]
 })
 export class PagesModule { }

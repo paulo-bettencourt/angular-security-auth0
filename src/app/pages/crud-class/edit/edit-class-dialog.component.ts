@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from "@angular/core";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {AuthService} from "../../../../services/auth.service";
+import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {reduxGermanService} from "../../../../services/ngrx-german.service";
+import {reduxGermanService} from "../../../services/ngrx-german.service";
 
 @Component({
   selector: 'edit-dialog',

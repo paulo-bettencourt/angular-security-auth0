@@ -10,8 +10,8 @@ import {Router} from "@angular/router";
 import {Observable, Subject} from "rxjs";
 import {reduxGermanService} from "../../services/ngrx-german.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {EditClassDialog} from "../crud-class/edit/component/edit-class-dialog.component";
-import {DeleteClassDialog} from "../crud-class/delete/component/delete-class.component";
+import {EditClassDialog} from "../crud-class/edit/edit-class-dialog.component";
+import {DeleteClassDialog} from "../crud-class/delete/delete-class.component";
 
 export interface ClassSignal {
   title: string;
