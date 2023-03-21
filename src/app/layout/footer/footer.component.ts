@@ -1,5 +1,5 @@
 import {Component, signal} from '@angular/core';
-import {ClassSignal} from "../../../pages/classroom/component/classroom/classroom.component";
+import {ClassSignal} from "../../pages/classroom/list/classroom.component";
 
 @Component({
   selector: 'footer',
@@ -18,5 +18,4 @@ export class FooterComponent {
     let randomIndex = Math.floor(Math.random() * this.quotes.length);
     this.classSignals.set([{title: this.quotes[randomIndex].quote}])
   }
-
 }

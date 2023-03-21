@@ -1,13 +1,10 @@
-import {AfterViewInit, Component, HostListener, Input} from '@angular/core';
-import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
-import {AuthService} from "../../../../services/auth.service";
-import {BehaviorSubject, Observable} from "rxjs";
-import {reduxGermanService} from "../../../../services/ngrx-german.service";
-import { EntityCollectionService } from '@ngrx/data';
+import {AfterViewInit, Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {reduxGermanService} from "../../services/ngrx-german.service";
 import {ThemePalette} from "@angular/material/core";
 import {MatDialog} from "@angular/material/dialog";
-import {AddClassComponent} from "../../../../pages/crud-class/add/component/add-class/add-class.component";
-import {AuthNgRxService} from "../../../../services/auth-ngrx-service";
+import {AddClassComponent} from "../../pages/crud-class/add/add-class.component";
 
 @Component({
   selector: 'app-main-page',
@@ -17,9 +14,10 @@ export class MainPageComponent implements AfterViewInit{
 
   isLogged: boolean = false;
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
+  isMenuBoolean: boolean = false
   @Input() color: ThemePalette = 'warn';
 
-  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog, private authNgRxService: AuthNgRxService) {
+  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog) {
     this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
@@ -38,8 +36,6 @@ export class MainPageComponent implements AfterViewInit{
     this.isLogged = false;
   }
 
-  addNewClass() {}
-
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AddClassComponent, {
       height: '95vh',
@@ -49,8 +45,6 @@ export class MainPageComponent implements AfterViewInit{
       exitAnimationDuration,
     });
   }
-
-  isMenuBoolean: boolean = false
 
   isMenu() {
     this.isMenuBoolean = !this.isMenuBoolean;

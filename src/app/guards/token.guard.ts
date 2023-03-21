@@ -12,8 +12,7 @@ class UserToken {}
 })
 class Permissions {
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   canActivate(): boolean {
     if(localStorage.getItem('jwtBringGlobalToken')) {
@@ -29,10 +28,7 @@ class Permissions {
 export class CanActivateToken implements CanActivate {
   constructor(private permissions: Permissions, private currentUser: UserToken) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
     return this.permissions.canActivate();
   }
 }
