@@ -1,0 +1,31 @@
+.hamburguer-menu {
+  width: 35px;
+  height: 5px;
+  background-color: $bring-white;
+  margin: 6px 0;
+}
+
+.menu-list-items-nav {
+  background-color: $bring-menu-bg;
+  color: white;
+  padding: 5%;
+  width: 100vw;
+  position: absolute;
+  z-index: 100;
+  text-align: center;
+
+  .animate {
+    transform: translateY(0%);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  li {
+    list-style-type: none;
+    margin: 3% !important;
+
+  }
+
+  a {
+    color: white;
+  }
+}
