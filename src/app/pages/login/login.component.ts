@@ -4,9 +4,6 @@ import {AuthService} from "../../services/auth.service";
 import {User} from "../../interfaces/user.interface";
 import {Router} from "@angular/router";
 import {MainPageComponent} from "../../layout/main-page/main-page.component";
-import {reduxGermanService} from "../../services/ngrx-german.service";
-import {BehaviorSubject, Observable} from "rxjs";
-import {AuthNgRxService} from "../../services/auth-ngrx-service";
 
 @Component({
   selector: 'app-login',
