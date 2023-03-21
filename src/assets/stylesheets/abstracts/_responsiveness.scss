@@ -17,6 +17,19 @@
 @media screen and (max-width: 767px) {
   /* CSS rules for smartphones in portrait orientation go here */
 
+  #signal-h1 {
+    font-size: 1.5rem;
+  }
+
+  .div-signal-title {
+    margin: 5%;
+  }
+
+  footer {
+    height: 2rem !important;
+    color: $bring-grey;
+  }
+
   #list-of-links {
     #container-hamburger {
       display: block !important;
