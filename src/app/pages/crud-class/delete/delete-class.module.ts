@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ClassroomComponent,
+  DeleteClassDialog,
   DialogDataExampleDialog,
 } from './component/classroom/classroom.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -21,8 +22,8 @@ import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    ClassroomComponent,
-    DialogDataExampleDialog
+    DialogDataExampleDialog,
+    DeleteClassDialog
   ],
   imports: [
     CommonModule,
@@ -43,4 +44,4 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule
   ]
 })
-export class ClassroomModule { }
+export class DeleteClassModule { }
