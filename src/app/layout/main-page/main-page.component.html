@@ -6,7 +6,7 @@
           <img src="../../../assets/images/BRING_apostrophe_wht_rev_rgb.png" alt="" class="logo-bring">
         </li>
         <li id="container-hamburger" >
-          <div (click)="isMenu()" >
+          <div >
             <div class="hamburguer-menu"></div>
             <div class="hamburguer-menu"></div>
             <div class="hamburguer-menu"></div>
@@ -35,7 +35,7 @@
     </div>
   </div>
 </nav>
-<div class="menu-list-items-nav "  *ngIf="isMenuBoolean">
+<div class="menu-list-items-nav"  *ngIf="isMenuBoolean">
     <a routerLink="">
       <li class="items-responsive">Home</li>
     </a>
@@ -51,8 +51,8 @@
     <a *ngIf="isLogged" class="add-new-class items-responsive">
       <li (click)="openDialog('0ms', '0ms')">Add New Class</li>
     </a>
-    <a routerLink="" (click)="logout()" *ngIf="isLogged">
-      <li class="li-hover items-responsive">Logout</li>
+    <a *ngIf="isLogged">
+      <li class="li-hover items-responsive" (click)="logout()" >Logout</li>
     </a>
 </div>
 <div class="router-outlet-container">

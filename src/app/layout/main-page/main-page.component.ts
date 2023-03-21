@@ -25,6 +25,7 @@ export class MainPageComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     this.detectIfWindowWasResized();
+    this.eventToHideMenu();
   }
 
   logout() {
@@ -34,6 +35,7 @@ export class MainPageComponent implements AfterViewInit{
     localStorage.removeItem('BringUsername');
     this.service.logout().subscribe(data => console.log(data));
     this.isLogged = false;
+    console.log("entreou no mob logout")
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -46,19 +48,37 @@ export class MainPageComponent implements AfterViewInit{
     });
   }
 
-  isMenu() {
-    this.isMenuBoolean = !this.isMenuBoolean;
-  }
+  // isMenu() {
+  //   this.isMenuBoolean = !this.isMenuBoolean;
+  // }
 
   private detectIfWindowWasResized() {
     const menuItems = document.getElementsByClassName('menu-list-items-nav');
     var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    if(menuItems) {
-        window.addEventListener('resize', () => {
-        if(width > 767) {
+    if (menuItems) {
+      window.addEventListener('resize', () => {
+        if (width > 767) {
           this.isMenuBoolean = false;
         }
       });
+    }
+  }
+
+  private eventToHideMenu() {
+    const hamburguerMenu = document.getElementById('container-hamburger');
+    if(hamburguerMenu) {
+      hamburguerMenu.addEventListener('click', () => {
+        this.isMenuBoolean = !this.isMenuBoolean;
+        setTimeout(()=> {
+          const menuItems = document.getElementsByClassName('items-responsive');
+          console.log("enventou", menuItems)
+          for(var i = 0; i < menuItems.length; i++) {
+            menuItems[i].addEventListener('click', () => {
+              this.isMenuBoolean = !this.isMenuBoolean;
+            })
+          }
+        }, 0)
+      })
     }
   }
 }
