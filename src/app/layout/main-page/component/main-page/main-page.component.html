@@ -35,24 +35,24 @@
     </div>
   </div>
 </nav>
-<div class="menu-list-items-nav" *ngIf="isMenuBoolean">
+<div class="menu-list-items-nav "  *ngIf="isMenuBoolean">
     <a routerLink="">
-      <li >Home</li>
+      <li class="items-responsive">Home</li>
     </a>
     <a routerLink="classroom" *ngIf="isLogged">
-      <li class="li-hover">Classroom</li>
+      <li class="li-hover items-responsive">Classroom</li>
     </a>
     <a routerLink="login" *ngIf="!isLogged">
-      <li class="li-hover">Login</li>
+      <li class="li-hover items-responsive">Login</li>
     </a>
     <a routerLink="sign-up" *ngIf="!isLogged">
-      <li class="li-hover">Sign Up</li>
+      <li class="li-hover items-responsive">Sign Up</li>
     </a>
-    <a *ngIf="isLogged" class="add-new-class">
+    <a *ngIf="isLogged" class="add-new-class items-responsive">
       <li (click)="openDialog('0ms', '0ms')">Add New Class</li>
     </a>
     <a routerLink="" (click)="logout()" *ngIf="isLogged">
-      <li class="li-hover">Logout</li>
+      <li class="li-hover items-responsive">Logout</li>
     </a>
 </div>
 <div class="router-outlet-container">

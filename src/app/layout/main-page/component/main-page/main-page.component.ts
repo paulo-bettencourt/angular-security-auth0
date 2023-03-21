@@ -17,7 +17,6 @@ export class MainPageComponent implements AfterViewInit{
 
   isLogged: boolean = false;
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
-  isMenuBoolean: boolean = false;
   @Input() color: ThemePalette = 'warn';
 
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog, private authNgRxService: AuthNgRxService) {
@@ -27,7 +26,7 @@ export class MainPageComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    this.detectIfWindowWasResized()
+    this.detectIfWindowWasResized();
   }
 
   logout() {
@@ -44,12 +43,14 @@ export class MainPageComponent implements AfterViewInit{
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AddClassComponent, {
       height: '95vh',
-      width: '60%',
+      width: '100vw',
       disableClose: true,
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
+
+  isMenuBoolean: boolean = false
 
   isMenu() {
     this.isMenuBoolean = !this.isMenuBoolean;
@@ -58,9 +59,8 @@ export class MainPageComponent implements AfterViewInit{
   private detectIfWindowWasResized() {
     const menuItems = document.getElementsByClassName('menu-list-items-nav');
     var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
     if(menuItems) {
-      window.addEventListener('resize', () => {
+        window.addEventListener('resize', () => {
         if(width > 767) {
           this.isMenuBoolean = false;
         }

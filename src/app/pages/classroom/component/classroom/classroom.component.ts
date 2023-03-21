@@ -107,7 +107,7 @@ export class ClassroomComponent implements OnInit {
         file: file,
       },
       height: '95vh',
-      width: '60%',
+      width: '100vw',
       disableClose: true
     });
   }
@@ -128,32 +128,3 @@ export class ClassroomComponent implements OnInit {
 export class DialogDataExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
-//
-// @Component({
-//   selector: 'delete-dialog',
-//   templateUrl: '../../../delete/component/delete-dialog.html'
-// })
-// export class DeleteClassDialog {
-//   constructor(@Inject(MAT_DIALOG_DATA)
-//               public data: {id: string},
-//               private authService: AuthService,
-//               private reduxService: reduxGermanService,
-//               public dialog: MatDialog) {}
-//
-//   delete() {
-//     this.reduxService.delete(this.data.id);
-//     this.dialog.closeAll();
-//   }
-//
-//   deleteClassById(id: any) {
-//     this.reduxService.delete(id).subscribe({
-//       next: () => console.log(""),
-//       error: (err: any) => console.log("error: ", err)
-//     });
-//   };
-//
-//   cancelDelete() {
-//     this.dialog.closeAll();
-//   }
-// }
-//
