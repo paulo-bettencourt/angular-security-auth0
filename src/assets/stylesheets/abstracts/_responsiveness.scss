@@ -23,7 +23,6 @@
       float: right;
       margin-right: 3%;
     }
-
     a {
       visibility: hidden;
     }
@@ -50,7 +49,6 @@
         text-align: center !important;
       }
    }
-
   .card-material-center {
     .mat-expansion-panel-body,
     mat-panel-title {
@@ -73,6 +71,10 @@
         right: 15%;
       }
     }
+  }
+
+  #file-upload-edit::before {
+    content: " Click to attach a file " !important;
   }
 
   .menu-list-items-nav {
