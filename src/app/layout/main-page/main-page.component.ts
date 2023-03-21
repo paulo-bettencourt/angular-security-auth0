@@ -71,7 +71,6 @@ export class MainPageComponent implements AfterViewInit{
         this.isMenuBoolean = !this.isMenuBoolean;
         setTimeout(()=> {
           const menuItems = document.getElementsByClassName('items-responsive');
-          console.log("enventou", menuItems)
           for(var i = 0; i < menuItems.length; i++) {
             menuItems[i].addEventListener('click', () => {
               this.isMenuBoolean = !this.isMenuBoolean;
