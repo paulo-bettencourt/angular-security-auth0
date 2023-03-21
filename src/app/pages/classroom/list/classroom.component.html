@@ -43,7 +43,7 @@
       </mat-accordion>
     </div>
   </div>
-  <mat-paginator [length]="allClasses$.length"
+  <mat-paginator id="mat-paginator-index" [length]="allClasses$.length"
                  [pageSize]="pageSize"
                  (page)="currentPageIndex = $event.pageIndex"
   ></mat-paginator>
