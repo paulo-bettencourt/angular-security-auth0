@@ -15,13 +15,15 @@ import {NgxDropzoneModule} from "ngx-dropzone";
 import {RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {ClassroomComponent, DialogDataExampleDialog} from "./classroom/classroom.component";
+import {LoginComponent} from "./login/login.component";
 
 
 
 @NgModule({
   declarations: [
     ClassroomComponent,
-    DialogDataExampleDialog
+    DialogDataExampleDialog,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import {ClassroomComponent, DialogDataExampleDialog} from "./classroom/classroom
     QuillModule,
     NgxDropzoneModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class PagesModule { }
