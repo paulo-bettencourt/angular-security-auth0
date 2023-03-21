@@ -14,27 +14,27 @@ import {QuillModule} from "ngx-quill";
 import {NgxDropzoneModule} from "ngx-dropzone";
 import {RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
-import {ClassroomComponent, DialogDataExampleDialog} from "./classroom/classroom.component";
+import {ClassroomComponent} from "./classroom/list/classroom.component";
 import {LoginComponent} from "./login/login.component";
 import {OtpComponent} from "./otp/otp.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {AddClassComponent} from "./crud-class/add/add-class.component";
 import {DeleteClassDialog} from "./crud-class/delete/delete-class.component";
 import {EditClassDialog} from "./crud-class/edit/edit-class-dialog.component";
+import {ImageDialog} from "./classroom/image-dialog/image-dialog.component";
 
 
 
 @NgModule({
   declarations: [
     ClassroomComponent,
-    DialogDataExampleDialog,
     LoginComponent,
     OtpComponent,
     SignUpComponent,
     AddClassComponent,
-    DialogDataExampleDialog,
     DeleteClassDialog,
-    EditClassDialog
+    EditClassDialog,
+    ImageDialog
   ],
   imports: [
     CommonModule,

@@ -1,17 +1,17 @@
 import {
   Component,
-  Inject,
   Injectable,
-  OnInit, signal
+  OnInit
 } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {Observable, Subject} from "rxjs";
-import {reduxGermanService} from "../../services/ngrx-german.service";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {EditClassDialog} from "../crud-class/edit/edit-class-dialog.component";
-import {DeleteClassDialog} from "../crud-class/delete/delete-class.component";
+import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {MatDialog} from "@angular/material/dialog";
+import {EditClassDialog} from "../../crud-class/edit/edit-class-dialog.component";
+import {DeleteClassDialog} from "../../crud-class/delete/delete-class.component";
+import {ImageDialog} from "../image-dialog/image-dialog.component";
 
 export interface ClassSignal {
   title: string;
@@ -73,7 +73,7 @@ export class ClassroomComponent implements OnInit {
   }
 
   debugBase64(image: string | SVGImageElement) {
-    this.dialog.open(DialogDataExampleDialog, {
+    this.dialog.open(ImageDialog, {
       data: {
         image: image,
       },
@@ -118,13 +118,4 @@ export class ClassroomComponent implements OnInit {
     }, );
   }
 
-}
-
-@Component({
-  selector: 'dialog-dialog',
-  templateUrl: 'data-dialog.html',
-  styleUrls: ['./classroom.component.scss']
-})
-export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

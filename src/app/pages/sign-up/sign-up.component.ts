@@ -23,10 +23,6 @@ export class SignUpComponent {
 
   constructor(private reduxService: reduxGermanService, private fb: FormBuilder, private authService: AuthService, private router: Router, public dialog: MatDialog) {}
 
-  openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
-  }
-
   submit() {
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
@@ -77,12 +73,4 @@ export class SignUpComponent {
       return null;
     };
   }
-
-}
-
-@Component({
-  selector: 'dialog-elements-example-dialog',
-  templateUrl: './dialog-elements-example-dialog.html',
-})
-export class DialogElementsExampleDialog {
 }
