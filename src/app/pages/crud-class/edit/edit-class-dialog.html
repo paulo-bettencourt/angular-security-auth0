@@ -21,7 +21,7 @@
     </form>
     <input id="file-upload-edit" type="file" name="submitFile" (change)="handleFileInput($event)" accept=".ppt, .pptx, .pdf, .xlsx" #fileInput/>
     <div class="group-buttons">
-      <button (click)="update()">Submit</button>
+      <button (click)="updateObjectToUpdate()">Submit</button>
       <button (click)="cancelUpdate()" id="cancel-button-edit">Cancel</button>
     </div>
     <p></p>

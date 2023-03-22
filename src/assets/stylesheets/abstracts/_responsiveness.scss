@@ -90,6 +90,15 @@
     content: " Click to attach a file " !important;
   }
 
+  #file-upload {
+    font-size: 0 !important;
+  }
+
+  #file-upload::before {
+    content: " Click to attach a file" !important;
+    font-size: 1rem !important;
+  }
+
   .menu-list-items-nav {
     text-align: center;
   }

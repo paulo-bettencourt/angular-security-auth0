@@ -10,7 +10,7 @@ import {reduxGermanService} from "../../../services/ngrx-german.service";
   selector: 'edit-dialog',
   templateUrl: './edit-class-dialog.html'
 })
-export class EditClassDialog implements AfterViewInit{
+export class EditClassDialog implements AfterViewInit {
 
   typeOfClass!: any;
   nameOfFile: string = '';
@@ -26,7 +26,7 @@ export class EditClassDialog implements AfterViewInit{
   files: File[] = [];
   fileNameUrl!: string;
   classId!: any;
-
+  fileName: any;
   editor: any;
   @ViewChild('editor') editorElement: any;
   @ViewChild('imageUploadDropzone') imageUploadDropzone: any;
@@ -35,7 +35,7 @@ export class EditClassDialog implements AfterViewInit{
   quillConfiguration = {
     toolbar: [
       ['italic', 'underline'],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{header: [1, 2, 3, 4, 5, 6, false]}],
       ['link'],
     ],
   }
@@ -46,7 +46,7 @@ export class EditClassDialog implements AfterViewInit{
     this.formAddClass.controls['textClass'].setValue(this.data.text);
     this.formAddClass.controls['imageClass'].setValue(this.data.image);
     this.classId = this.data.id.trim();
-    if(this.data.image) {
+    if (this.data.image) {
       this.convertData64ToImage(this.data.image)
     }
     this.downloadFile(this.data.file, this.data.file);
@@ -61,15 +61,10 @@ export class EditClassDialog implements AfterViewInit{
     }
   }
 
-  update() {
-    this.updateObjectToUpdate();
-  }
-
   updateObjectToUpdate() {
-
     this.dialog.closeAll();
 
-    if(this.fileToUpload) {
+    if (this.fileToUpload) {
       this.authService.uploadFile(this.fileToUpload).subscribe((data: any) => {
 
         // @ts-ignore
@@ -81,7 +76,7 @@ export class EditClassDialog implements AfterViewInit{
           image: this.imageResult,
           author: JSON.stringify(localStorage.getItem('BringUsername'))
         };
-       this.reduxService.update(this.objectToUpdate).subscribe(data => {
+        this.reduxService.update(this.objectToUpdate).subscribe(data => {
           console.log("DATA DO UPDATA ", data)
         });
       })
@@ -99,10 +94,9 @@ export class EditClassDialog implements AfterViewInit{
     }
   }
 
-
 // Define a function to download the file and convert it to a File object
   downloadFile(url: string, filename: string): void {
-    this.http.get(url, { responseType: 'blob' })
+    this.http.get(url, {responseType: 'blob'})
       .toPromise()
       .then((blob: Blob | undefined) => {
         if (blob) {
@@ -121,38 +115,33 @@ export class EditClassDialog implements AfterViewInit{
       .catch((error: any) => {
         console.error(error);
       });
-
   }
 
   createFile(blob: Blob, filename: string): File {
     // Create a new File object from the blob and filename
-    return new File([blob], filename, { type: blob.type });
+    return new File([blob], filename, {type: blob.type});
   }
-
 
   convertData64ToImage(image64: string) {
     this.imageResult = image64;
     // Get the base64-encoded image from some source (e.g. an API response)
     const base64Image = image64;
-
     // Extract the data portion of the base64-encoded string
     const data = base64Image.split(',')[1];
-
     // Decode the base64-encoded data into a binary string
-    const binaryString =  window.atob(data);
-
+    const binaryString = window.atob(data);
     // Convert the binary string into an ArrayBuffer
     const arrayBuffer = new ArrayBuffer(binaryString.length);
     const uint8Array = new Uint8Array(arrayBuffer);
+
     for (let i = 0; i < binaryString.length; i++) {
       uint8Array[i] = binaryString.charCodeAt(i);
     }
 
     // Create a blob from the ArrayBuffer
-    const blob = new Blob([arrayBuffer], { type: 'image/png' });
-
+    const blob = new Blob([arrayBuffer], {type: 'image/png'});
     // Create a new File object from the blob
-    this.files[0] = new File([blob], 'image.png', { type: 'image/png' });
+    this.files[0] = new File([blob], 'image.png', {type: 'image/png'});
   }
 
   chooseTypeOfClass(type: any) {
@@ -171,100 +160,17 @@ export class EditClassDialog implements AfterViewInit{
     this.files[0] = this.imageToUpload;
 
     if (this.imageToUpload) {
+      reader.readAsDataURL(this.imageToUpload);
       reader.onload = () => this.imageResult = reader.result;
     }
-  }
-  fileName: any;
-
-  submitGermanClass() {
-
-    const formValue = this.formAddClass.value;
-
-    if(this.imageResult && this.fileToUpload) {
-      this.uploadImageAndFile(formValue, this.imageResult, this.fileToUpload)
-    } else if(this.imageResult === undefined && this.fileToUpload) {
-      this.uploadFileOnly(formValue, this.fileToUpload);
-    } else if(this.imageResult && (this.fileToUpload === null || this.fileToUpload === undefined || !this.fileToUpload)) {
-      this.uploadImageOnly(formValue, this.imageResult);
-    } else {
-      this.uploadTextOnly(formValue);
-    }
-  }
-
-  uploadImageAndFile(formValue: any, imageToUpload: any, fileToUpload: any) {
-
-    console.log("USERNAME BRING, ", JSON.stringify(localStorage.getItem('BringUsername')))
-
-    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-
-      const fileLocation = data.location
-      const dataObject = {
-        titleClass: formValue.nameClass,
-        textClass: formValue.textClass,
-        imageClass: imageToUpload,
-        fileClass: fileLocation,
-        author: localStorage.getItem('BringUsername')
-      }
-
-      console.table(dataObject)
-
-      this.authService.uploadText(dataObject).subscribe(data => {
-        this.router.navigate(['classroom'])
-      })
-
-    })
-  }
-
-  uploadFileOnly(formValue: any, fileToUpload: any) {
-    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-
-      const fileLocation = data.location
-      const dataObject = {
-        titleClass: formValue.nameClass,
-        textClass: formValue.textClass,
-        fileClass: fileLocation,
-        author: localStorage.getItem('BringUsername')
-      }
-
-      this.authService.uploadText(dataObject).subscribe(data => {
-        this.router.navigate(['classroom'])
-      })
-    })
-  }
-
-  uploadImageOnly(formValue: any, imageToUpload: any) {
-    const dataObject = {
-      titleClass: formValue.nameClass,
-      textClass: formValue.textClass,
-      imageClass: imageToUpload,
-      author: localStorage.getItem('BringUsername')
-    }
-
-    this.authService.uploadText(dataObject).subscribe(data => {
-      this.router.navigate(['classroom'])
-    })
-  }
-
-  uploadTextOnly(formValue: any) {
-    const dataObject = {
-      titleClass: formValue.nameClass,
-      textClass: formValue.textClass,
-      author: localStorage.getItem('BringUsername')
-    }
-
-    this.authService.uploadText(dataObject).subscribe(data => {
-      this.router.navigate(['classroom'])
-    })
+    console.log("IMAGEM 54-> ", this.imageToUpload)
   }
 
   onSelect(event: any) {
-    console.log(event);
     this.files.push(...event.addedFiles);
-    console.log(this.files)
   }
 
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 

@@ -10,7 +10,7 @@ import {AddClassComponent} from "../../pages/crud-class/add/add-class.component"
   selector: 'app-main-page',
   templateUrl: './main-page.component.html'
 })
-export class MainPageComponent implements AfterViewInit{
+export class MainPageComponent implements AfterViewInit {
 
   isLogged: boolean = false;
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
@@ -19,6 +19,7 @@ export class MainPageComponent implements AfterViewInit{
 
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog) {
     this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
+      console.log("DATA JWT: ", data)
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
   }
@@ -48,30 +49,23 @@ export class MainPageComponent implements AfterViewInit{
     });
   }
 
-  // isMenu() {
-  //   this.isMenuBoolean = !this.isMenuBoolean;
-  // }
-
   private detectIfWindowWasResized() {
-    const menuItems = document.getElementsByClassName('menu-list-items-nav');
-    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    if (menuItems) {
-      window.addEventListener('resize', () => {
-        if (width > 767) {
-          this.isMenuBoolean = false;
-        }
-      });
-    }
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      if (width > 767) {
+        this.isMenuBoolean = false;
+      }
+    });
   }
 
   private eventToHideMenu() {
     const hamburguerMenu = document.getElementById('container-hamburger');
-    if(hamburguerMenu) {
+    if (hamburguerMenu) {
       hamburguerMenu.addEventListener('click', () => {
         this.isMenuBoolean = !this.isMenuBoolean;
-        setTimeout(()=> {
+        setTimeout(() => {
           const menuItems = document.getElementsByClassName('items-responsive');
-          for(var i = 0; i < menuItems.length; i++) {
+          for (var i = 0; i < menuItems.length; i++) {
             menuItems[i].addEventListener('click', () => {
               this.isMenuBoolean = !this.isMenuBoolean;
             })
