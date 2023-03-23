@@ -17,7 +17,9 @@ export class MainPageComponent implements AfterViewInit {
   isMenuBoolean: boolean = false
   @Input() color: ThemePalette = 'warn';
 
-  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService, public dialog: MatDialog) {
+  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService,
+              public dialog: MatDialog
+  ) {
     this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
       console.log("DATA JWT: ", data)
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;

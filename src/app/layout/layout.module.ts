@@ -12,6 +12,7 @@ import {OtpComponent} from "../pages/otp/otp.component";
 import {AddClassComponent} from "../pages/crud-class/add/add-class.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule} from "@angular/material/dialog";
 
 const routes: Routes = [{
   path: '',
@@ -55,7 +56,8 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [
     CanActivateToken
