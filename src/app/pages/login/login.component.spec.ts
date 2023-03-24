@@ -10,6 +10,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {RouterModule} from "@angular/router";
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {RouterTestingModule} from "@angular/router/testing";
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
