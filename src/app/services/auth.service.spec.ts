@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
+import {beforeEach, jest, describe, expect, it, test} from '@jest/globals';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {

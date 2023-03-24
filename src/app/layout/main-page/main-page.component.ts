@@ -20,10 +20,7 @@ export class MainPageComponent implements AfterViewInit {
   constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService,
               public dialog: MatDialog
   ) {
-    this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
-      console.log("DATA JWT: ", data)
-      data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
-    });
+    this.getTokenToCheckIfLogged();
   }
 
   ngAfterViewInit(): void {
@@ -75,5 +72,12 @@ export class MainPageComponent implements AfterViewInit {
         }, 0)
       })
     }
+  }
+
+  private getTokenToCheckIfLogged() {
+    this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
+      console.log("DATA JWT: ", data)
+      data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
+    })
   }
 }

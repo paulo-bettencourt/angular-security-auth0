@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {beforeEach, jest, describe, expect, it, test} from '@jest/globals';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

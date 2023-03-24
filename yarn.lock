@@ -193,15 +193,17 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/compiler-cli@^16.0.0-next.0":
-  "integrity" "sha512-zSvh3IB6lBFoH3qdiNuEgNX28UYdCOe3D42Dxm/ZS1aYSE77LNJRFAiQlfmmWKFuTchq6jMHINy4wPgDxiBzIA=="
-  "resolved" "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-16.0.0-next.3.tgz"
-  "version" "16.0.0-next.3"
+"@angular/compiler-cli@^15.2.4":
+  "integrity" "sha512-FCRNZ60PIKRt3rmjab7ca1E5Mc8Zt2izwD+VrzWeyBc51g5dVD+T/CRamJbmqRGw1hnn6BBM/VP9oDRcMVwGlg=="
+  "resolved" "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-15.2.4.tgz"
+  "version" "15.2.4"
   dependencies:
     "@babel/core" "7.19.3"
     "@jridgewell/sourcemap-codec" "^1.4.14"
     "chokidar" "^3.0.0"
     "convert-source-map" "^1.5.1"
+    "dependency-graph" "^0.11.0"
+    "magic-string" "^0.27.0"
     "reflect-metadata" "^0.1.2"
     "semver" "^7.0.0"
     "tslib" "^2.3.0"
@@ -4220,6 +4222,11 @@
   "resolved" "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz"
   "version" "1.1.2"
 
+"dependency-graph@^0.11.0":
+  "integrity" "sha512-JeMq7fEshyepOWDfcfHK06N3MhyPhz++vtqWhMT5O9A3K42rdsEDpfdVqjaqaAhsw6a+ZqeDvQVtD0hFHQWrzg=="
+  "resolved" "https://registry.npmjs.org/dependency-graph/-/dependency-graph-0.11.0.tgz"
+  "version" "0.11.0"
+
 "destroy@1.2.0":
   "integrity" "sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg=="
   "resolved" "https://registry.npmjs.org/destroy/-/destroy-1.2.0.tgz"
@@ -6292,6 +6299,13 @@
   "integrity" "sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA=="
   "resolved" "https://registry.npmjs.org/lru-cache/-/lru-cache-7.14.1.tgz"
   "version" "7.14.1"
+
+"magic-string@^0.27.0":
+  "integrity" "sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA=="
+  "resolved" "https://registry.npmjs.org/magic-string/-/magic-string-0.27.0.tgz"
+  "version" "0.27.0"
+  dependencies:
+    "@jridgewell/sourcemap-codec" "^1.4.13"
 
 "magic-string@0.30.0":
   "integrity" "sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ=="

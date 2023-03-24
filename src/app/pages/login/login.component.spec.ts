@@ -11,7 +11,7 @@ import {RouterModule} from "@angular/router";
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {RouterTestingModule} from "@angular/router/testing";
 
-describe('MainPageComponent', () => {
+describe('LoginComponent', () => {
   let component: MainPageComponent;
   let fixture: ComponentFixture<MainPageComponent>;
 
