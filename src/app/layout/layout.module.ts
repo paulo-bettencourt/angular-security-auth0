@@ -49,7 +49,6 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     FooterComponent,
-    MainPageComponent,
     WelcomeComponent
   ],
   imports: [

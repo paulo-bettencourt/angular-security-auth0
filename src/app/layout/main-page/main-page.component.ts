@@ -1,13 +1,25 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router, RouterModule, Routes} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {reduxGermanService} from "../../services/ngrx-german.service";
 import {ThemePalette} from "@angular/material/core";
 import {MatDialog} from "@angular/material/dialog";
 import {AddClassComponent} from "../../pages/crud-class/add/add-class.component";
+import {CommonModule} from "@angular/common";
+import {WelcomeComponent} from "../welcome/welcome.component";
+import {LoginComponent} from "../../pages/login/login.component";
+import {SignUpComponent} from "../../pages/sign-up/sign-up.component";
+import {ClassroomComponent} from "../../pages/classroom/list/classroom.component";
+import {CanActivateToken} from "../../guards/token.guard";
+import {OtpComponent} from "../../pages/otp/otp.component";
 
 @Component({
   selector: 'app-main-page',
+  standalone: true,
+  imports:[
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './main-page.component.html'
 })
 export class MainPageComponent implements AfterViewInit {

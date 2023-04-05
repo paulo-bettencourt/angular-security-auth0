@@ -13,10 +13,44 @@ import {entityConfig} from "./app/ngrx-redux/entity-metadata";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {WelcomeComponent} from "./app/layout/welcome/welcome.component";
+import {LoginComponent} from "./app/pages/login/login.component";
+import {SignUpComponent} from "./app/pages/sign-up/sign-up.component";
+import {ClassroomComponent} from "./app/pages/classroom/list/classroom.component";
+import {CanActivateToken} from "./app/guards/token.guard";
+import {OtpComponent} from "./app/pages/otp/otp.component";
+import {AddClassComponent} from "./app/pages/crud-class/add/add-class.component";
 
 const routes: Routes = [{
   path: '',
-  loadChildren: () => import('./app/layout/layout.module').then(m=>m.LayoutModule )
+  loadComponent: () => import('./app/layout/main-page/main-page.component').then(m=>m.MainPageComponent),
+  children: [
+    {
+      path: '',
+      component: WelcomeComponent
+    },
+    {
+      path: 'login',
+      component: LoginComponent
+    },
+    {
+      path: 'sign-up',
+      component: SignUpComponent
+    },
+    {
+      path: 'classroom',
+      component: ClassroomComponent,
+      canActivate: [CanActivateToken]
+    },
+    {
+      path: 'otp',
+      component: OtpComponent
+    },
+    {
+      path: 'add',
+      component: AddClassComponent
+    }
+  ]
 }
 ];
 
