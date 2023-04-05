@@ -35,7 +35,6 @@ export class MainPageComponent implements AfterViewInit {
               public dialog: MatDialog
   ) {
     this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
-      console.log("DATA JWT: ", data)
       data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
     });
   }
@@ -52,7 +51,6 @@ export class MainPageComponent implements AfterViewInit {
     localStorage.removeItem('BringUsername');
     this.service.logout().subscribe(data => console.log(data));
     this.isLogged = false;
-    console.log("entreou no mob logout")
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

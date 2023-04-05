@@ -1,8 +1,14 @@
 import {Component, signal} from '@angular/core';
 import {ClassSignal} from "../../pages/classroom/list/classroom.component";
+import {BrowserModule} from "@angular/platform-browser";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-welcome',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
   templateUrl: './welcome.component.html'
 })
 export class WelcomeComponent {

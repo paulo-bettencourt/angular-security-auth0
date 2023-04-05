@@ -40,7 +40,6 @@ const routes: Routes = [{
     {
       path: 'classroom',
       component: ClassroomComponent,
-      canActivate: [CanActivateToken]
     },
     {
       path: 'otp',

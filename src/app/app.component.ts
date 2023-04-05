@@ -14,9 +14,7 @@ import {environment} from "../environments/environment";
 import { Store } from '@ngrx/store/src/store'
 import {StoreModule} from "@ngrx/store";
 import {MatButtonModule} from "@angular/material/button";
-import {LayoutModule} from "./layout/layout.module";
-import {BrowserModule} from "@angular/platform-browser";
-import {AppRoutingModuleTODELETE} from "./app-routing.module-TO-DELETE";
+
 import {PagesModule} from "./pages/pages.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
@@ -33,7 +31,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     RouterModule,
     HttpClientModule,
     MatButtonModule,
-    LayoutModule,
     HttpClientModule,
     PagesModule
   ],
