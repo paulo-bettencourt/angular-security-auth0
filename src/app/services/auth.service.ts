@@ -73,10 +73,6 @@ export class AuthService {
     return this.isLogged$;
   }
 
-  getFiles(): Observable<any> {
-    return this.http.get(this.apiUrl + `get-aws-files`, {headers: this.headers});
-  }
-
   getJwtToken(token: any) {
     return this.http.post(this.apiUrl + `get-jwt-token`, {token: token})
   }

@@ -21,22 +21,31 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
 
-
 const routes: Routes = [{
   path: '',
   loadChildren: () => import('./app/layout/layout.module').then(m=>m.LayoutModule )
 }
 ];
 
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: environment.baseUrl,
+  timeout: 30000, // request timeout
+}
+
 //platformBrowserDynamic().bootstrapModule(AppModule)
 //  .catch(err => console.error(err));
 
 bootstrapApplication(AppComponent,{
   providers: [
+    {
+      provide: DefaultDataServiceConfig,
+      useValue: defaultDataServiceConfig
+    },
     importProvidersFrom(
-      MatTooltipModule,
-      MatButtonModule,
-      MatDialogModule,
+      BrowserAnimationsModule,
+      StoreModule.forRoot({}),
+      EffectsModule.forRoot([]),
+      EntityDataModule.forRoot(entityConfig),
       StoreDevtoolsModule.instrument({
         maxAge: 25, // Retains last 25 states
         logOnly: !isDevMode(), // Restrict extension to log-only mode
@@ -45,8 +54,8 @@ bootstrapApplication(AppComponent,{
         traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       }),
       HttpClientModule,
-      EntityDataModule.forRoot(entityConfig),
-      EffectsModule.forRoot([]),
-      StoreModule.forRoot({}),
+      MatButtonModule,
+      MatTooltipModule,
+      MatDialogModule,
       RouterModule.forRoot(routes))]
 });

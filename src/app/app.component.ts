@@ -19,6 +19,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./app-routing.module";
 import {PagesModule} from "./pages/pages.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
   timeout: 30000, // request timeout
@@ -34,7 +35,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     MatButtonModule,
     LayoutModule,
     HttpClientModule,
-    PagesModule,
+    PagesModule
   ],
   providers: [
     AuthService,

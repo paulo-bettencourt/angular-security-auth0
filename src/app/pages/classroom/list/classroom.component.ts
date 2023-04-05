@@ -43,7 +43,6 @@ export class ClassroomComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService, public dialog: MatDialog, private destroyRef: DestroyRef) {
     this.destroyRef.onDestroy(() => console.log("destroyed"));
-    this.authService.getFiles().subscribe((data: any) => this.allFiles$ = data.Contents)
     this.bringName = localStorage.getItem('BringUsername');
     reduxService.entities$.subscribe((data: any) => {
       this.allClasses$ = data;
