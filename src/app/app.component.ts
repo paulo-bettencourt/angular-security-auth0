@@ -11,12 +11,7 @@ import {
   EntityDispatcherFactory
 } from "@ngrx/data";
 import {environment} from "../environments/environment";
-import { Store } from '@ngrx/store/src/store'
-import {StoreModule} from "@ngrx/store";
 import {MatButtonModule} from "@angular/material/button";
-
-import {PagesModule} from "./pages/pages.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
@@ -32,7 +27,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     HttpClientModule,
     MatButtonModule,
     HttpClientModule,
-    PagesModule
   ],
   providers: [
     AuthService,

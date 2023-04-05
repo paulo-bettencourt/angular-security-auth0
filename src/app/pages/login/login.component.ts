@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, Validator, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validator, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../interfaces/user.interface";
 import {Router} from "@angular/router";
 import {MainPageComponent} from "../../layout/main-page/main-page.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {

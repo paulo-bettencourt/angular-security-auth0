@@ -1,12 +1,21 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {User} from "../../interfaces/user.interface";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {MainPageComponent} from "../../layout/main-page/main-page.component";
+import {CommonModule} from "@angular/common";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-otp',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './otp.component.html'
 })
 export class OtpComponent implements AfterViewInit{

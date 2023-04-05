@@ -20,6 +20,7 @@ import {ClassroomComponent} from "./app/pages/classroom/list/classroom.component
 import {CanActivateToken} from "./app/guards/token.guard";
 import {OtpComponent} from "./app/pages/otp/otp.component";
 import {AddClassComponent} from "./app/pages/crud-class/add/add-class.component";
+import {QuillModule} from "ngx-quill";
 
 const routes: Routes = [{
   path: '',
@@ -65,6 +66,7 @@ bootstrapApplication(AppComponent,{
       useValue: defaultDataServiceConfig
     },
     importProvidersFrom(
+      QuillModule.forRoot(),
       BrowserAnimationsModule,
       StoreModule.forRoot({}),
       EffectsModule.forRoot([]),

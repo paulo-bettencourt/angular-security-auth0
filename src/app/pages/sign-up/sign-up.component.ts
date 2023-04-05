@@ -1,14 +1,23 @@
 import {Component, NgZone} from '@angular/core';
-import {FormBuilder, FormControl, ValidatorFn, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {User} from "../../interfaces/user.interface";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Observable} from "rxjs";
 import {reduxGermanService} from "../../services/ngrx-german.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-sign-up',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent {

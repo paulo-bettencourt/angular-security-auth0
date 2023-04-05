@@ -1,13 +1,24 @@
 import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from "@angular/core";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {CommonModule} from "@angular/common";
+import {QuillModule} from "ngx-quill";
+import {NgxDropzoneModule} from "ngx-dropzone";
 
 @Component({
   selector: 'edit-dialog',
+  standalone: true,
+  imports:[
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    QuillModule,
+    NgxDropzoneModule
+  ],
   templateUrl: './edit-class-dialog.html'
 })
 export class EditClassDialog implements AfterViewInit {

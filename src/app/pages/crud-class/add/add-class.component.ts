@@ -1,13 +1,24 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import Quill from "quill";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
+import {CommonModule} from "@angular/common";
+import {QuillModule} from "ngx-quill";
+import {NgxDropzoneModule} from "ngx-dropzone";
 
 @Component({
   selector: 'app-add',
+  standalone: true,
+  imports:[
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    QuillModule,
+    NgxDropzoneModule
+  ],
   templateUrl: './add-class.component.html'
 })
 export class AddClassComponent {
