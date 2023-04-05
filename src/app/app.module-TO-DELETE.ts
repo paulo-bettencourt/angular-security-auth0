@@ -2,7 +2,7 @@ import {isDevMode, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatButtonModule} from '@angular/material/button';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModuleTODELETE } from './app-routing.module-TO-DELETE';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
@@ -30,7 +30,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     MatButtonModule,
     LayoutModule,
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModuleTODELETE,
     HttpClientModule,
     PagesModule,
     BrowserAnimationsModule,
@@ -59,4 +59,4 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   ],
   //bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModuleTODELETE { }

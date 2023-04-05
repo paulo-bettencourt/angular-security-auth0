@@ -16,7 +16,7 @@ import {StoreModule} from "@ngrx/store";
 import {MatButtonModule} from "@angular/material/button";
 import {LayoutModule} from "./layout/layout.module";
 import {BrowserModule} from "@angular/platform-browser";
-import {AppRoutingModule} from "./app-routing.module";
+import {AppRoutingModuleTODELETE} from "./app-routing.module-TO-DELETE";
 import {PagesModule} from "./pages/pages.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 

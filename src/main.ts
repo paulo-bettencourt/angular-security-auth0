@@ -1,16 +1,9 @@
-/// <reference types="@angular/localize" />
-
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
 import {bootstrapApplication} from "@angular/platform-browser";
 import {AppComponent} from "./app/app.component";
-import {reduxGermanService} from "./app/services/ngrx-german.service";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./app/interceptors/auth.interceptor";
+import {HttpClientModule} from "@angular/common/http";
 import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
 import {environment} from "./environments/environment";
-import {provideRouter, RouterModule, Routes} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {importProvidersFrom, isDevMode} from "@angular/core";
 import {StoreModule} from "@ngrx/store";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -31,9 +24,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
   timeout: 30000, // request timeout
 }
-
-//platformBrowserDynamic().bootstrapModule(AppModule)
-//  .catch(err => console.error(err));
 
 bootstrapApplication(AppComponent,{
   providers: [
