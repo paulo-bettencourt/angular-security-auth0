@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
@@ -35,10 +35,10 @@ export class AddClassComponent {
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
   files: File[] = [];
-
   editor: any;
   @ViewChild('editor') editorElement: any;
   @ViewChild('imageUploadDropzone') imageUploadDropzone: any;
+  @ViewChild('buttonAddGermanClass') buttonAddGermanClassRef = {} as ElementRef<HTMLButtonElement>;
 
   quillConfiguration = {
     toolbar: [
@@ -48,7 +48,8 @@ export class AddClassComponent {
     ],
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>, public dialog: MatDialog, public reduxService: reduxGermanService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public dialogRef: MatDialogRef<any>, public dialog: MatDialog, public reduxService: reduxGermanService) {
+  }
 
   chooseTypeOfClass(type: any) {
     this.typeOfClass = type;
@@ -72,6 +73,8 @@ export class AddClassComponent {
 
   submitGermanClass() {
     const formValue = this.formAddClass.value;
+    this.buttonAddGermanClassRef.nativeElement.disabled = true;
+    this.dialog.closeAll();
 
     if(this.imageResult && this.fileToUpload) {
       this.uploadImageAndFile(formValue, this.imageResult, this.fileToUpload)
