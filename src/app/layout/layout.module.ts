@@ -48,7 +48,6 @@ const routes: Routes = [{
 
 @NgModule({
   declarations: [
-    FooterComponent,
     WelcomeComponent
   ],
   imports: [
@@ -56,7 +55,7 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     MatTabsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [
     CanActivateToken

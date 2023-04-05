@@ -12,13 +12,15 @@ import {SignUpComponent} from "../../pages/sign-up/sign-up.component";
 import {ClassroomComponent} from "../../pages/classroom/list/classroom.component";
 import {CanActivateToken} from "../../guards/token.guard";
 import {OtpComponent} from "../../pages/otp/otp.component";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
   imports:[
     CommonModule,
-    RouterModule
+    RouterModule,
+    FooterComponent
   ],
   templateUrl: './main-page.component.html'
 })

@@ -3,6 +3,7 @@ import {ClassSignal} from "../../pages/classroom/list/classroom.component";
 
 @Component({
   selector: 'footer',
+  standalone: true,
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
