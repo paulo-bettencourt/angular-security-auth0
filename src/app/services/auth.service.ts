@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/user.interface";
 import {environment} from "../../environments/environment";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,7 @@ export class AuthService {
     return this.isLogged$;
   }
 
-  getFiles() {
+  getFiles(): Observable<any> {
     return this.http.get(this.apiUrl + `get-aws-files`, {headers: this.headers});
   }
 

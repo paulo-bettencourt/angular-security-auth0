@@ -24,7 +24,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    //AppComponent
   ],
   imports: [
     MatButtonModule,
@@ -57,6 +57,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
       useValue: defaultDataServiceConfig
     }
   ],
-  bootstrap: [AppComponent]
+  //bootstrap: [AppComponent]
 })
 export class AppModule { }
