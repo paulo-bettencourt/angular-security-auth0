@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, inject, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, inject, Input, Output, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[changeFontColor]',
@@ -23,5 +23,6 @@ export class ChangeColorDirective {
   highlight(color: string) {
    this.renderer.setStyle(this.el.nativeElement, 'color', color);
   }
+
 
 }
