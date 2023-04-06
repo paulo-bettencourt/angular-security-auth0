@@ -13,15 +13,15 @@ export class ChangeColorDirective {
   constructor() { }
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.highlight();
+    this.highlight(this.color);
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.highlight();
+    this.highlight('black');
   }
 
-  highlight() {
-   this.renderer.setStyle(this.el.nativeElement, 'color', this.color);
+  highlight(color: string) {
+   this.renderer.setStyle(this.el.nativeElement, 'color', color);
   }
 
 }
