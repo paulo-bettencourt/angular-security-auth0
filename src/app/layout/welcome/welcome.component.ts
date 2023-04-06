@@ -1,12 +1,14 @@
 import {Component, signal} from '@angular/core';
 import {ClassSignal} from "../../pages/classroom/list/classroom.component";
 import {CommonModule} from "@angular/common";
+import {StyleDirective} from "../../directives/styles/style.directive";
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    StyleDirective
   ],
   templateUrl: './welcome.component.html'
 })

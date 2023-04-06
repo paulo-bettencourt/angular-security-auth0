@@ -7,6 +7,6 @@
   </div>
 <!--   <h1>Wilkommen zu Deutscher Runder Tisch</h1>-->
   <div class="div-signal-title" *ngFor="let class of classSignals()">
-    <span (click)="changeSignalTitle()" id="footer"> <h1 id="signal-h1">{{ class.title }}</h1> </span>
+    <span (click)="changeSignalTitle()" id="footer"> <h1 id="signal-h1" appStyle>{{ class.title }}</h1> </span>
   </div>
 </div>
