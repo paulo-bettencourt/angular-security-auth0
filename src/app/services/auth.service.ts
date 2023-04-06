@@ -3,14 +3,15 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/user.interface";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, Observable} from "rxjs";
+import {ActivatedRouteSnapshot, createUrlTreeFromSnapshot} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public apiUrl: string = environment.baseUrl;
-  public isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private apiUrl: string = environment.baseUrl;
+  private isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
   }
@@ -84,6 +85,13 @@ export class AuthService {
   deleteClass(id: any) {
     console.log("id ", id)
     return this.http.delete(this.apiUrl + `delete/` + id);
+  }
+
+  authGuard = (next: ActivatedRouteSnapshot) => {
+    console.log(next)
+    const isLogged = localStorage.getItem('jwtBringGlobalToken');
+
+    return isLogged ? true : createUrlTreeFromSnapshot(next, ['/', 'login']);
   }
 }
 

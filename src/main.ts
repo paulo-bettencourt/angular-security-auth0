@@ -3,8 +3,8 @@ import {AppComponent} from "./app/app.component";
 import {HttpClientModule} from "@angular/common/http";
 import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
 import {environment} from "./environments/environment";
-import {RouterModule, Routes} from "@angular/router";
-import {importProvidersFrom, isDevMode} from "@angular/core";
+import {ActivatedRoute, ActivatedRouteSnapshot, createUrlTreeFromSnapshot, RouterModule, Routes} from "@angular/router";
+import {importProvidersFrom, inject, isDevMode} from "@angular/core";
 import {StoreModule} from "@ngrx/store";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {EffectsModule} from "@ngrx/effects";
@@ -21,6 +21,7 @@ import {CanActivateToken} from "./app/guards/token.guard";
 import {OtpComponent} from "./app/pages/otp/otp.component";
 import {AddClassComponent} from "./app/pages/crud-class/add/add-class.component";
 import {QuillModule} from "ngx-quill";
+import {AuthService} from "./app/services/auth.service";
 
 const routes: Routes = [{
   path: '',
@@ -41,6 +42,7 @@ const routes: Routes = [{
     {
       path: 'classroom',
       component: ClassroomComponent,
+      canActivate: [(route: ActivatedRouteSnapshot) => inject(AuthService).authGuard(route)]
     },
     {
       path: 'otp',
