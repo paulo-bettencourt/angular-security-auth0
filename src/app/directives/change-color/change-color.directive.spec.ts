@@ -1,4 +1,4 @@
-import { TitleFontSizeDirective } from './change-font-color.directive';
+import { TitleFontSizeDirective } from './change-color.directive';
 
 describe('TitleFontSizeDirective', () => {
   it('should create an instance', () => {

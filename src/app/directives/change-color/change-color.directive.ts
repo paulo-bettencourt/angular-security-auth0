@@ -4,7 +4,7 @@ import {Directive, ElementRef, HostListener, inject, Renderer2} from '@angular/c
   selector: '[changeFontColor]',
   standalone: true
 })
-export class ChangeFontColorDirective {
+export class ChangeColorDirective {
 
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
