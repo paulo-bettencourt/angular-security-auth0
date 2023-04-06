@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, inject, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, inject, Input, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[changeFontColor]',
@@ -6,21 +6,22 @@ import {Directive, ElementRef, HostListener, inject, Renderer2} from '@angular/c
 })
 export class ChangeColorDirective {
 
+  @Input('color') color!: any;
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
 
   constructor() { }
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.highlight('#be1e2d')
+    this.highlight();
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.highlight('black');
+    this.highlight();
   }
 
-  highlight(color: string) {
-   this.renderer.setStyle(this.el.nativeElement, 'color', color);
+  highlight() {
+   this.renderer.setStyle(this.el.nativeElement, 'color', this.color);
   }
 
 }

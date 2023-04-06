@@ -6,7 +6,7 @@ import {UnderlineDirective} from "../underline/underline.directive";
   selector: '[appStyle]',
   standalone: true,
   hostDirectives: [
-    {directive: ChangeColorDirective},
+    {directive: ChangeColorDirective, inputs: ['color']},
     {directive: UnderlineDirective}
   ]
 })
