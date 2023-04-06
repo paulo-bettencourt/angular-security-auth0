@@ -4,10 +4,7 @@ import {
   OnInit,
   DestroyRef
 } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
-import {Router} from "@angular/router";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, takeUntil} from "rxjs";
 import {reduxGermanService} from "../../../services/ngrx-german.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditClassDialog} from "../../crud-class/edit/edit-class-dialog.component";
@@ -30,6 +27,17 @@ import {RouterModule} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 export interface ClassSignal {
   title: string;
+}
+
+export function untilDestroyed() {
+  const subject = new Subject();
+
+  inject(DestroyRef).onDestroy(() => {
+    subject.next(true);
+    subject.complete();
+  });
+
+  return <T>() => takeUntil<T>(subject.asObservable());
 }
 
 @Injectable()
@@ -76,14 +84,21 @@ export class ClassroomComponent implements OnInit {
   pageSize = 10;
   quotes = [  { quote: "Making mistakes is normal and important for learning a language." },  { quote: "Every day is an opportunity to learn something new." },  { quote: "Learning languages opens doors to new cultures and experiences." },  { quote: "Learning a new language is like discovering a new world." },  { quote: "Language learning is an adventure that accompanies you for a lifetime." },  { quote: "Only those who know their goal will find the way. Set a clear goal when learning a language." },  { quote: "Learning a language broadens your horizons and promotes your thinking ability." },  { quote: "Practice makes perfect - and that also applies to learning a language." },  { quote: "Start small and work your way up step by step. Every progress counts!" },  { quote: "Language learning can be difficult, but it is one of the most rewarding challenges out there." }];
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private reduxService: reduxGermanService, public dialog: MatDialog, private destroyRef: DestroyRef) {
+  // Inject DI instead of Constructor DI
+  private reduxService = inject(reduxGermanService);
+  private dialog = inject(MatDialog);
+  private destroyRef = inject(DestroyRef);
+
+  private untilDestroyed = untilDestroyed();
+
+  constructor() {
     this.destroyRef.onDestroy(() => console.log("destroyed"));
     this.bringName = localStorage.getItem('BringUsername');
-    reduxService.entities$.subscribe((data: any) => {
+    this.loading$ = this.reduxService.loading$;
+    this.reduxService.entities$.pipe(this.untilDestroyed()).subscribe((data: any) => {
       this.allClasses$ = data;
       this.allClasses$ = this.allClasses$.map((obj: any, index: number) => ({ ...obj, numberOfClasses: index })).reverse();
     });
-    this.loading$ = reduxService.loading$;
   }
 
   ngOnInit() {
@@ -151,7 +166,6 @@ export class ClassroomComponent implements OnInit {
   deleteClassById(id: any) {
     this.dialog.open(DeleteClassDialog, {
       data: { id: id }
-    }, );
+    });
   }
-
 }
