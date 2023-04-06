@@ -28,6 +28,7 @@ li:hover {
   border-bottom:1px solid #be1e2d;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
 .mat-tab-label-active {
   color: #00ADEE !important;
 }
