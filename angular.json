@@ -95,8 +95,60 @@
             "tsConfig": "./tsconfig.spec.json",
             "verbose": true
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular.io-example/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "angular-security-auth0:build:development",
+              "serverTarget": "angular-security-auth0:server:development"
+            },
+            "production": {
+              "browserTarget": "angular-security-auth0:build:production",
+              "serverTarget": "angular-security-auth0:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-security-auth0:build:production",
+              "serverTarget": "angular-security-auth0:server:production"
+            },
+            "development": {
+              "browserTarget": "angular-security-auth0:build:development",
+              "serverTarget": "angular-security-auth0:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
-
       }
     }
   }
