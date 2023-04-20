@@ -1,11 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validator, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {User} from "../../interfaces/user.interface";
-import {Router} from "@angular/router";
-import {MainPageComponent} from "../../layout/main-page/main-page.component";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {CommonModule} from "@angular/common";
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
+
+import { User } from '../../interfaces/user.interface';
+import { MainPageComponent } from '../../layout/main-page/main-page.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,51 +21,65 @@ import {CommonModule} from "@angular/common";
     CommonModule,
     MatProgressSpinnerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
 })
 export class LoginComponent {
-
   form = this.fb.group({
-    login: ['',  [Validators.required, Validators.email, this.bringGlobalEmailValidator()]],
-    password: ['', Validators.required]
-  })
+    login: [
+      '',
+      [Validators.required, Validators.email, this.bringGlobalEmailValidator()],
+    ],
+    password: ['', Validators.required],
+  });
   data!: User;
   isLoading = false;
   errorMessageBoolean = false;
   errorMessageText = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private component: MainPageComponent) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private component: MainPageComponent
+  ) {}
 
   submit() {
-    const buttonDisabled = document.getElementById('submitButtonLogin') as HTMLInputElement
+    const buttonDisabled = document.getElementById(
+      'submitButtonLogin'
+    ) as HTMLInputElement;
     const login = this.form.controls['login'].value;
     const password = this.form.controls['password'].value;
 
-    if(login && password && this.form.valid) {
+    if (login && password && this.form.valid) {
       this.isLoading = true;
       buttonDisabled.disabled = true;
       this.data = {
         login: login,
-        password: password
-      }
+        password: password,
+      };
 
       this.authService.login(this.data).subscribe({
         next: (data: any) => {
-          localStorage.setItem('jwtBringGlobalToken', data.token)
-          localStorage.setItem('BringUsername', data.name)
-          this.authService.isLogged = true;
-          this.router.navigate(['classroom']);
-          this.component.isLogged = true;
+          console.log('DATA--> ', data);
+          if (data.isAdmin === true) {
+            this.router.navigate(['dashboard']);
+          } else {
+            localStorage.setItem('jwtBringGlobalToken', data.token);
+            localStorage.setItem('BringUsername', data.name);
+            this.authService.isLogged = true;
+            this.router.navigate(['classroom']);
+            this.component.isLogged = true;
+          }
         },
-          error: (data) => {
-            this.isLoading = false;
-            buttonDisabled.disabled = false;
-            this.errorMessageBoolean = true;
-            this.errorMessageText = data.error.message;
-        }
-      })
+        error: (data) => {
+          this.isLoading = false;
+          buttonDisabled.disabled = false;
+          this.errorMessageBoolean = true;
+          this.errorMessageText = data.error.message;
+        },
+      });
     }
   }
 
@@ -68,7 +89,7 @@ export class LoginComponent {
       if (email && email.indexOf('@') !== -1) {
         const domain = email.split('@')[1];
         if (domain !== 'bringglobal.com') {
-          return { 'invalidDomain': true };
+          return { invalidDomain: true };
         }
       }
       return null;

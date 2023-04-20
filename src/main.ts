@@ -1,71 +1,83 @@
-import {bootstrapApplication} from "@angular/platform-browser";
-import {AppComponent} from "./app/app.component";
-import {HttpClientModule} from "@angular/common/http";
-import {DefaultDataServiceConfig, EntityDataModule} from "@ngrx/data";
-import {environment} from "./environments/environment";
-import {ActivatedRoute, ActivatedRouteSnapshot, createUrlTreeFromSnapshot, RouterModule, Routes} from "@angular/router";
-import {importProvidersFrom, inject, isDevMode} from "@angular/core";
-import {StoreModule} from "@ngrx/store";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {EffectsModule} from "@ngrx/effects";
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {entityConfig} from "./app/ngrx-redux/entity-metadata";
-import {MatButtonModule} from "@angular/material/button";
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {WelcomeComponent} from "./app/layout/welcome/welcome.component";
-import {LoginComponent} from "./app/pages/login/login.component";
-import {SignUpComponent} from "./app/pages/sign-up/sign-up.component";
-import {ClassroomComponent} from "./app/pages/classroom/list/classroom.component";
-import {CanActivateToken} from "./app/guards/token.guard";
-import {OtpComponent} from "./app/pages/otp/otp.component";
-import {AddClassComponent} from "./app/pages/crud-class/add/add-class.component";
-import {QuillModule} from "ngx-quill";
-import {AuthService} from "./app/services/auth.service";
+import { HttpClientModule } from '@angular/common/http';
+import { importProvidersFrom, inject, isDevMode } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRouteSnapshot, RouterModule, Routes } from '@angular/router';
+import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { QuillModule } from 'ngx-quill';
 
-const routes: Routes = [{
-  path: '',
-  loadComponent: () => import('./app/layout/main-page/main-page.component').then(m=>m.MainPageComponent),
-  children: [
-    {
-      path: '',
-      component: WelcomeComponent
-    },
-    {
-      path: 'login',
-      component: LoginComponent
-    },
-    {
-      path: 'sign-up',
-      component: SignUpComponent
-    },
-    {
-      path: 'classroom',
-      component: ClassroomComponent,
-      canActivate: [(route: ActivatedRouteSnapshot) => inject(AuthService).authGuard(route)]
-    },
-    {
-      path: 'otp',
-      component: OtpComponent
-    },
-    {
-      path: 'add',
-      component: AddClassComponent
-    }
-  ]
-}
+import { DashboardComponent } from './app/admin/components/dashboard/dashboard.component';
+import { AppComponent } from './app/app.component';
+import { WelcomeComponent } from './app/layout/welcome/welcome.component';
+import { entityConfig } from './app/ngrx-redux/entity-metadata';
+import { ClassroomComponent } from './app/pages/classroom/list/classroom.component';
+import { AddClassComponent } from './app/pages/crud-class/add/add-class.component';
+import { LoginComponent } from './app/pages/login/login.component';
+import { OtpComponent } from './app/pages/otp/otp.component';
+import { SignUpComponent } from './app/pages/sign-up/sign-up.component';
+import { AuthService } from './app/services/auth.service';
+import { environment } from './environments/environment';
+
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./app/layout/main-page/main-page.component').then(
+        (m) => m.MainPageComponent
+      ),
+    children: [
+      {
+        path: '',
+        component: WelcomeComponent,
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent,
+      },
+      {
+        path: 'classroom',
+        component: ClassroomComponent,
+        canActivate: [
+          (route: ActivatedRouteSnapshot) =>
+            inject(AuthService).authGuard(route),
+        ],
+      },
+      {
+        path: 'otp',
+        component: OtpComponent,
+      },
+      {
+        path: 'add',
+        component: AddClassComponent,
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+    ],
+  },
 ];
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
   timeout: 30000, // request timeout
-}
+};
 
-bootstrapApplication(AppComponent,{
+bootstrapApplication(AppComponent, {
   providers: [
     {
       provide: DefaultDataServiceConfig,
-      useValue: defaultDataServiceConfig
+      useValue: defaultDataServiceConfig,
     },
     importProvidersFrom(
       QuillModule.forRoot(),
@@ -84,5 +96,7 @@ bootstrapApplication(AppComponent,{
       MatButtonModule,
       MatTooltipModule,
       MatDialogModule,
-      RouterModule.forRoot(routes))]
+      RouterModule.forRoot(routes)
+    ),
+  ],
 });
