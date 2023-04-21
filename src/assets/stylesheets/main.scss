@@ -1,39 +1,26 @@
 @charset "UTF-8";
 
 // 1. Configuration and helpers
-@import 'abstracts/variables',
-'abstracts/functions',
-'abstracts/mixins',
-'abstracts/responsiveness';
+@import "abstracts/variables", "abstracts/functions", "abstracts/mixins",
+  "abstracts/responsiveness";
 
 // 2. Vendors
-@import 'vendors/normalize';
+@import "vendors/normalize";
 
 // 3. Base stuff
-@import 'base/base',
-'base/fonts',
-'base/typography',
-'base/helpers';
+@import "base/base", "base/fonts", "base/typography", "base/helpers";
 
 // 4. Layout-related sections
-@import 'layout/header',
-'layout/footer';
+@import "layout/header", "layout/footer";
 
 // 5. Components
-@import 'components/button',
-'components/hamburguer-menu';
+@import "components/button", "components/hamburguer-menu";
 
 // 6. Page-specific styles
-@import 'pages/home',
-'pages/add-class',
-'pages/classroom',
-'pages/delete-class-dialog',
-'pages/edit-class-dialog',
-'pages/login',
-'pages/main-page',
-'pages/otp',
-'pages/sign-up',
-'pages/welcome';
+@import "pages/home", "pages/add-class", "pages/classroom",
+  "pages/delete-class-dialog", "pages/edit-class-dialog", "pages/login",
+  "pages/main-page", "pages/otp", "pages/sign-up", "pages/admin",
+  "pages/welcome";
 
 // 7. Themes
-@import 'themes/default';
+@import "themes/default";
