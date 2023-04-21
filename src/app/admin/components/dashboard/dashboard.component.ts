@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,29 +10,15 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   imports: [CommonModule, NgxChartsModule],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent {
-  usersNumber = [
-    {
-      name: 'Users',
-      value: 7,
-    },
-    {
-      name: 'Classes',
-      value: 14,
-    },
-  ];
+export class DashboardComponent implements OnInit {
+  usersNumber$ = new Observable();
 
-  classesNumber = [
-    {
-      name: 'Classes',
-      value: 14,
-    },
-  ];
+  pieChartData$ = new Observable();
 
-  pieChartData = [
-    { name: 'John', value: 5 },
-    { name: 'Jane', value: 2 },
-    { name: 'Bob', value: 7 },
-    { name: 'Alice', value: 3 },
-  ];
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit(): void {
+    this.usersNumber$ = this.dashboardService.getUsersAndClasses();
+    this.pieChartData$ = this.dashboardService.getPublishedClasses();
+  }
 }

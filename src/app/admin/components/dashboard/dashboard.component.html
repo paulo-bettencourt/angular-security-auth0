@@ -1,7 +1,7 @@
 <div class="graph-users">
   <h1>Total ammount of users and classes</h1>
   <ngx-charts-bar-vertical
-    [results]="usersNumber"
+    [results]="usersNumber$ | async"
     [xAxis]="true"
     [yAxis]="true"
     [legend]="false"
@@ -17,7 +17,7 @@
   <h1>Number of classes published by students</h1>
   <ngx-charts-pie-chart
     [view]="[700, 400]"
-    [results]="pieChartData"
+    [results]="pieChartData$ | async"
     [doughnut]="false"
     [explodeSlices]="false"
     [labels]="true"
