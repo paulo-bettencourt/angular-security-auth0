@@ -39,6 +39,8 @@
               "./node_modules/quill-mention/dist/quill.mention.min.css"
             ],
             "scripts": [
+              "node_modules/jspdf/dist/jspdf.min.js",
+              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
               "./node_modules/quill/dist/quill.min.js"
             ],
             "scripts": []
