@@ -1,20 +1,21 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../interfaces/user.interface";
-import {environment} from "../../environments/environment";
-import {BehaviorSubject, Observable} from "rxjs";
-import {ActivatedRouteSnapshot, createUrlTreeFromSnapshot} from "@angular/router";
+import { ActivatedRouteSnapshot, createUrlTreeFromSnapshot } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+
+import { environment } from '../../environments/environment';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private apiUrl: string = environment.baseUrl;
-  private isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   login(data: User) {
     return this.http.post<User>(this.apiUrl + `login`, data);
@@ -28,42 +29,36 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + `otp`, data);
   }
 
-  headers= new HttpHeaders()
+  headers = new HttpHeaders()
     .set('Access-Control-Allow-Origin', '*')
-    .set("Access-Control-Allow-Credentials", "true")
+    .set('Access-Control-Allow-Credentials', 'true')
     .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     .set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     .set('Access-Control-Allow-Methods', '*');
-
-  uploadFile(data: File) {
-    const formData: FormData = new FormData();
-    formData.append('file', data);
-    return this.http.post(this.apiUrl + `uploads`, formData)
-  }
 
   uploadImage(data: File) {
     const formData: FormData = new FormData();
     formData.append('image', data);
     return this.http.post(this.apiUrl + `upload`, formData, {
       reportProgress: true,
-      responseType: 'json'
-    })
+      responseType: 'json',
+    });
   }
 
   uploadImage64(data: any) {
-    return this.http.post(this.apiUrl + `post-image`, {image: data})
+    return this.http.post(this.apiUrl + `post-image`, { image: data });
   }
 
   uploadText(data: any) {
-    return this.http.post(this.apiUrl + `upload-text`, data)
+    return this.http.post(this.apiUrl + `upload-text`, data);
   }
 
   getClasses() {
-    return this.http.get(this.apiUrl + `classes`)
+    return this.http.get(this.apiUrl + `classes`);
   }
 
   getImages() {
-    return this.http.get(this.apiUrl + `get-images`)
+    return this.http.get(this.apiUrl + `get-images`);
   }
 
   set isLogged(value: boolean) {
@@ -75,7 +70,7 @@ export class AuthService {
   }
 
   getJwtToken(token: any) {
-    return this.http.post(this.apiUrl + `get-jwt-token`, {token: token})
+    return this.http.post(this.apiUrl + `get-jwt-token`, { token: token });
   }
 
   logout() {
@@ -83,19 +78,12 @@ export class AuthService {
   }
 
   deleteClass(id: any) {
-    console.log("id ", id)
     return this.http.delete(this.apiUrl + `delete/` + id);
   }
 
   authGuard = (next: ActivatedRouteSnapshot) => {
-    console.log(next)
     const isLogged = localStorage.getItem('jwtBringGlobalToken');
 
     return isLogged ? true : createUrlTreeFromSnapshot(next, ['/', 'login']);
-  }
+  };
 }
-
-
-
-
-

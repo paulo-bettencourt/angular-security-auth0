@@ -1,28 +1,28 @@
-import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from "@angular/core";
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {AuthService} from "../../../services/auth.service";
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {reduxGermanService} from "../../../services/ngrx-german.service";
-import {CommonModule} from "@angular/common";
-import {QuillModule} from "ngx-quill";
-import {NgxDropzoneModule} from "ngx-dropzone";
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { QuillModule } from 'ngx-quill';
+
+import { AuthService } from '../../../services/auth.service';
+import { reduxGermanService } from '../../../services/ngrx-german.service';
 
 @Component({
   selector: 'edit-dialog',
   standalone: true,
-  imports:[
+  imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     QuillModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
   ],
-  templateUrl: './edit-class-dialog.html'
+  templateUrl: './edit-class-dialog.html',
 })
 export class EditClassDialog implements AfterViewInit {
-
   typeOfClass!: any;
   nameOfFile: string = '';
   nameOfImage!: string;
@@ -31,7 +31,7 @@ export class EditClassDialog implements AfterViewInit {
     nameClass: ['', Validators.required],
     textClass: ['', Validators.required],
     imageClass: ['', Validators.required],
-  })
+  });
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
   files: File[] = [];
@@ -46,19 +46,27 @@ export class EditClassDialog implements AfterViewInit {
   quillConfiguration = {
     toolbar: [
       ['italic', 'underline'],
-      [{header: [1, 2, 3, 4, 5, 6, false]}],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['link'],
     ],
-  }
+  };
   private objectToUpdate!: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient, private reduxService: reduxGermanService, public dialog: MatDialog) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private http: HttpClient,
+    private reduxService: reduxGermanService,
+    public dialog: MatDialog
+  ) {
     this.formAddClass.controls['nameClass'].setValue(this.data.title);
     this.formAddClass.controls['textClass'].setValue(this.data.text);
     this.formAddClass.controls['imageClass'].setValue(this.data.image);
     this.classId = this.data.id.trim();
     if (this.data.image) {
-      this.convertData64ToImage(this.data.image)
+      this.convertData64ToImage(this.data.image);
     }
     this.downloadFile(this.data.file, this.data.file);
   }
@@ -68,46 +76,29 @@ export class EditClassDialog implements AfterViewInit {
       _id: this.classId,
       title: this.formAddClass.controls['nameClass'].value,
       text: this.formAddClass.controls['textClass'].value,
-      author: JSON.stringify(localStorage.getItem('BringUsername'))
-    }
+      author: JSON.stringify(localStorage.getItem('BringUsername')),
+    };
   }
 
   updateObjectToUpdate() {
     this.dialog.closeAll();
 
-    if (this.fileToUpload) {
-      this.authService.uploadFile(this.fileToUpload).subscribe((data: any) => {
-
-        // @ts-ignore
-        this.objectToUpdate = {
-          _id: this.classId,
-          title: this.formAddClass.controls['nameClass'].value,
-          text: this.formAddClass.controls['textClass'].value,
-          file: data.location,
-          image: this.imageResult,
-          author: JSON.stringify(localStorage.getItem('BringUsername'))
-        };
-        this.reduxService.update(this.objectToUpdate).subscribe(data => {
-          console.log("DATA DO UPDATA ", data)
-        });
-      })
-    } else {
-      this.objectToUpdate = {
-        _id: this.classId,
-        title: this.formAddClass.controls['nameClass'].value,
-        text: this.formAddClass.controls['textClass'].value,
-        image: this.imageResult,
-        author: localStorage.getItem('BringUsername')
-      };
-      this.reduxService.update(this.objectToUpdate).subscribe(data => {
-        console.log("Data update:  ", data)
-      });
-    }
+    this.objectToUpdate = {
+      _id: this.classId,
+      title: this.formAddClass.controls['nameClass'].value,
+      text: this.formAddClass.controls['textClass'].value,
+      image: this.imageResult,
+      author: localStorage.getItem('BringUsername'),
+    };
+    this.reduxService.update(this.objectToUpdate).subscribe((data) => {
+      console.log('Data update:  ', data);
+    });
   }
 
-// Define a function to download the file and convert it to a File object
+  // Define a function to download the file and convert it to a File object
   downloadFile(url: string, filename: string): void {
-    this.http.get(url, {responseType: 'blob'})
+    this.http
+      .get(url, { responseType: 'blob' })
       .toPromise()
       .then((blob: Blob | undefined) => {
         if (blob) {
@@ -120,8 +111,11 @@ export class EditClassDialog implements AfterViewInit {
       .then((file: File) => {
         const oldFileUploaded = file;
         this.fileNameUrl = oldFileUploaded.name;
-        this.fileName = oldFileUploaded.name.split("/").pop();
-        document.documentElement.style.setProperty('--my-var', JSON.stringify(this.fileName));
+        this.fileName = oldFileUploaded.name.split('/').pop();
+        document.documentElement.style.setProperty(
+          '--my-var',
+          JSON.stringify(this.fileName)
+        );
       })
       .catch((error: any) => {
         console.error(error);
@@ -130,7 +124,7 @@ export class EditClassDialog implements AfterViewInit {
 
   createFile(blob: Blob, filename: string): File {
     // Create a new File object from the blob and filename
-    return new File([blob], filename, {type: blob.type});
+    return new File([blob], filename, { type: blob.type });
   }
 
   convertData64ToImage(image64: string) {
@@ -150,9 +144,9 @@ export class EditClassDialog implements AfterViewInit {
     }
 
     // Create a blob from the ArrayBuffer
-    const blob = new Blob([arrayBuffer], {type: 'image/png'});
+    const blob = new Blob([arrayBuffer], { type: 'image/png' });
     // Create a new File object from the blob
-    this.files[0] = new File([blob], 'image.png', {type: 'image/png'});
+    this.files[0] = new File([blob], 'image.png', { type: 'image/png' });
   }
 
   chooseTypeOfClass(type: any) {
@@ -162,7 +156,10 @@ export class EditClassDialog implements AfterViewInit {
   handleFileInput(files: any) {
     this.nameOfFile = files.target.files[0].name;
     this.fileToUpload = files.target.files[0];
-    document.documentElement.style.setProperty('--my-var', JSON.stringify(files.target.files[0].name))
+    document.documentElement.style.setProperty(
+      '--my-var',
+      JSON.stringify(files.target.files[0].name)
+    );
   }
 
   handleImageInput(files: any) {
@@ -172,9 +169,9 @@ export class EditClassDialog implements AfterViewInit {
 
     if (this.imageToUpload) {
       reader.readAsDataURL(this.imageToUpload);
-      reader.onload = () => this.imageResult = reader.result;
+      reader.onload = () => (this.imageResult = reader.result);
     }
-    console.log("IMAGEM 54-> ", this.imageToUpload)
+    console.log('IMAGEM 54-> ', this.imageToUpload);
   }
 
   onSelect(event: any) {

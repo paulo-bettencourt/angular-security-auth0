@@ -2,11 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
 
-import { AuthService } from '../../../services/auth.service';
 import { reduxGermanService } from '../../../services/ngrx-german.service';
 
 @Component({
@@ -26,11 +24,13 @@ export class AddClassComponent {
   nameOfFile: string = '';
   nameOfImage!: string;
   fileToUpload: File | null = null;
+  youtubeIdPattern = /^[a-zA-Z0-9_-]{11}$/;
+  youtubeIdValidator = Validators.pattern(this.youtubeIdPattern);
   formAddClass = this.fb.group({
     nameClass: ['', Validators.required],
     textClass: ['', Validators.required],
     imageClass: ['', Validators.required],
-    youtubeVideo: ['', Validators.required],
+    youtubeID: ['', [Validators.required, this.youtubeIdValidator]],
   });
   imageResult: string | ArrayBuffer | null | undefined;
   imageToUpload!: any;
@@ -51,21 +51,10 @@ export class AddClassComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
     public dialogRef: MatDialogRef<any>,
     public dialog: MatDialog,
     public reduxService: reduxGermanService
   ) {}
-
-  chooseTypeOfClass(type: any) {
-    this.typeOfClass = type;
-  }
-
-  handleFileInput(files: any) {
-    this.nameOfFile = files.target.files[0].name;
-    this.fileToUpload = files.target.files[0];
-  }
 
   handleImageInput(files: any) {
     const reader = new FileReader();
@@ -83,69 +72,18 @@ export class AddClassComponent {
     this.buttonAddGermanClassRef.nativeElement.disabled = true;
     this.dialog.closeAll();
 
-    if (this.imageResult && this.fileToUpload) {
-      this.uploadImageAndFile(formValue, this.imageResult, this.fileToUpload);
-    } else if (
-
-    /*     else if (this.imageResult === undefined && this.fileToUpload) {
-      this.uploadFileOnly(formValue, this.fileToUpload);
-    }  */
-      this.imageResult &&
-      (this.fileToUpload === null ||
-        this.fileToUpload === undefined ||
-        !this.fileToUpload)
-    ) {
-      this.uploadImageOnly(formValue, this.imageResult);
-    } else {
-      this.uploadTextOnly(formValue);
-    }
-  }
-
-  uploadImageAndFile(formValue: any, imageToUpload: any, fileToUpload: any) {
-    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-      const fileLocation = data.location;
-      const dataObject = {
-        titleClass: formValue.nameClass,
-        textClass: formValue.textClass,
-        imageClass: imageToUpload,
-        fileClass: fileLocation,
-        author: localStorage.getItem('BringUsername'),
-      };
-      this.reduxService.add(dataObject);
-    });
-    this.dialog.closeAll();
-  }
-  /*
-  uploadFileOnly(formValue: any, fileToUpload: any) {
-    this.authService.uploadFile(fileToUpload).subscribe((data: any) => {
-      const fileLocation = data.location;
-      const dataObject = {
-        titleClass: formValue.nameClass,
-        textClass: formValue.textClass,
-        fileClass: fileLocation,
-        author: localStorage.getItem('BringUsername'),
-      };
-      this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
-    });
-  } */
-
-  uploadImageOnly(formValue: any, imageToUpload: any) {
     const dataObject = {
       titleClass: formValue.nameClass,
       textClass: formValue.textClass,
-      imageClass: imageToUpload,
+      imageClass: this.imageResult,
+      youtube: formValue.youtubeID,
       author: localStorage.getItem('BringUsername'),
     };
-    this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
-  }
 
-  uploadTextOnly(formValue: any) {
-    const dataObject = {
-      titleClass: formValue.nameClass,
-      textClass: formValue.textClass,
-      author: localStorage.getItem('BringUsername'),
-    };
-    this.reduxService.add(dataObject).subscribe(() => this.dialog.closeAll());
+    this.reduxService.add(dataObject).subscribe((res) => {
+      res;
+      this.dialog.closeAll();
+    });
   }
 
   onSelect(event: any) {

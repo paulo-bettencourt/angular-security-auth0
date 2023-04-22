@@ -33,13 +33,16 @@
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-image-preview>
       </ngx-dropzone>
+      <input
+        type="text"
+        formControlName="youtubeID"
+        placeholder="YouTube video ID"
+        maxlength="11"
+      >
+      <div
+        *ngIf="(formAddClass.controls['youtubeID'].touched || formAddClass.controls['youtubeID'].dirty) && formAddClass.controls['youtubeID'].invalid && formAddClass.controls['youtubeID'].value"
+      >Please enter a valid YouTube video ID.</div>
     </form>
-    <input
-      type="text"
-      formControlName="title"
-      placeholder="Youtube video"
-      formControlName="youtubeVideo"
-    >
     <div class="group-buttons">
       <button
         (click)="submitGermanClass()"
