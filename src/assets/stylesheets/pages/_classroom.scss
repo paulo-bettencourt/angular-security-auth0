@@ -42,7 +42,7 @@ ul {
 .img-flex-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center
+  justify-content: center;
 }
 
 .img-flex-thumb {
@@ -61,7 +61,7 @@ ul {
 }
 
 .example-header-image {
-  background-image: url('../../images/avatar.jpeg');
+  background-image: url("../../images/avatar.jpeg");
   background-size: cover;
 }
 
@@ -76,8 +76,8 @@ mat-card {
 
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-header,
-#file-container {
-  text-align: left;
+#youtube-container {
+  text-align: center;
 }
 
 .bi-pencil-square {

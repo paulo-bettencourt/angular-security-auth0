@@ -12,7 +12,7 @@
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title #lessonName>
-              Class #{{class.numberOfClasses}}
+              Class #{{class.numberOfClasses + 1}}
             </mat-panel-title>
             <mat-panel-description>
               {{class.title}}
@@ -69,17 +69,12 @@
               (click)="debugBase64(class.image)"
             />
             <mat-card-content>
-
               <div [innerHTML]="class.text"></div>
-              <app-youtube-player [youtubeID]="class.youtube"></app-youtube-player>
-              <hr *ngIf="class.youtube">
               <div
                 *ngIf="class.youtube"
-                id="file-container"
+                id="youtube-container"
               >
-
-
-
+                <app-youtube-player [youtubeID]="class.youtube"></app-youtube-player>
               </div>
             </mat-card-content>
           </mat-card>
