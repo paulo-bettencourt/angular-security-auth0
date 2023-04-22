@@ -312,6 +312,14 @@
   dependencies:
     "tslib" "^2.3.0"
 
+"@angular/youtube-player@^15.2.8":
+  "integrity" "sha512-yo5C48spbYF3S8iMg7XCgXEapA2azOhUqiEsFv38DMCKcd8UyvUEtoNaW85J3JTsb/oB66hjtxcF8xyZbWdaBQ=="
+  "resolved" "https://registry.npmjs.org/@angular/youtube-player/-/youtube-player-15.2.8.tgz"
+  "version" "15.2.8"
+  dependencies:
+    "@types/youtube" "^0.0.42"
+    "tslib" "^2.3.0"
+
 "@assemblyscript/loader@^0.10.1":
   "integrity" "sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg=="
   "resolved" "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz"
@@ -3189,6 +3197,11 @@
   "version" "17.0.22"
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/youtube@^0.0.42":
+  "integrity" "sha512-Nqo3HMPFPcNyZ7HNFZJjpH+N4yXqpxBItG+41e7nL9zednovMRZMXWj36CctSznbBcbj6ucvkJDo5iZ8SKqLIw=="
+  "resolved" "https://registry.npmjs.org/@types/youtube/-/youtube-0.0.42.tgz"
+  "version" "0.0.42"
 
 "@webassemblyjs/ast@1.11.1":
   "integrity" "sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw=="

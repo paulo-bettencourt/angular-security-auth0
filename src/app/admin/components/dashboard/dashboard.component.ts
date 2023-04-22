@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   exportPdf() {
     const doc = new jsPDF();
 
+    doc.text('Dashboard Deutscher Runder Tisch', 100, 10, { align: 'center' });
     doc.addImage(
       '../../../assets/images/BRING_apostrophe_red_pos_rgb.png',
       'PNG',
