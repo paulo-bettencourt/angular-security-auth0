@@ -69,3 +69,16 @@
     [legendPosition]="'right'"
   ></ngx-charts-pie-chart>
 </div>
+<h2>Time Logged In</h2>
+<ngx-charts-bar-horizontal
+  [results]="timeLoggedInData$ | async"
+  [xAxis]="true"
+  [yAxis]="true"
+  [legend]="false"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [view]="[600, 400]"
+  [barPadding]="20"
+  yAxisLabel="Seconds"
+>
+</ngx-charts-bar-horizontal>

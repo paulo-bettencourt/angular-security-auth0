@@ -2,32 +2,58 @@
   <div class="nav-container">
     <div class="first-box">
       <ul id="list-of-links">
-        <li routerLink="">
-          <img src="../../../assets/images/BRING_apostrophe_wht_rev_rgb.png" alt="" class="logo-bring">
+        <li>
+          <img
+            src="../../../assets/images/BRING_apostrophe_wht_rev_rgb.png"
+            alt=""
+            class="logo-bring"
+          >
         </li>
-        <li id="container-hamburger" >
-          <div >
+        <li id="container-hamburger">
+          <div>
             <div class="hamburguer-menu"></div>
             <div class="hamburguer-menu"></div>
             <div class="hamburguer-menu"></div>
           </div>
         </li>
-        <a routerLink="">
+        <a
+          routerLink=""
+          *ngIf="!isLogged"
+        >
           <li class="li-hover">Home</li>
         </a>
-        <a routerLink="classroom" *ngIf="isLogged">
+        <a
+          routerLink="classroom"
+          *ngIf="isLogged"
+        >
           <li class="li-hover">Classroom</li>
         </a>
-        <a routerLink="login" *ngIf="!isLogged">
+        <a
+          routerLink="login"
+          *ngIf="!isLogged"
+        >
           <li class="li-hover">Login</li>
         </a>
-        <a routerLink="sign-up" *ngIf="!isLogged">
+        <a
+          routerLink="sign-up"
+          *ngIf="!isLogged"
+        >
           <li class="li-hover">Sign Up</li>
         </a>
-        <a *ngIf="isLogged" class="add-new-class">
-          <li (click)="openDialog('0ms', '0ms')" id="add-class-button">Add New Class</li>
+        <a
+          *ngIf="isLogged"
+          class="add-new-class"
+        >
+          <li
+            (click)="openDialog('0ms', '0ms')"
+            id="add-class-button"
+          >Add New Class</li>
         </a>
-        <a routerLink="" (click)="logout()" *ngIf="isLogged">
+        <a
+          routerLink=""
+          (click)="logout()"
+          *ngIf="isLogged"
+        >
           <li class="li-hover">Logout</li>
         </a>
       </ul>
@@ -35,25 +61,43 @@
     </div>
   </div>
 </nav>
-<div class="menu-list-items-nav"  *ngIf="isMenuBoolean">
-    <a routerLink="">
-      <li class="items-responsive">Home</li>
-    </a>
-    <a routerLink="classroom" *ngIf="isLogged">
-      <li class="li-hover items-responsive">Classroom</li>
-    </a>
-    <a routerLink="login" *ngIf="!isLogged">
-      <li class="li-hover items-responsive">Login</li>
-    </a>
-    <a routerLink="sign-up" *ngIf="!isLogged">
-      <li class="li-hover items-responsive">Sign Up</li>
-    </a>
-    <a *ngIf="isLogged" class="add-new-class items-responsive">
-      <li (click)="openDialog('0ms', '0ms')">Add New Class</li>
-    </a>
-    <a *ngIf="isLogged">
-      <li class="li-hover items-responsive" (click)="logout()" >Logout</li>
-    </a>
+<div
+  class="menu-list-items-nav"
+  *ngIf="isMenuBoolean"
+>
+  <a routerLink="">
+    <li class="items-responsive">Home</li>
+  </a>
+  <a
+    routerLink="classroom"
+    *ngIf="isLogged"
+  >
+    <li class="li-hover items-responsive">Classroom</li>
+  </a>
+  <a
+    routerLink="login"
+    *ngIf="!isLogged"
+  >
+    <li class="li-hover items-responsive">Login</li>
+  </a>
+  <a
+    routerLink="sign-up"
+    *ngIf="!isLogged"
+  >
+    <li class="li-hover items-responsive">Sign Up</li>
+  </a>
+  <a
+    *ngIf="isLogged"
+    class="add-new-class items-responsive"
+  >
+    <li (click)="openDialog('0ms', '0ms')">Add New Class</li>
+  </a>
+  <a *ngIf="isLogged">
+    <li
+      class="li-hover items-responsive"
+      (click)="logout()"
+    >Logout</li>
+  </a>
 </div>
 <div class="router-outlet-container">
   <router-outlet></router-outlet>

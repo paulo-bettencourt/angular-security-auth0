@@ -17,4 +17,8 @@ export class DashboardService {
   getPublishedClasses() {
     return this.http.get<any>(`${this.apiUrl}published-classes`);
   }
+
+  getTimeLoggedInDatabase() {
+    return this.http.get<any>(`${this.apiUrl}get-time-logged-in-database`);
+  }
 }

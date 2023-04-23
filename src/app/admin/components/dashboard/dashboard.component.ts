@@ -17,6 +17,7 @@ import * as XLSX from 'xlsx';
 export class DashboardComponent implements OnInit {
   usersNumber$ = new Observable();
   pieChartData$ = new Observable();
+  timeLoggedInData$ = new Observable();
   totalUsersClassesTablePdf: any[] = [];
   publishedClassesTablePdf: any[] = [];
 
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.pieChartData$ = this.dashboardService.getPublishedClasses();
     this.usersNumber$ = this.dashboardService.getUsersAndClasses();
+    this.timeLoggedInData$ = this.dashboardService.getTimeLoggedInDatabase();
     this.getPdfData();
   }
 
