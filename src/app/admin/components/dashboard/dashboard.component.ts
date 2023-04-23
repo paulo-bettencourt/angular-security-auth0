@@ -4,8 +4,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as FileSaver from 'file-saver';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -21,13 +22,31 @@ export class DashboardComponent implements OnInit {
   totalUsersClassesTablePdf: any[] = [];
   publishedClassesTablePdf: any[] = [];
 
+  eventSource!: EventSource;
+  timeLoggedInData!: any[];
+  private apiUrl: string = environment.baseUrl;
+
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.pieChartData$ = this.dashboardService.getPublishedClasses();
     this.usersNumber$ = this.dashboardService.getUsersAndClasses();
-    this.timeLoggedInData$ = this.dashboardService.getTimeLoggedInDatabase();
     this.getPdfData();
+    console.log('BBBBBBBBBBBBBBBBBBBBBBBB');
+
+    this.eventSource = new EventSource(
+      'http://localhost:3000/get-time-logged-in-database'
+    );
+
+    this.eventSource.addEventListener('message', (event: MessageEvent) => {
+      const data = JSON.parse(event.data);
+      console.log('Received event:', data);
+      this.timeLoggedInData$ = from([data]);
+    });
+
+    this.eventSource.addEventListener('error', (error) => {
+      console.error('Error connecting to SSE:', error);
+    });
   }
 
   async getPdfData() {
@@ -107,5 +126,9 @@ export class DashboardComponent implements OnInit {
       }
     );
     FileSaver.saveAs(txtBlob, 'data.txt');
+  }
+
+  tooltipText(data: any): string {
+    return JSON.parse(JSON.stringify(data)).cell.tooltipText;
   }
 }

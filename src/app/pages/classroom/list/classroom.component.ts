@@ -247,6 +247,6 @@ export class ClassroomComponent implements OnInit, OnDestroy {
           console.log('User has been logged in for: ', data.timeLoggedIn)
         );
       this.counterLoggedIn++;
-    }, 5000);
+    }, 3000);
   }
 }

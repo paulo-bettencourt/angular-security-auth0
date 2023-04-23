@@ -72,6 +72,7 @@
 <h2>Time Logged In</h2>
 <ngx-charts-bar-horizontal
   [results]="timeLoggedInData$ | async"
+  [showDataLabel]="true"
   [xAxis]="true"
   [yAxis]="true"
   [legend]="false"
@@ -80,5 +81,12 @@
   [view]="[600, 400]"
   [barPadding]="20"
   yAxisLabel="Seconds"
+  [tooltipDisabled]="false"
 >
+  <ng-template
+    #tooltipTemplate
+    let-model="model"
+  >
+    {{ model.name }}
+  </ng-template>
 </ngx-charts-bar-horizontal>
