@@ -1,42 +1,36 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
-import {Router, RouterModule, Routes} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
-import {reduxGermanService} from "../../services/ngrx-german.service";
-import {ThemePalette} from "@angular/material/core";
-import {MatDialog} from "@angular/material/dialog";
-import {AddClassComponent} from "../../pages/crud-class/add/add-class.component";
-import {CommonModule} from "@angular/common";
-import {WelcomeComponent} from "../welcome/welcome.component";
-import {LoginComponent} from "../../pages/login/login.component";
-import {SignUpComponent} from "../../pages/sign-up/sign-up.component";
-import {ClassroomComponent} from "../../pages/classroom/list/classroom.component";
-import {CanActivateToken} from "../../guards/token.guard";
-import {OtpComponent} from "../../pages/otp/otp.component";
-import {FooterComponent} from "../footer/footer.component";
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { AddClassComponent } from '../../pages/crud-class/add/add-class.component';
+import { AuthService } from '../../services/auth.service';
+import { reduxGermanService } from '../../services/ngrx-german.service';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports:[
-    CommonModule,
-    RouterModule,
-    FooterComponent
-  ],
-  templateUrl: './main-page.component.html'
+  imports: [CommonModule, RouterModule, FooterComponent],
+  templateUrl: './main-page.component.html',
 })
-export class MainPageComponent implements AfterViewInit {
-
+export class MainPageComponent implements AfterViewInit, OnDestroy {
   isLogged: boolean = false;
   jwtToken = localStorage.getItem('jwtBringGlobalToken');
-  isMenuBoolean: boolean = false
+  isMenuBoolean: boolean = false;
+  ngUnsubscribe = new Subject();
   @Input() color: ThemePalette = 'warn';
 
-  constructor(private router: Router, private service: AuthService, private reduxService: reduxGermanService,
-              public dialog: MatDialog
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private reduxService: reduxGermanService,
+    public dialog: MatDialog,
+    route: ActivatedRoute
   ) {
-    this.service.getJwtToken(this.jwtToken).subscribe((data: any) => {
-      data.jwt === "true" ? this.isLogged = true : this.isLogged = false;
-    });
+    this.getsJwtToken();
   }
 
   ngAfterViewInit(): void {
@@ -44,16 +38,29 @@ export class MainPageComponent implements AfterViewInit {
     this.eventToHideMenu();
   }
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next('');
+    this.ngUnsubscribe.complete();
+  }
+
+  getsJwtToken(): void {
+    this.authService.getJwtToken(this.jwtToken).subscribe((data: any) => {
+      data.jwt === 'true' ? (this.isLogged = true) : (this.isLogged = false);
+    });
+  }
+
   logout() {
     this.reduxService.clearCache();
     this.router.navigate(['']);
     localStorage.removeItem('jwtBringGlobalToken');
     localStorage.removeItem('BringUsername');
-    this.service.logout().subscribe(data => console.log(data));
     this.isLogged = false;
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     this.dialog.open(AddClassComponent, {
       height: '95vh',
       width: '100vw',
@@ -65,7 +72,10 @@ export class MainPageComponent implements AfterViewInit {
 
   private detectIfWindowWasResized() {
     window.addEventListener('resize', () => {
-      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      const width =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
       if (width > 767) {
         this.isMenuBoolean = false;
       }
@@ -82,10 +92,10 @@ export class MainPageComponent implements AfterViewInit {
           for (var i = 0; i < menuItems.length; i++) {
             menuItems[i].addEventListener('click', () => {
               this.isMenuBoolean = !this.isMenuBoolean;
-            })
+            });
           }
-        }, 0)
-      })
+        }, 0);
+      });
     }
   }
 }

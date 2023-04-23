@@ -37,6 +37,8 @@ export class LoginComponent {
   isLoading = false;
   errorMessageBoolean = false;
   errorMessageText = '';
+  counterLoggedIn!: number;
+  intervalId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -62,14 +64,15 @@ export class LoginComponent {
 
       this.authService.login(this.data).subscribe({
         next: (data: any) => {
-          console.log('DATA--> ', data);
           if (data.isAdmin === true) {
             this.router.navigate(['dashboard']);
           } else {
             localStorage.setItem('jwtBringGlobalToken', data.token);
             localStorage.setItem('BringUsername', data.name);
             this.authService.isLogged = true;
-            this.router.navigate(['classroom']);
+            this.router.navigate(['classroom'], {
+              queryParams: { data: JSON.stringify(data.id) },
+            });
             this.component.isLogged = true;
           }
         },

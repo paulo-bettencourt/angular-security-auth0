@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import * as FileSaver from 'file-saver';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Observable } from 'rxjs';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +17,8 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 export class DashboardComponent implements OnInit {
   usersNumber$ = new Observable();
   pieChartData$ = new Observable();
-  publishedClassesTablePdf: any[] = [];
   totalUsersClassesTablePdf: any[] = [];
+  publishedClassesTablePdf: any[] = [];
 
   constructor(private dashboardService: DashboardService) {}
 
@@ -64,5 +66,44 @@ export class DashboardComponent implements OnInit {
     });
 
     doc.save('table.pdf');
+  }
+
+  exportExcel() {
+    const workbook = XLSX.utils.book_new();
+
+    const worksheet1 = XLSX.utils.json_to_sheet(
+      this.totalUsersClassesTablePdf,
+      {
+        skipHeader: true,
+      }
+    );
+    XLSX.utils.book_append_sheet(workbook, worksheet1, 'Stats');
+
+    const worksheet2 = XLSX.utils.json_to_sheet(this.publishedClassesTablePdf, {
+      skipHeader: true,
+    });
+    XLSX.utils.book_append_sheet(
+      workbook,
+      worksheet2,
+      'Published classes by user'
+    );
+
+    XLSX.writeFile(workbook, 'data.xlsx');
+  }
+
+  exportTxt() {
+    const txtBlob = new Blob(
+      [
+        'Stats:\n' +
+          JSON.stringify(this.totalUsersClassesTablePdf) +
+          '\n\n' +
+          'Published classes by user:\n' +
+          JSON.stringify(this.publishedClassesTablePdf),
+      ],
+      {
+        type: 'text/plain;charset=utf-8',
+      }
+    );
+    FileSaver.saveAs(txtBlob, 'data.txt');
   }
 }

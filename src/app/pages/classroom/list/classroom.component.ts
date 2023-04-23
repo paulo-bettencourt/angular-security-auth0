@@ -1,6 +1,13 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, Injectable, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Injectable,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,11 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { VideoComponent } from 'src/app/components/video-player/video-player.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { reduxGermanService } from '../../../services/ngrx-german.service';
 import { DeleteClassDialog } from '../../crud-class/delete/delete-class.component';
@@ -64,7 +72,7 @@ export function untilDestroyed() {
   ],
   templateUrl: './classroom.component.html',
 })
-export class ClassroomComponent implements OnInit {
+export class ClassroomComponent implements OnInit, OnDestroy {
   data!: any;
   allClasses$: any = [];
   allImages$: any;
@@ -113,16 +121,24 @@ export class ClassroomComponent implements OnInit {
         'Language learning can be difficult, but it is one of the most rewarding challenges out there.',
     },
   ];
+  ngUnsubscribe = new Subject();
+  subscriptionTimeLoggedIn!: any;
 
   // Inject DI instead of Constructor DI
   private reduxService = inject(reduxGermanService);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
-
   private untilDestroyed = untilDestroyed();
+  counterLoggedIn!: number;
+  intervalId: any;
+  userID!: any;
 
-  constructor() {
-    this.destroyRef.onDestroy(() => console.log('destroyed'));
+  constructor(private authService: AuthService, private route: ActivatedRoute) {
+    this.destroyRef.onDestroy(() => {
+      clearInterval(this.intervalId);
+      this.subscriptionTimeLoggedIn.unsubscribe();
+      console.log('CLASSROOM destroyed');
+    });
     this.bringName = localStorage.getItem('BringUsername');
     this.loading$ = this.reduxService.loading$;
     this.reduxService.entities$
@@ -140,6 +156,14 @@ export class ClassroomComponent implements OnInit {
 
   ngOnInit() {
     this.getHeroes();
+    const data = this.route.snapshot.queryParams['data'];
+    this.userID = JSON.parse(data);
+    this.timeLoggedIn(this.userID);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next('');
+    this.ngUnsubscribe.complete();
   }
 
   isTextClass() {
@@ -206,5 +230,23 @@ export class ClassroomComponent implements OnInit {
     this.dialog.open(DeleteClassDialog, {
       data: { id: id },
     });
+  }
+
+  timeLoggedIn(id: string) {
+    this.authService.getTimeLoggedIn(id).subscribe((data: any) => {
+      this.counterLoggedIn = data.time;
+      this.startCounter(id);
+    });
+  }
+
+  startCounter(id: string) {
+    this.intervalId = setInterval(() => {
+      this.subscriptionTimeLoggedIn = this.authService
+        .timeLoggedIn(id, this.counterLoggedIn)
+        .subscribe((data: any) =>
+          console.log('User has been logged in for: ', data.timeLoggedIn)
+        );
+      this.counterLoggedIn++;
+    }, 5000);
   }
 }

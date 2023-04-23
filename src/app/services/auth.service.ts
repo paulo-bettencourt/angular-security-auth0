@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, createUrlTreeFromSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  createUrlTreeFromSnapshot,
+} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -86,4 +89,15 @@ export class AuthService {
 
     return isLogged ? true : createUrlTreeFromSnapshot(next, ['/', 'login']);
   };
+
+  timeLoggedIn(id: string, timeLoggedIn: number) {
+    return this.http.post(this.apiUrl + 'time-logged-in', {
+      id: id,
+      timeLoggedIn: timeLoggedIn,
+    });
+  }
+
+  getTimeLoggedIn(id: string) {
+    return this.http.post(this.apiUrl + 'get-time-logged-in', { id: id });
+  }
 }
