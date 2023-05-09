@@ -122,7 +122,6 @@ export class ClassroomComponent implements OnInit, OnDestroy {
     },
   ];
   ngUnsubscribe = new Subject();
-  subscriptionTimeLoggedIn!: any;
 
   // Inject DI instead of Constructor DI
   private reduxService = inject(reduxGermanService);
@@ -135,8 +134,6 @@ export class ClassroomComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private route: ActivatedRoute) {
     this.destroyRef.onDestroy(() => {
-      clearInterval(this.intervalId);
-      this.subscriptionTimeLoggedIn.unsubscribe();
       console.log('CLASSROOM destroyed');
     });
     this.bringName = localStorage.getItem('BringUsername');
@@ -240,13 +237,13 @@ export class ClassroomComponent implements OnInit, OnDestroy {
   }
 
   startCounter(id: string) {
-    this.intervalId = setInterval(() => {
+    /*     this.intervalId = setInterval(() => {
       this.subscriptionTimeLoggedIn = this.authService
         .timeLoggedIn(id, this.counterLoggedIn)
         .subscribe((data: any) =>
           console.log('User has been logged in for: ', data.timeLoggedIn)
         );
       this.counterLoggedIn++;
-    }, 3000);
+    }, 3000); */
   }
 }

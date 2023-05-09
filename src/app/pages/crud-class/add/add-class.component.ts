@@ -1,11 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { reduxGermanService } from '../../../services/ngrx-german.service';
+import { EditClassDialog } from '../edit/edit-class-dialog.component';
 
 @Component({
   selector: 'app-add',
@@ -16,6 +23,7 @@ import { reduxGermanService } from '../../../services/ngrx-german.service';
     FormsModule,
     QuillModule,
     NgxDropzoneModule,
+    MatSnackBarModule,
   ],
   templateUrl: './add-class.component.html',
 })
@@ -53,18 +61,30 @@ export class AddClassComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<any>,
     public dialog: MatDialog,
-    public reduxService: reduxGermanService
+    public reduxService: reduxGermanService,
+    private snackBar: MatSnackBar
   ) {}
 
   handleImageInput(files: any) {
+    const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
     const reader = new FileReader();
-    this.imageToUpload = files.addedFiles[0];
-    this.files[0] = this.imageToUpload;
+    const imageToUpload = files.addedFiles[0];
 
-    if (this.imageToUpload) {
-      reader.readAsDataURL(this.imageToUpload);
-      reader.onload = () => (this.imageResult = reader.result);
+    if (imageToUpload.size > MAX_IMAGE_SIZE) {
+      // If the image is too large, show an error message and don't process it
+      this.snackBar.open(
+        "Images can't be over 1MB. Please upload a smaller file",
+        undefined,
+        { duration: 5000 }
+      );
+      return;
     }
+
+    // Store the selected image and display a preview
+    this.imageToUpload = imageToUpload;
+    this.files[0] = this.imageToUpload;
+    reader.readAsDataURL(this.imageToUpload);
+    reader.onload = () => (this.imageResult = reader.result);
   }
 
   submitGermanClass() {
