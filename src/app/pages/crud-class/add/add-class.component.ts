@@ -75,7 +75,11 @@ export class AddClassComponent {
       this.snackBar.open(
         "Images can't be over 1MB. Please upload a smaller file",
         undefined,
-        { duration: 5000 }
+        {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        }
       );
       return;
     }

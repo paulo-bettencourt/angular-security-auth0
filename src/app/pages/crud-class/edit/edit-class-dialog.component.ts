@@ -1,7 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -9,6 +20,7 @@ import { QuillModule } from 'ngx-quill';
 
 import { AuthService } from '../../../services/auth.service';
 import { reduxGermanService } from '../../../services/ngrx-german.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'edit-dialog',
@@ -19,6 +31,7 @@ import { reduxGermanService } from '../../../services/ngrx-german.service';
     FormsModule,
     QuillModule,
     NgxDropzoneModule,
+    MatSnackBarModule,
   ],
   templateUrl: './edit-class-dialog.html',
 })
@@ -59,7 +72,8 @@ export class EditClassDialog implements AfterViewInit {
     private router: Router,
     private http: HttpClient,
     private reduxService: reduxGermanService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.formAddClass.controls['nameClass'].setValue(this.data.title);
     this.formAddClass.controls['textClass'].setValue(this.data.text);
@@ -163,15 +177,29 @@ export class EditClassDialog implements AfterViewInit {
   }
 
   handleImageInput(files: any) {
+    const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
     const reader = new FileReader();
-    this.imageToUpload = files.addedFiles[0];
-    this.files[0] = this.imageToUpload;
+    const imageToUpload = files.addedFiles[0];
 
-    if (this.imageToUpload) {
-      reader.readAsDataURL(this.imageToUpload);
-      reader.onload = () => (this.imageResult = reader.result);
+    if (imageToUpload.size > MAX_IMAGE_SIZE) {
+      // If the image is too large, show an error message and don't process it
+      this.snackBar.open(
+        "Images can't be over 1MB. Please upload a smaller file",
+        undefined,
+        {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        }
+      );
+      return;
     }
-    console.log('IMAGEM 54-> ', this.imageToUpload);
+
+    // Store the selected image and display a preview
+    this.imageToUpload = imageToUpload;
+    this.files[0] = this.imageToUpload;
+    reader.readAsDataURL(this.imageToUpload);
+    reader.onload = () => (this.imageResult = reader.result);
   }
 
   onSelect(event: any) {

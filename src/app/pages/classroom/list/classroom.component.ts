@@ -135,9 +135,6 @@ export class ClassroomComponent implements OnInit, OnDestroy {
   userID!: any;
 
   constructor(private authService: AuthService, private route: ActivatedRoute) {
-    this.destroyRef.onDestroy(() => {
-      console.log('CLASSROOM destroyed');
-    });
     this.bringName = localStorage.getItem('BringUsername');
     this.loading$ = this.reduxService.loading$;
     this.reduxService.entities$
@@ -157,8 +154,6 @@ export class ClassroomComponent implements OnInit, OnDestroy {
     this.getHeroes();
     const data = this.route.snapshot.queryParams['data'];
     this.userID = JSON.parse(data);
-    //    this.timeLoggedIn(this.userID);
-    console.log('entrou no componente');
     this.webSocketService.connectWebSocket(this.userID);
   }
 
