@@ -3184,6 +3184,13 @@
   "resolved" "https://registry.npmjs.org/@types/tough-cookie/-/tough-cookie-4.0.2.tgz"
   "version" "4.0.2"
 
+"@types/websocket@^1.0.5":
+  "integrity" "sha512-NbsqiNX9CnEfC1Z0Vf4mE1SgAJ07JnRYcNex7AJ9zAVzmiGHmjKFEk7O4TJIsgv2B1sLEb6owKFZrACwdYngsQ=="
+  "resolved" "https://registry.npmjs.org/@types/websocket/-/websocket-1.0.5.tgz"
+  "version" "1.0.5"
+  dependencies:
+    "@types/node" "*"
+
 "@types/ws@^8.5.1":
   "integrity" "sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg=="
   "resolved" "https://registry.npmjs.org/@types/ws/-/ws-8.5.4.tgz"

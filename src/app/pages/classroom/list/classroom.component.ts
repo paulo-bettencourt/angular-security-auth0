@@ -29,6 +29,7 @@ import { reduxGermanService } from '../../../services/ngrx-german.service';
 import { DeleteClassDialog } from '../../crud-class/delete/delete-class.component';
 import { EditClassDialog } from '../../crud-class/edit/edit-class-dialog.component';
 import { ImageDialog } from '../image-dialog/image-dialog.component';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 export interface ClassSignal {
   title: string;
@@ -127,6 +128,7 @@ export class ClassroomComponent implements OnInit, OnDestroy {
   private reduxService = inject(reduxGermanService);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
+  private webSocketService = inject(WebSocketService);
   private untilDestroyed = untilDestroyed();
   counterLoggedIn!: number;
   intervalId: any;
@@ -155,7 +157,9 @@ export class ClassroomComponent implements OnInit, OnDestroy {
     this.getHeroes();
     const data = this.route.snapshot.queryParams['data'];
     this.userID = JSON.parse(data);
-    this.timeLoggedIn(this.userID);
+    //    this.timeLoggedIn(this.userID);
+    console.log('entrou no componente');
+    this.webSocketService.connectWebSocket(this.userID);
   }
 
   ngOnDestroy(): void {

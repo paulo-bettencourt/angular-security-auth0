@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { reduxGermanService } from './services/ngrx-german.service';
+import { WebSocketService } from './services/web-socket.service';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.baseUrl,
@@ -32,6 +33,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     NgxChartsModule,
   ],
   providers: [
+    WebSocketService,
     AuthService,
     reduxGermanService,
     EntityCollectionServiceElementsFactory,

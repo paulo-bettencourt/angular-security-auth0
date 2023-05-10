@@ -4,10 +4,12 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as FileSaver from 'file-saver';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { from, Observable } from 'rxjs';
+import { from, map, Observable, toArray } from 'rxjs';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
+import { webSocket } from 'rxjs/webSocket';
+import { WebSocketService } from '../../../services/web-socket.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,31 +24,43 @@ export class DashboardComponent implements OnInit {
   totalUsersClassesTablePdf: any[] = [];
   publishedClassesTablePdf: any[] = [];
 
-  eventSource!: EventSource;
+  //  eventSource!: EventSource;
   timeLoggedInData!: any[];
   private apiUrl: string = environment.baseUrl;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private webSocketService: WebSocketService
+  ) {}
 
   ngOnInit(): void {
     this.pieChartData$ = this.dashboardService.getPublishedClasses();
     this.usersNumber$ = this.dashboardService.getUsersAndClasses();
     this.getPdfData();
-    console.log('BBBBBBBBBBBBBBBBBBBBBBBB');
+    this.timeLoggedInData$ = this.webSocketService
+      .getDatabaseTimeLoggedIn()
+      .pipe(
+        map((item: any) => {
+          return Object.values(item).map((item: any) => ({
+            name: item.name,
+            value: Number(item.timeLoggedIn),
+          }));
+        })
+      );
 
-    this.eventSource = new EventSource(
+    /*     this.eventSource = new EventSource(
       'http://localhost:3000/get-time-logged-in-database'
-    );
+    ); */
 
-    this.eventSource.addEventListener('message', (event: MessageEvent) => {
+    /*     this.eventSource.addEventListener('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       console.log('Received event:', data);
       this.timeLoggedInData$ = from([data]);
-    });
+    }); */
 
-    this.eventSource.addEventListener('error', (error) => {
+    /*     this.eventSource.addEventListener('error', (error) => {
       console.error('Error connecting to SSE:', error);
-    });
+    }); */
   }
 
   async getPdfData() {
