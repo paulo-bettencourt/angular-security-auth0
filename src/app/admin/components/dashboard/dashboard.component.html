@@ -70,7 +70,6 @@
   ></ngx-charts-pie-chart>
 </div>
 <h2>Time Logged In</h2>
-{{timeLoggedInData$ | async | json}}
 <ngx-charts-bar-horizontal
   [results]="timeLoggedInData$ | async"
   [showDataLabel]="true"

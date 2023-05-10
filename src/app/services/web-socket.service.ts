@@ -17,11 +17,8 @@ export class WebSocketService {
 
   connectWebSocket(id: string) {
     this.getTimeLoggedIn(id).subscribe((data: any) => {
-      console.log('TIME LOGGED IN ', data);
       this.timeLoggedIn = Number(data.value);
       this.socket = new WebSocket('ws://localhost:8080/');
-      console.log('ID--> ', id);
-      console.log('time number logged--> ', this.timeLoggedIn);
       setInterval(() => {
         this.timeLoggedIn += 30;
         this.timeLoggedIn$.next(this.timeLoggedIn);
@@ -31,7 +28,7 @@ export class WebSocketService {
             time: this.timeLoggedIn,
           })
         );
-      }, 10000);
+      }, 5000);
     });
   }
 

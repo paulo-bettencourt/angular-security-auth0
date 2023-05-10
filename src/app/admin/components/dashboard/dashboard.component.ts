@@ -4,11 +4,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as FileSaver from 'file-saver';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { from, map, Observable, toArray } from 'rxjs';
+import { BehaviorSubject, from, map, Observable, toArray } from 'rxjs';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
-import { webSocket } from 'rxjs/webSocket';
 import { WebSocketService } from '../../../services/web-socket.service';
 
 @Component({
@@ -20,9 +19,11 @@ import { WebSocketService } from '../../../services/web-socket.service';
 export class DashboardComponent implements OnInit {
   usersNumber$ = new Observable();
   pieChartData$ = new Observable();
-  timeLoggedInData$ = new Observable();
+  timeLoggedInData$ = new BehaviorSubject<any>('');
   totalUsersClassesTablePdf: any[] = [];
   publishedClassesTablePdf: any[] = [];
+  socket!: WebSocket;
+  transformedObservable$: any;
 
   //  eventSource!: EventSource;
   timeLoggedInData!: any[];
@@ -37,30 +38,35 @@ export class DashboardComponent implements OnInit {
     this.pieChartData$ = this.dashboardService.getPublishedClasses();
     this.usersNumber$ = this.dashboardService.getUsersAndClasses();
     this.getPdfData();
-    this.timeLoggedInData$ = this.webSocketService
+    this.socket = new WebSocket('ws://localhost:8080/');
+    this.webSocketService
       .getDatabaseTimeLoggedIn()
       .pipe(
-        map((item: any) => {
-          return Object.values(item).map((item: any) => ({
+        map((items: any) => {
+          return Object.values(items).map((item: any) => ({
             name: item.name,
-            value: Number(item.timeLoggedIn),
+            value: item.timeLoggedIn,
           }));
         })
-      );
+      )
+      .subscribe((data) => {
+        this.timeLoggedInData$.next(data);
+      });
 
-    /*     this.eventSource = new EventSource(
-      'http://localhost:3000/get-time-logged-in-database'
-    ); */
+    this.socket.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
 
-    /*     this.eventSource.addEventListener('message', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log('Received event:', data);
-      this.timeLoggedInData$ = from([data]);
-    }); */
-
-    /*     this.eventSource.addEventListener('error', (error) => {
-      console.error('Error connecting to SSE:', error);
-    }); */
+    this.socket.onmessage = (event: any) => {
+      const userDatabase = JSON.parse(event.data);
+      if (Array.isArray(userDatabase)) {
+        const refactoredUserDatabase = userDatabase.map((item: any) => ({
+          name: item.name,
+          value: item.timeLoggedIn,
+        }));
+        this.timeLoggedInData$.next(refactoredUserDatabase);
+      }
+    };
   }
 
   async getPdfData() {
