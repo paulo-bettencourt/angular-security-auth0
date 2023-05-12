@@ -2,7 +2,7 @@
 
 To start, it should be noted that Angular CLI is a command-line interface tool for creating and managing Angular projects. The specific version used for this project was 15.0.4.
 
-In addition, the app incorporates several technologies, such as NgRx, Bootstrap, Angular Material, JWT, OTP, LocalStorage, and a NodeJS Express server [scaffold the server at `https://github.com/paulo-bettencourt/paulo-bettencourt-deutscher-runder-tisch-nodejs-server`].
+In addition, the app incorporates several technologies, such as NgRx, Bootstrap, Angular Material, JWT, OTP, LocalStorage, and a NodeJS Express server [scaffold the server at https://github.com/paulo-bettencourt/paulo-bettencourt-deutscher-runder-tisch-nodejs-server].
 
 NgRx is a state management library for Angular applications. It provides a reactive programming model for managing and sharing application state across components.
 
